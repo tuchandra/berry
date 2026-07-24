@@ -2,11 +2,13 @@ import type { SpellData } from '@/components/SpellCard';
 
 /**
  * Berry's spells. Groups:
- *  - cantrips: the 4 known cantrips
- *  - wildfire: Circle of Wildfire spells, ALWAYS prepared (don't count toward the 9)
- *  - level1 / level2 / level3: prepared/known druid spells (kept broad as a reference)
+ *  - cantrips: the 4 known cantrips (always available, never "prepared")
+ *  - level1 / level2 / level3: druid spells. Circle of Wildfire spells lead each
+ *    group and are marked `alwaysPrepared` — they're always prepared and don't
+ *    count toward the 9 prepared, so they can't be un-prepared in prep mode.
  *
- * Prepared limit is druid level (6) + Wisdom modifier (+3) = 9, plus wildfire spells.
+ * Prepared limit is druid level (6) + Wisdom modifier (+3) = 9, plus the always-
+ * prepared wildfire spells. The list is deliberately broader than 9 as a reference.
  */
 
 export const cantrips: SpellData[] = [
@@ -51,22 +53,22 @@ export const cantrips: SpellData[] = [
     ],
   },
   {
-    name: 'Resistance',
+    name: 'Thorn Whip',
     source: 'PHB',
     level: 'cantrip',
-    school: 'Abjuration',
+    school: 'Transmutation',
     castingTime: '1 action',
-    range: 'Touch',
-    components: 'V, S, M',
-    duration: 'Concentration, up to 1 minute',
-    concentration: true,
+    range: '30 feet',
+    components: 'V, S, M (the stem of a plant with thorns)',
+    duration: 'Instantaneous',
     description: [
-      'Touch one willing creature. Once before the spell ends, the target can roll a d4 and add the number to one saving throw of its choice.',
+      'You create a long, vine-like whip covered in thorns that lashes out at a creature in range. Make a melee spell attack (+6). On a hit, the target takes 1d6 piercing damage, and if it is Large or smaller you pull it up to 10 feet closer to you.',
     ],
+    note: 'At my level this deals 2d6 (cantrips scale at character levels 5, 11, and 17). Handy for yanking an enemy into Spike Growth, off a ledge, or into the Wildfire Spirit.',
   },
 ];
 
-export const wildfire: SpellData[] = [
+export const level1: SpellData[] = [
   {
     name: 'Burning Hands',
     source: 'PHB',
@@ -76,7 +78,8 @@ export const wildfire: SpellData[] = [
     range: 'Self (15-foot cone)',
     components: 'V, S',
     duration: 'Instantaneous',
-    badges: ['Wildfire', 'Always Prepared'],
+    alwaysPrepared: true,
+    badges: ['Wildfire'],
     description: [
       "Each creature in a 15-foot cone must make a Dexterity saving throw (DC 14). A creature takes 3d6 fire damage on a failed save, or half as much on a success. Flammable objects that aren't worn or carried ignite.",
     ],
@@ -91,76 +94,13 @@ export const wildfire: SpellData[] = [
     range: 'Touch',
     components: 'V, S',
     duration: 'Instantaneous',
-    badges: ['Wildfire', 'Always Prepared'],
+    alwaysPrepared: true,
+    badges: ['Wildfire'],
     description: [
       'A creature you touch regains 1d8 + 3 hit points. No effect on undead or constructs.',
     ],
     higherLevels: 'The healing increases by 1d8 for each slot level above 1st.',
   },
-  {
-    name: 'Flaming Sphere',
-    source: 'PHB',
-    level: 2,
-    school: 'Conjuration',
-    castingTime: '1 action',
-    range: '60 feet',
-    components: 'V, S, M',
-    duration: 'Concentration, up to 1 minute',
-    concentration: true,
-    badges: ['Wildfire', 'Always Prepared'],
-    description: [
-      'A 5-foot-diameter sphere of fire appears. A creature within 5 feet makes a Dexterity save (DC 14), taking 2d6 fire damage on a fail, half on success.',
-      'As a bonus action you can move the sphere up to 30 feet, ramming a creature (forcing the save). It ignites flammable objects it touches and sheds bright light.',
-    ],
-    higherLevels: 'The damage increases by 1d6 for each slot level above 2nd.',
-  },
-  {
-    name: 'Scorching Ray',
-    source: 'PHB',
-    level: 2,
-    school: 'Evocation',
-    castingTime: '1 action',
-    range: '120 feet',
-    components: 'V, S',
-    duration: 'Instantaneous',
-    badges: ['Wildfire', 'Always Prepared'],
-    description: [
-      'You create three rays of fire. Make a ranged spell attack (+6) for each ray, aimed at targets of your choice. On a hit, a target takes 2d6 fire damage.',
-    ],
-    higherLevels: 'You create one additional ray for each slot level above 2nd.',
-  },
-  {
-    name: 'Revivify',
-    source: 'PHB',
-    level: 3,
-    school: 'Necromancy',
-    castingTime: '1 action',
-    range: 'Touch',
-    components: 'V, S, M (a diamond worth 300 gp, consumed)',
-    duration: 'Instantaneous',
-    badges: ['Wildfire', 'Always Prepared'],
-    description: [
-      "Touch a creature that has died within the last minute. It returns to life with 1 hit point. This spell can't return a creature that has died of old age, nor restore missing body parts.",
-    ],
-  },
-  {
-    name: 'Plant Growth',
-    source: 'PHB',
-    level: 3,
-    school: 'Transmutation',
-    castingTime: '1 action or 8 hours',
-    range: '150 feet',
-    components: 'V, S',
-    duration: 'Instantaneous',
-    badges: ['Wildfire', 'Always Prepared'],
-    description: [
-      'Overgrowth (action): plants in a 100-foot radius become thick and overgrown. A creature moving through the area must spend 4 feet of movement for every 1 foot it moves.',
-      'Enrichment (8 hours): all plants in a half-mile radius become enriched for one year, yielding twice the normal amount of food when harvested.',
-    ],
-  },
-];
-
-export const level1: SpellData[] = [
   {
     name: 'Entangle',
     source: 'PHB',
@@ -265,6 +205,40 @@ export const level1: SpellData[] = [
 
 export const level2: SpellData[] = [
   {
+    name: 'Flaming Sphere',
+    source: 'PHB',
+    level: 2,
+    school: 'Conjuration',
+    castingTime: '1 action',
+    range: '60 feet',
+    components: 'V, S, M',
+    duration: 'Concentration, up to 1 minute',
+    concentration: true,
+    alwaysPrepared: true,
+    badges: ['Wildfire'],
+    description: [
+      'A 5-foot-diameter sphere of fire appears. A creature within 5 feet makes a Dexterity save (DC 14), taking 2d6 fire damage on a fail, half on success.',
+      'As a bonus action you can move the sphere up to 30 feet, ramming a creature (forcing the save). It ignites flammable objects it touches and sheds bright light.',
+    ],
+    higherLevels: 'The damage increases by 1d6 for each slot level above 2nd.',
+  },
+  {
+    name: 'Scorching Ray',
+    source: 'PHB',
+    level: 2,
+    school: 'Evocation',
+    castingTime: '1 action',
+    range: '120 feet',
+    components: 'V, S',
+    duration: 'Instantaneous',
+    alwaysPrepared: true,
+    badges: ['Wildfire'],
+    description: [
+      'You create three rays of fire. Make a ranged spell attack (+6) for each ray, aimed at targets of your choice. On a hit, a target takes 2d6 fire damage.',
+    ],
+    higherLevels: 'You create one additional ray for each slot level above 2nd.',
+  },
+  {
     name: 'Healing Spirit',
     source: 'XGE',
     level: 2,
@@ -341,6 +315,37 @@ export const level2: SpellData[] = [
 ];
 
 export const level3: SpellData[] = [
+  {
+    name: 'Revivify',
+    source: 'PHB',
+    level: 3,
+    school: 'Necromancy',
+    castingTime: '1 action',
+    range: 'Touch',
+    components: 'V, S, M (a diamond worth 300 gp, consumed)',
+    duration: 'Instantaneous',
+    alwaysPrepared: true,
+    badges: ['Wildfire'],
+    description: [
+      "Touch a creature that has died within the last minute. It returns to life with 1 hit point. This spell can't return a creature that has died of old age, nor restore missing body parts.",
+    ],
+  },
+  {
+    name: 'Plant Growth',
+    source: 'PHB',
+    level: 3,
+    school: 'Transmutation',
+    castingTime: '1 action or 8 hours',
+    range: '150 feet',
+    components: 'V, S',
+    duration: 'Instantaneous',
+    alwaysPrepared: true,
+    badges: ['Wildfire'],
+    description: [
+      'Overgrowth (action): plants in a 100-foot radius become thick and overgrown. A creature moving through the area must spend 4 feet of movement for every 1 foot it moves.',
+      'Enrichment (8 hours): all plants in a half-mile radius become enriched for one year, yielding twice the normal amount of food when harvested.',
+    ],
+  },
   {
     name: 'Dispel Magic',
     source: 'PHB',

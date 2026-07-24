@@ -1,6 +1,7 @@
 /*
  * Spell card — same parchment family as the statblock, laid out as a compact
- * card with a header (name + level/school) and the standard casting metadata.
+ * card: a level badge + name/school header, a single-line meta strip (bounded
+ * by red rules), the description, and an optional personal note.
  */
 
 .spellcard {
@@ -9,6 +10,7 @@
   --sc-parchment: #fdf1dc;
   --sc-text: #17120c;
 
+  position: relative;
   font-family: "Libre Baskerville", "Bookman Old Style", "Georgia", serif;
   font-size: 0.82rem;
   line-height: 1.4;
@@ -22,50 +24,182 @@
   box-sizing: border-box;
 }
 
-.spellcard__header {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.5rem;
-  flex-wrap: wrap;
+/* ── Prep-mode states ─────────────────────────────────────────────────────── */
+.spellcard--selectable {
+  cursor: pointer;
+  transition: box-shadow 0.12s ease, transform 0.12s ease;
+}
+.spellcard--selectable:hover {
+  box-shadow: 0 0 0 2px var(--accent), 0 1px 4px rgba(94, 74, 45, 0.35);
+}
+.spellcard--unprepared {
+  opacity: 0.5;
 }
 
+/* ── Header: level badge + name/school ────────────────────────────────────── */
+.spellcard__head {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+.spellcard__badge {
+  flex: 0 0 auto;
+  width: 1.7rem;
+  height: 1.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--sc-red);
+  color: var(--sc-parchment);
+  border-radius: 50%;
+  font-family: "Cinzel", "Georgia", serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1;
+  margin-top: 0.15rem;
+}
+.spellcard__badge.is-cantrip {
+  background: #2f6690;
+}
+.spellcard__headtext {
+  flex: 1 1 auto;
+  min-width: 0;
+}
 .spellcard__name {
   font-variant: small-caps;
   font-weight: 700;
   color: var(--sc-red);
   font-size: 1.15rem;
+  line-height: 1.05;
   margin: 0;
 }
-
 .spellcard__level {
   font-style: italic;
   font-size: 0.78rem;
   color: #5a3d2b;
-  white-space: nowrap;
 }
 
+/* Prepared / always-prepared status marker on the right */
+.spellcard__status {
+  flex: 0 0 auto;
+  margin-left: auto;
+  align-self: center;
+  font-size: 0.72rem;
+  font-variant: small-caps;
+  letter-spacing: 0.03em;
+  min-width: 1.4rem;
+  height: 1.4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid rgba(122, 32, 13, 0.35);
+  color: #6b4a34;
+}
+.spellcard__status.is-prepared {
+  background: #2f6690;
+  border-color: #2f6690;
+  color: var(--sc-parchment);
+  font-size: 0.9rem;
+}
+.spellcard__status--locked {
+  border-radius: 3px;
+  min-width: 0;
+  padding: 0 0.4rem;
+  border-color: #2f6690;
+  color: #2f6690;
+  font-weight: 700;
+}
+
+/* ── Compact meta line ────────────────────────────────────────────────────── */
 .spellcard__meta {
-  margin: 0.4rem 0 0.35rem;
+  margin: 0.45rem 0 0.4rem;
   border-top: 1px solid var(--sc-rule);
   border-bottom: 1px solid var(--sc-rule);
-  padding: 0.35rem 0;
-  display: grid;
-  grid-template-columns: max-content 1fr;
-  gap: 0.05rem 0.6rem;
+  padding: 0.3rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.32rem;
+  font-size: 0.8rem;
 }
-.spellcard__meta-label {
-  font-weight: 700;
+.spellcard__sep {
+  color: rgba(122, 32, 13, 0.4);
+}
+.spellcard__dur {
+  display: inline-flex;
+  align-items: center;
+}
+.spellcard__src {
   color: var(--sc-red);
+  font-weight: 700;
+  text-decoration: underline;
 }
 
+/* Components with tooltip */
+.sc-comp {
+  position: relative;
+  font: inherit;
+  color: var(--sc-text);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: help;
+}
+.sc-comp__short {
+  text-decoration: underline dotted rgba(122, 32, 13, 0.6);
+  text-underline-offset: 2px;
+}
+.sc-comp__tip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 6px);
+  transform: translateX(-50%);
+  white-space: nowrap;
+  background: #17120c;
+  color: #fdf1dc;
+  font-size: 0.72rem;
+  font-variant: normal;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.12s ease;
+  z-index: 5;
+  pointer-events: none;
+}
+.sc-comp:hover .sc-comp__tip,
+.sc-comp:focus-visible .sc-comp__tip,
+.sc-comp__tip.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Concentration marker — a circled "C" in the same red as the card. */
+.sc-conc {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.05em;
+  height: 1.05em;
+  margin-left: 0.28rem;
+  border: 1px solid var(--sc-red);
+  border-radius: 50%;
+  color: var(--sc-red);
+  font-size: 0.66rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: help;
+}
+
+/* ── Description ──────────────────────────────────────────────────────────── */
 .spellcard__desc {
   margin: 0.3rem 0 0;
 }
 .spellcard__desc p {
   margin: 0.3rem 0;
 }
-
 .spellcard__higher {
   margin-top: 0.4rem;
   font-style: italic;
@@ -75,11 +209,11 @@
   font-style: italic;
 }
 
-/* Concentration / ritual / badge pills */
+/* Wildfire / ritual pills */
 .spellcard__tags {
   display: flex;
   gap: 0.35rem;
-  margin-top: 0.35rem;
+  margin-top: 0.4rem;
   flex-wrap: wrap;
 }
 .spellcard__tag {
@@ -91,23 +225,8 @@
   border-radius: 2px;
   padding: 0.05rem 0.4rem;
 }
-/* Always-prepared / Wildfire badges use a deep-blue fill */
 .spellcard__tag--badge {
   background: #2f6690;
-}
-
-/* Source citation */
-.spellcard__source {
-  margin-top: 0.55rem;
-  padding-top: 0.4rem;
-  border-top: 1px dotted rgba(122, 32, 13, 0.4);
-  font-size: 0.72rem;
-  color: #6b4a34;
-}
-.spellcard__source a {
-  color: var(--sc-red);
-  font-weight: 700;
-  text-decoration: underline;
 }
 
 /* Highlighted personal note */
@@ -123,4 +242,23 @@
   font-weight: 700;
   font-variant: small-caps;
   color: var(--sc-red);
+}
+
+/* Prep-mode toggle footer (also the accessible control for the whole card) */
+.spellcard__toggle {
+  margin-top: 0.55rem;
+  width: 100%;
+  font: inherit;
+  font-size: 0.74rem;
+  font-variant: small-caps;
+  letter-spacing: 0.03em;
+  color: #6b4a34;
+  background: rgba(122, 32, 13, 0.06);
+  border: 1px dashed rgba(122, 32, 13, 0.4);
+  border-radius: 3px;
+  padding: 0.25rem;
+  cursor: pointer;
+}
+.spellcard__toggle:hover {
+  background: rgba(122, 32, 13, 0.12);
 }

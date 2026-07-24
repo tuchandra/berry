@@ -14,8 +14,9 @@ import {
 } from '@/data/beasts';
 import { abilities, character, spellSlots } from '@/data/character';
 import { BOOKS, DRUID_CLASS_URL, WILDFIRE_SUBCLASS_URL, spellRefUrl } from '@/data/sources';
-import { cantrips, level1, level2, level3, wildfire } from '@/data/spells';
+import { cantrips, level1, level2, level3 } from '@/data/spells';
 import { wildfireSpirit } from '@/data/wildfire-spirit';
+import { useEffect, useState } from 'react';
 
 /** Small inline source citation. */
 function Ref({ book, url }: { book: keyof typeof BOOKS; url: string }) {
@@ -43,7 +44,7 @@ const NAV = [
 
 function Header() {
   return (
-    <header className="sticky top-0 z-10 border-b border-white/10 bg-black/30 backdrop-blur">
+    <header className="sticky top-0 z-10 border-b border-white/10 bg-[#0e1522]/95 shadow-lg shadow-black/40 backdrop-blur">
       <div className="mx-auto flex max-w-5xl flex-wrap items-baseline gap-x-6 gap-y-1 px-5 py-3">
         <a href="#top" className="display-font text-xl font-bold text-[var(--accent)] no-underline">
           Berry
@@ -309,45 +310,170 @@ function Mechanics() {
   );
 }
 
-function SpellGroup({
+const PREP_STORAGE_KEY = 'berry-prepared-v1';
+const LEVELED_SPELLS: SpellData[] = [...level1, ...level2, ...level3];
+
+/** Prepared-spell selection, persisted to localStorage. Defaults to all prepared. */
+function usePrepared() {
+  const [prepared, setPrepared] = useState<Record<string, boolean>>(() => {
+    const defaults: Record<string, boolean> = {};
+    for (const s of LEVELED_SPELLS) defaults[s.name] = true;
+    const raw = typeof localStorage !== 'undefined' && localStorage.getItem(PREP_STORAGE_KEY);
+    if (raw) {
+      try {
+        Object.assign(defaults, JSON.parse(raw));
+      } catch {
+        // corrupt value — fall back to defaults
+      }
+    }
+    return defaults;
+  });
+
+  useEffect(() => {
+    localStorage.setItem(PREP_STORAGE_KEY, JSON.stringify(prepared));
+  }, [prepared]);
+
+  const toggle = (name: string) => setPrepared((p) => ({ ...p, [name]: !p[name] }));
+  return { prepared, toggle };
+}
+
+function SpellGrid({ children }: { children: React.ReactNode }) {
+  return <div className="mt-2 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{children}</div>;
+}
+
+/** A leveled spell group with prep-mode toggling and hide-unprepared behaviour. */
+function LevelGroup({
   title,
-  subtitle,
   spells,
+  prepMode,
+  prepared,
+  toggle,
 }: {
   title: string;
-  subtitle?: string;
   spells: SpellData[];
+  prepMode: boolean;
+  prepared: Record<string, boolean>;
+  toggle: (name: string) => void;
 }) {
-  if (spells.length === 0) return null;
+  const [showUnprepared, setShowUnprepared] = useState(false);
+  const isPrepared = (s: SpellData) => s.alwaysPrepared || prepared[s.name];
+  const unprepared = spells.filter((s) => !isPrepared(s));
+  // In prep mode show everything; otherwise only prepared spells.
+  const visible = prepMode ? spells : spells.filter(isPrepared);
+
   return (
     <div className="mb-6">
       <h3 className="text-lg text-[var(--ink)]">{title}</h3>
-      {subtitle && <p className="mb-2 text-sm italic text-[var(--ink-dim)]">{subtitle}</p>}
-      <div className="mt-2 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {spells.map((spell) => (
-          <SpellCard key={spell.name} spell={spell} />
+      <SpellGrid>
+        {visible.map((spell) => (
+          <SpellCard
+            key={spell.name}
+            spell={spell}
+            selectable={prepMode}
+            prepared={isPrepared(spell)}
+            locked={spell.alwaysPrepared}
+            onToggle={() => toggle(spell.name)}
+          />
         ))}
-      </div>
+      </SpellGrid>
+
+      {!prepMode && unprepared.length > 0 && (
+        <div className="mt-3">
+          <button
+            type="button"
+            onClick={() => setShowUnprepared((v) => !v)}
+            className="rounded-full border border-white/15 px-3 py-1 text-xs text-[var(--ink-dim)] hover:border-[var(--accent)] hover:text-[var(--accent)]"
+          >
+            {showUnprepared
+              ? `Hide ${unprepared.length} not prepared`
+              : `Show ${unprepared.length} not prepared`}
+          </button>
+          {showUnprepared && (
+            <SpellGrid>
+              {unprepared.map((spell) => (
+                <SpellCard key={spell.name} spell={spell} dimmed />
+              ))}
+            </SpellGrid>
+          )}
+        </div>
+      )}
     </div>
   );
 }
 
 function Spells() {
+  const { prepared, toggle } = usePrepared();
+  const [prepMode, setPrepMode] = useState(false);
+
+  const preparedCount = LEVELED_SPELLS.filter((s) => !s.alwaysPrepared && prepared[s.name]).length;
+  const overLimit = preparedCount > 9;
+
   return (
     <Section id="spells" title="Spells">
       <p className="mb-4 max-w-2xl text-[var(--ink-dim)]">
-        More than I can prepare at once — I keep the extras here for reference. Save DC is <b>14</b>
-        , spell attack is <b>+6</b>.
+        Save DC is <b>14</b>, spell attack is <b>+6</b>. This list is broader than I can prepare —
+        use <b>Edit prepared</b> to pick my nine; the rest tuck away at the end of each level.
       </p>
-      <SpellGroup title="Cantrips" subtitle="Always available, no slot needed." spells={cantrips} />
-      <SpellGroup
-        title="Wildfire Spells"
-        subtitle="Always prepared (Circle of Wildfire) — these don't count toward my 9 prepared."
-        spells={wildfire}
+
+      <div className="mb-5 flex flex-wrap items-center gap-3">
+        <button
+          type="button"
+          onClick={() => setPrepMode((m) => !m)}
+          className={`rounded-full border px-4 py-1.5 text-sm ${
+            prepMode
+              ? 'border-[var(--accent)] bg-[var(--accent)] font-bold text-[#0e1522]'
+              : 'border-white/20 text-[var(--ink)] hover:border-[var(--accent)] hover:text-[var(--accent)]'
+          }`}
+        >
+          {prepMode ? 'Done' : 'Edit prepared spells'}
+        </button>
+        <span className="text-sm text-[var(--ink-dim)]">
+          <b className="text-[var(--accent)]">{preparedCount}</b> / 9 prepared
+          {overLimit && <b className="text-[var(--accent-2)]"> — over your limit</b>}
+          <span className="ml-1">· Wildfire spells are always prepared and don't count.</span>
+        </span>
+      </div>
+
+      {prepMode && (
+        <p className="mb-4 max-w-2xl rounded-md border border-[var(--accent)]/40 bg-[var(--accent)]/10 px-3 py-2 text-sm text-[var(--ink)]">
+          Tap any card to prepare or unprepare it. Wildfire spells are locked (marked <b>Always</b>
+          ). Cantrips are always available and aren't prepared.
+        </p>
+      )}
+
+      <div className="mb-6">
+        <h3 className="text-lg text-[var(--ink)]">Cantrips</h3>
+        <p className="mb-2 text-sm italic text-[var(--ink-dim)]">
+          Always available, no slot needed.
+        </p>
+        <SpellGrid>
+          {cantrips.map((spell) => (
+            <SpellCard key={spell.name} spell={spell} />
+          ))}
+        </SpellGrid>
+      </div>
+
+      <LevelGroup
+        title="Level 1"
+        spells={level1}
+        prepMode={prepMode}
+        prepared={prepared}
+        toggle={toggle}
       />
-      <SpellGroup title="Level 1" spells={level1} />
-      <SpellGroup title="Level 2" spells={level2} />
-      <SpellGroup title="Level 3" spells={level3} />
+      <LevelGroup
+        title="Level 2"
+        spells={level2}
+        prepMode={prepMode}
+        prepared={prepared}
+        toggle={toggle}
+      />
+      <LevelGroup
+        title="Level 3"
+        spells={level3}
+        prepMode={prepMode}
+        prepared={prepared}
+        toggle={toggle}
+      />
     </Section>
   );
 }
@@ -356,29 +482,38 @@ function WildShape() {
   return (
     <Section id="wild-shape" title="Wild Shape">
       <p className="mb-4 max-w-2xl text-[var(--ink-dim)]">
-        Forms I can take (CR 1/2 or lower, no flying). My favorites and their statblocks. Octopus
-        and badger are low-CR utility picks.
+        Forms I can take (CR 1/2 or lower, no flying). My favorites and their statblocks.
       </p>
+
+      <Card className="mb-5 max-w-3xl border-[var(--accent)]/30 bg-[var(--accent)]/5">
+        <div className="font-bold text-[var(--accent-2)]">
+          I keep my own mind in every form
+          <Ref book="PHB" url={DRUID_CLASS_URL} />
+        </div>
+        <p className="mt-1 text-sm text-[var(--ink)]">
+          When I Wild Shape I take the beast's{' '}
+          <b>Strength, Dexterity, Constitution, AC, HP, and speed</b>, but I keep my own{' '}
+          <b>Intelligence 9 (−1), Wisdom 16 (+3), Charisma 10 (+0)</b> and all my saving-throw and
+          skill proficiencies. So the mental scores printed in the blocks below are <b>not</b> what
+          I use — ignore the beast's Int/Wis/Cha and use mine.
+        </p>
+        <p className="mt-2 text-xs text-[var(--ink-dim)]">
+          I can't cast spells while transformed, but my Wisdom still drives things like Wisdom saves
+          and Perception. I can drop out of a form as a bonus action.
+        </p>
+      </Card>
+
       <div className="grid gap-5 lg:grid-cols-2">
         {wildShapeForms.map((form) => (
           <Statblock key={form.name} data={form} />
         ))}
       </div>
-      <Card className="mt-5">
-        <div className="font-bold text-[var(--accent-2)]">Notes</div>
-        <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-[var(--ink)]">
-          <li>
-            <b>Badger</b> can burrow 5 ft — good for ducking underground to hide or break line of
-            sight.
-          </li>
-          <li>
-            <b>Octopus</b> for underwater work: ink cloud to escape, strong Stealth while submerged.
-          </li>
-          <li>
-            Other solid CR 1/2 picks I could learn: Giant Goat (charge + knock prone), Reef Shark
-            (swim + pack tactics), Warhorse (trampling charge).
-          </li>
-        </ul>
+      <Card className="mt-5 max-w-2xl">
+        <div className="font-bold text-[var(--accent-2)]">Other forms to consider</div>
+        <p className="mt-1 text-sm text-[var(--ink)]">
+          Other solid CR 1/2 picks I could learn: Giant Goat (charge + knock prone), Reef Shark
+          (swim + pack tactics), Warhorse (trampling charge).
+        </p>
       </Card>
     </Section>
   );
