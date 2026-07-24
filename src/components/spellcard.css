@@ -91,9 +91,9 @@
   border-radius: 2px;
   padding: 0.05rem 0.4rem;
 }
-/* Always-prepared / Wildfire badges use a warmer ember fill */
+/* Always-prepared / Wildfire badges use a deep-blue fill */
 .spellcard__tag--badge {
-  background: #b5651d;
+  background: #2f6690;
 }
 
 /* Source citation */
@@ -114,8 +114,8 @@
 .spellcard__note {
   margin-top: 0.5rem;
   padding: 0.35rem 0.5rem;
-  background: rgba(181, 101, 29, 0.16);
-  border-left: 3px solid #b5651d;
+  background: rgba(47, 102, 144, 0.18);
+  border-left: 3px solid #2f6690;
   border-radius: 2px;
   font-size: 0.78rem;
 }

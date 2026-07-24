@@ -1,4 +1,4 @@
-/* Combat decision flowchart — dark cards with ember accents. */
+/* Combat decision flowchart — dark cards with blue accents. */
 
 .flow {
   display: flex;
@@ -25,14 +25,14 @@
 }
 .flow-phase__title {
   font-family: "Cinzel", serif;
-  color: var(--moss);
+  color: var(--accent-2);
   font-size: 1.05rem;
   margin: 0 0 0.5rem;
 }
 .flow-rule {
   margin: 0.5rem 0;
   padding-left: 0.7rem;
-  border-left: 2px solid rgba(224, 132, 43, 0.5);
+  border-left: 2px solid rgba(111, 179, 239, 0.5);
 }
 .flow-rule__cond {
   font-weight: 700;
@@ -43,7 +43,7 @@
   color: var(--ink-dim);
 }
 .flow-rule__k {
-  color: var(--ember);
+  color: var(--accent);
   font-variant: small-caps;
   font-weight: 700;
 }
@@ -76,7 +76,7 @@
 .flow-tree__pri {
   font-family: "Cinzel", serif;
   font-weight: 700;
-  color: var(--ember);
+  color: var(--accent);
   font-size: 1.2rem;
 }
 .flow-tree__title {
@@ -97,7 +97,7 @@
   color: var(--ink);
 }
 .flow-branch__arrow {
-  color: var(--ember);
+  color: var(--accent);
   margin: 0 0.15rem;
 }
 .flow-branch__result {
@@ -106,8 +106,8 @@
   font-variant: small-caps;
   font-weight: 700;
   letter-spacing: 0.02em;
-  color: #14180f;
-  background: var(--moss);
+  color: #0e1522;
+  background: var(--accent);
   border-radius: 3px;
   padding: 0.05rem 0.5rem;
 }
@@ -121,8 +121,8 @@
 .flow-branch__updated {
   font-size: 0.65rem;
   font-variant: small-caps;
-  color: var(--ember);
-  border: 1px solid rgba(224, 132, 43, 0.6);
+  color: var(--accent);
+  border: 1px solid rgba(111, 179, 239, 0.6);
   border-radius: 2px;
   padding: 0 0.3rem;
   margin-left: 0.3rem;
@@ -133,9 +133,9 @@
   text-align: center;
   font-family: "Cinzel", serif;
   font-size: 1.15rem;
-  color: var(--ember);
-  border: 1px dashed rgba(224, 132, 43, 0.6);
+  color: var(--accent);
+  border: 1px dashed rgba(111, 179, 239, 0.6);
   border-radius: 8px;
   padding: 0.75rem;
-  background: rgba(224, 132, 43, 0.08);
+  background: rgba(111, 179, 239, 0.1);
 }

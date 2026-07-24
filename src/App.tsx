@@ -15,7 +15,7 @@ function Ref({ book, url }: { book: keyof typeof BOOKS; url: string }) {
       target="_blank"
       rel="noreferrer"
       title={BOOKS[book].name}
-      className="ml-1 align-middle text-xs text-[var(--ink-dim)] underline decoration-dotted hover:text-[var(--ember)]"
+      className="ml-1 align-middle text-xs text-[var(--ink-dim)] underline decoration-dotted hover:text-[var(--accent)]"
     >
       {BOOKS[book].abbr}
     </a>
@@ -35,7 +35,7 @@ function Header() {
   return (
     <header className="sticky top-0 z-10 border-b border-white/10 bg-black/30 backdrop-blur">
       <div className="mx-auto flex max-w-5xl flex-wrap items-baseline gap-x-6 gap-y-1 px-5 py-3">
-        <a href="#top" className="display-font text-xl font-bold text-[var(--ember)] no-underline">
+        <a href="#top" className="display-font text-xl font-bold text-[var(--accent)] no-underline">
           Berry
         </a>
         <nav className="flex flex-wrap gap-x-5 gap-y-1 text-sm text-[var(--ink-dim)]">
@@ -43,7 +43,7 @@ function Header() {
             <a
               key={item.id}
               href={`#${item.id}`}
-              className="no-underline hover:text-[var(--ember)]"
+              className="no-underline hover:text-[var(--accent)]"
             >
               {item.label}
             </a>
@@ -65,7 +65,7 @@ function Section({
 }) {
   return (
     <section id={id} className="scroll-mt-16 py-8">
-      <h2 className="display-font mb-4 text-2xl font-bold text-[var(--moss)]">{title}</h2>
+      <h2 className="display-font mb-4 text-2xl font-bold text-[var(--accent-2)]">{title}</h2>
       {children}
     </section>
   );
@@ -83,7 +83,7 @@ function StatTile({ label, value, note }: { label: string; value: string; note?:
   return (
     <div className="rounded-md border border-white/10 bg-black/25 px-4 py-3">
       <div className="text-xs uppercase tracking-wide text-[var(--ink-dim)]">{label}</div>
-      <div className="display-font text-2xl text-[var(--ember)]">{value}</div>
+      <div className="display-font text-2xl text-[var(--accent)]">{value}</div>
       {note && <div className="mt-0.5 text-xs text-[var(--ink-dim)]">{note}</div>}
     </div>
   );
@@ -97,7 +97,7 @@ function Overview() {
   return (
     <section id="top" className="scroll-mt-16 pt-8 pb-2">
       <p className="text-sm uppercase tracking-widest text-[var(--ink-dim)]">Level 6 · Wood Elf</p>
-      <h1 className="display-font mt-1 text-4xl font-bold text-[var(--ember)]">
+      <h1 className="display-font mt-1 text-4xl font-bold text-[var(--accent)]">
         Onyberyus <span className="text-[var(--ink-dim)]">"Berry"</span>
       </h1>
       <p className="mt-2 max-w-2xl text-[var(--ink)]">
@@ -156,7 +156,7 @@ function Mechanics() {
                 <td className="py-1 pr-4">{a.score}</td>
                 <td className="py-1 pr-4">{a.mod}</td>
                 <td className="py-1 pr-4">
-                  <span className={a.saveProficient ? 'font-bold text-[var(--ember)]' : ''}>
+                  <span className={a.saveProficient ? 'font-bold text-[var(--accent)]' : ''}>
                     {a.save}
                   </span>
                   {a.saveProficient && (
@@ -176,7 +176,7 @@ function Mechanics() {
       <SubHeading>How rolls work</SubHeading>
       <div className="grid gap-3 md:grid-cols-2">
         <Card>
-          <div className="font-bold text-[var(--moss)]">When I attack or force a save</div>
+          <div className="font-bold text-[var(--accent-2)]">When I attack or force a save</div>
           <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-[var(--ink)]">
             <li>
               <b>Spell attack</b> (e.g. Scorching Ray, Ice Knife): roll <b>d20 + 6</b> vs their AC.
@@ -192,7 +192,7 @@ function Mechanics() {
           </ul>
         </Card>
         <Card>
-          <div className="font-bold text-[var(--moss)]">When something happens to me</div>
+          <div className="font-bold text-[var(--accent-2)]">When something happens to me</div>
           <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-[var(--ink)]">
             <li>
               <b>My saving throw</b>: d20 + the save modifier above (Con/Int/Wis are proficient).
@@ -211,14 +211,14 @@ function Mechanics() {
       <SubHeading>Action economy — my turn</SubHeading>
       <div className="grid gap-3 md:grid-cols-2">
         <Card>
-          <div className="font-bold text-[var(--moss)]">Action (one per turn)</div>
+          <div className="font-bold text-[var(--accent-2)]">Action (one per turn)</div>
           <p className="mt-1 text-sm text-[var(--ink)]">
             Cast most spells · Wild Shape · summon the Wildfire Spirit · Attack · Dash / Dodge /
             Disengage.
           </p>
         </Card>
         <Card>
-          <div className="font-bold text-[var(--moss)]">Bonus action (one per turn)</div>
+          <div className="font-bold text-[var(--accent-2)]">Bonus action (one per turn)</div>
           <p className="mt-1 text-sm text-[var(--ink)]">
             Healing Word · command the Wildfire Spirit · move Flaming Sphere / Healing Spirit.
           </p>
@@ -228,13 +228,13 @@ function Mechanics() {
           </p>
         </Card>
         <Card>
-          <div className="font-bold text-[var(--moss)]">Reaction (one per round)</div>
+          <div className="font-bold text-[var(--accent-2)]">Reaction (one per round)</div>
           <p className="mt-1 text-sm text-[var(--ink)]">
             Opportunity attack when an enemy leaves my reach · certain spells.
           </p>
         </Card>
         <Card>
-          <div className="font-bold text-[var(--moss)]">Movement</div>
+          <div className="font-bold text-[var(--accent-2)]">Movement</div>
           <p className="mt-1 text-sm text-[var(--ink)]">
             Up to {character.speed} · can split around my action.
           </p>
@@ -244,14 +244,14 @@ function Mechanics() {
       <SubHeading>Spellcasting &amp; Wild Shape</SubHeading>
       <div className="grid gap-3 md:grid-cols-2">
         <Card>
-          <div className="font-bold text-[var(--moss)]">
+          <div className="font-bold text-[var(--accent-2)]">
             Spell slots
             <Ref book="PHB" url={DRUID_CLASS_URL} />
           </div>
           <div className="mt-2 flex gap-4">
             {spellSlots.map((s) => (
               <div key={s.level} className="text-center">
-                <div className="display-font text-2xl text-[var(--ember)]">{s.count}</div>
+                <div className="display-font text-2xl text-[var(--accent)]">{s.count}</div>
                 <div className="text-xs text-[var(--ink-dim)]">level {s.level}</div>
               </div>
             ))}
@@ -263,7 +263,7 @@ function Mechanics() {
           </p>
         </Card>
         <Card>
-          <div className="font-bold text-[var(--moss)]">
+          <div className="font-bold text-[var(--accent-2)]">
             Wild Shape
             <Ref book="PHB" url={DRUID_CLASS_URL} />
           </div>
@@ -335,7 +335,7 @@ function WildShape() {
         ))}
       </div>
       <Card className="mt-5">
-        <div className="font-bold text-[var(--moss)]">Notes</div>
+        <div className="font-bold text-[var(--accent-2)]">Notes</div>
         <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-[var(--ink)]">
           <li>
             <b>Badger</b> can burrow 5 ft — good for ducking underground to hide or break line of

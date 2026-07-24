@@ -2,23 +2,24 @@
 @import "tailwindcss";
 
 /*
- * Page theme — a dark, woodsy frame (Berry is a Wildfire Druid) so the
- * parchment statblocks and spell cards pop.
+ * Page theme — a cool dark-navy frame so the parchment statblocks and spell
+ * cards pop. Accents are blue (colorblind-safe: strong luminance contrast, no
+ * red/green pairing). Var names --accent / --accent-2 kept generic on purpose.
  */
 
 :root {
-  --page-bg: #14180f;
-  --page-bg-2: #1b2113;
-  --ember: #e0842b;
-  --moss: #8bab5a;
-  --ink: #ece5d3;
-  --ink-dim: #b3ac97;
+  --page-bg: #0e1522;
+  --page-bg-2: #172136;
+  --accent: #6fb3ef; /* azure — primary accent (headings, values, links) */
+  --accent-2: #a9c8ec; /* periwinkle — secondary accent (section titles) */
+  --ink: #e7ecf5;
+  --ink-dim: #a9b2c6;
 }
 
 html {
   scroll-behavior: smooth;
   min-height: 100%;
-  background: radial-gradient(1200px 600px at 50% -10%, rgba(224, 132, 43, 0.14), transparent 60%),
+  background: radial-gradient(1200px 600px at 50% -10%, rgba(111, 179, 239, 0.13), transparent 60%),
     linear-gradient(160deg, var(--page-bg) 0%, var(--page-bg-2) 100%);
 }
 
@@ -31,7 +32,7 @@ body {
 }
 
 a {
-  color: var(--ember);
+  color: var(--accent);
   text-decoration: none;
 }
 a:hover {
