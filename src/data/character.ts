@@ -17,7 +17,7 @@ export const character = {
   alignment: 'Chaotic Good',
   proficiencyBonus: '+3',
   ac: 13,
-  hp: 43,
+  hp: 51,
   hitDice: '6d8',
   initiative: '+2',
   speed: '35 ft.',
