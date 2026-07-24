@@ -342,6 +342,23 @@ export const level2: SpellData[] = [
 
 export const level3: SpellData[] = [
   {
+    name: 'Dispel Magic',
+    source: 'PHB',
+    level: 3,
+    school: 'Abjuration',
+    castingTime: '1 action',
+    range: '120 feet',
+    components: 'V, S',
+    duration: 'Instantaneous',
+    description: [
+      'Choose one creature, object, or magical effect within range. Any spell of 3rd level or lower on the target ends.',
+      "For each spell of 4th level or higher on the target, make an ability check using your spellcasting ability (DC = 10 + the spell's level). On a success, that spell ends.",
+    ],
+    higherLevels:
+      "When you cast this using a slot of 4th level or higher, you automatically end a spell on the target if the spell's level is at or below the slot level used.",
+    note: 'The check for a 4th+ level effect is a plain Wisdom check: d20 + 3 (proficiency does not apply). Anything 3rd level or lower just ends, no check.',
+  },
+  {
     name: 'Tidal Wave',
     source: 'XGE',
     level: 3,
