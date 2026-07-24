@@ -41,6 +41,8 @@ export interface StatblockData {
   sections?: StatSection[];
   /** Render across two columns. */
   wide?: boolean;
+  /** Highlighted personal note (e.g. why Berry uses this form). */
+  note?: string;
   /** Source book abbreviation (MM, TCE, ...) and a reference link. */
   source?: { abbr: string; name: string; url: string };
 }
@@ -148,11 +150,16 @@ export function Statblock({ data }: { data: StatblockData }) {
         </div>
       ))}
 
+      {data.note && (
+        <div className="statblock__note">
+          <span className="statblock__note-label">Berry's note:</span> {data.note}
+        </div>
+      )}
+
       {data.source && (
         <p className="statblock__source">
-          Source:{' '}
           <a href={data.source.url} target="_blank" rel="noreferrer" title={data.source.name}>
-            {data.source.abbr}
+            [{data.source.abbr}]
           </a>
         </p>
       )}

@@ -57,6 +57,7 @@ export const octopus: StatblockData = {
       ],
     },
   ],
+  note: 'Underwater work: pop an ink cloud to escape, and Stealth is +4 (advantage while submerged). A low-CR utility pick, not a fighter.',
 };
 
 export const badger: StatblockData = {
@@ -89,6 +90,7 @@ export const badger: StatblockData = {
       ],
     },
   ],
+  note: 'Can burrow 5 ft — good for ducking underground to hide or break line of sight. A utility form, not a combatant.',
 };
 
 export const ape: StatblockData = {
