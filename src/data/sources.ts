@@ -17,6 +17,10 @@ export const BOOKS: Record<string, Book> = {
   MM: { abbr: 'MM', name: 'Monster Manual' },
   TCE: { abbr: 'TCE', name: "Tasha's Cauldron of Everything" },
   XGE: { abbr: 'XGE', name: "Xanathar's Guide to Everything" },
+  MotM: {
+    abbr: 'MotM',
+    name: "Mordenkainen's Monsters of the Multiverse (also in Tomb of Annihilation)",
+  },
 };
 
 export type BookAbbr = keyof typeof BOOKS;

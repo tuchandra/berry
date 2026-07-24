@@ -1,7 +1,15 @@
 import { FlowChart } from '@/components/FlowChart';
 import { SpellCard, type SpellData } from '@/components/SpellCard';
 import { Statblock } from '@/components/Statblock';
-import { direWolf, giantConstrictorSnake, wildShapeForms, wolf } from '@/data/beasts';
+import {
+  brownBear,
+  direWolf,
+  giantConstrictorSnake,
+  giantPoisonousSnake,
+  velociraptor,
+  wildShapeForms,
+  wolf,
+} from '@/data/beasts';
 import { abilities, character, spellSlots } from '@/data/character';
 import { BOOKS, DRUID_CLASS_URL, WILDFIRE_SUBCLASS_URL, spellRefUrl } from '@/data/sources';
 import { cantrips, level1, level2, level3, wildfire } from '@/data/spells';
@@ -399,14 +407,20 @@ function Summons() {
         wolves is a lot of attacks. The DM controls them, but they obey me and act on my initiative.
       </p>
       <div className="grid gap-5 lg:grid-cols-2">
-        <TieredForm label="8 × CR 1/4" tagline="Pack Tactics + knocks prone — best action economy.">
+        <TieredForm
+          label="8 × CR 1/4"
+          tagline="Velociraptor — Pack Tactics + multiattack, the top damage pick."
+        >
+          <Statblock data={velociraptor} />
+        </TieredForm>
+        <TieredForm label="8 × CR 1/4" tagline="Wolf — Pack Tactics + knocks prone, great control.">
           <Statblock data={wolf} />
         </TieredForm>
-        <TieredForm label="2 × CR 1" tagline="Same tricks, much tankier (37 HP, bigger bite).">
-          <Statblock data={direWolf} />
-        </TieredForm>
-        <TieredForm label="1 × CR 2" tagline="Grapple and restrain a single big threat.">
-          <Statblock data={giantConstrictorSnake} />
+        <TieredForm
+          label="8 × CR 1/4"
+          tagline="Giant Poisonous Snake — 10-ft reach + poison, hits from the back."
+        >
+          <Statblock data={giantPoisonousSnake} />
         </TieredForm>
         <TieredForm label="4 × CR 1/2" tagline="Ape (ranged rocks) or Black Bear (durable).">
           <Card className="h-full">
@@ -417,7 +431,35 @@ function Summons() {
             </p>
           </Card>
         </TieredForm>
+        <TieredForm label="2 × CR 1" tagline="Dire Wolf — Pack Tactics + prone, tanky (37 HP).">
+          <Statblock data={direWolf} />
+        </TieredForm>
+        <TieredForm
+          label="2 × CR 1"
+          tagline="Brown Bear — big multiattack (1d8+4 bite, 2d6+4 claws)."
+        >
+          <Statblock data={brownBear} />
+        </TieredForm>
+        <TieredForm
+          label="1 × CR 2"
+          tagline="Giant Constrictor Snake — grapple and restrain a big threat."
+        >
+          <Statblock data={giantConstrictorSnake} />
+        </TieredForm>
       </div>
+
+      <Card className="mt-5 max-w-2xl">
+        <p className="text-sm text-[var(--ink)]">
+          <b>Rule of thumb:</b> more bodies usually wins — eight raptors put out far more attacks
+          (and Pack Tactics advantage) than one big creature. Go fewer/bigger only for durability or
+          to control a single tough enemy.
+        </p>
+        <p className="mt-2 text-xs text-[var(--ink-dim)]">
+          Other popular picks I can add on request: <b>Deinonychus</b> (Tomb of Annihilation, CR 1 —
+          Pounce + three attacks) and <b>Allosaurus</b> (CR 2 — Pounce, heavy single-target damage).
+          I left them off until I can cite exact stats from a book your DM uses.
+        </p>
+      </Card>
     </Section>
   );
 }

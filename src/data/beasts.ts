@@ -293,6 +293,125 @@ export const direWolf: StatblockData = {
   ],
 };
 
+export const velociraptor: StatblockData = {
+  name: 'Velociraptor',
+  source: {
+    abbr: BOOKS.MotM.abbr,
+    name: BOOKS.MotM.name,
+    url: 'https://www.aidedd.org/dnd/monstres.php?vo=velociraptor',
+  },
+  subtitle: 'Tiny beast (dinosaur), unaligned',
+  topProps: [
+    { label: 'Armor Class', value: '13 (natural armor)' },
+    { label: 'Hit Points', value: '10 (3d4 + 3)' },
+    { label: 'Speed', value: '30 ft.' },
+  ],
+  abilities: { str: 6, dex: 14, con: 13, int: 4, wis: 12, cha: 6 },
+  bottomProps: [
+    { label: 'Skills', value: 'Perception +3' },
+    { label: 'Senses', value: 'passive Perception 13' },
+    { label: 'Challenge', value: '1/4 (50 XP)' },
+  ],
+  sections: [
+    {
+      entries: [
+        {
+          name: 'Pack Tactics',
+          text: "The velociraptor has advantage on an attack roll against a creature if at least one of the velociraptor's allies is within 5 feet of the creature and the ally isn't incapacitated.",
+        },
+      ],
+    },
+    {
+      heading: 'Actions',
+      entries: [
+        {
+          name: 'Multiattack',
+          text: 'The velociraptor makes one Bite attack and one Claws attack.',
+        },
+        {
+          name: 'Bite',
+          text: 'Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6 + 2) piercing damage.',
+        },
+        {
+          name: 'Claws',
+          text: 'Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 4 (1d4 + 2) slashing damage.',
+        },
+      ],
+    },
+  ],
+};
+
+export const giantPoisonousSnake: StatblockData = {
+  name: 'Giant Poisonous Snake',
+  source: mmSource('Giant Poisonous Snake'),
+  subtitle: 'Medium beast, unaligned',
+  topProps: [
+    { label: 'Armor Class', value: '14' },
+    { label: 'Hit Points', value: '11 (2d8 + 2)' },
+    { label: 'Speed', value: '30 ft., swim 30 ft.' },
+  ],
+  abilities: { str: 10, dex: 18, con: 13, int: 2, wis: 10, cha: 3 },
+  bottomProps: [
+    { label: 'Senses', value: 'blindsight 10 ft., passive Perception 10' },
+    { label: 'Challenge', value: '1/4 (50 XP)' },
+  ],
+  sections: [
+    {
+      heading: 'Actions',
+      entries: [
+        {
+          name: 'Bite',
+          text: 'Melee Weapon Attack: +6 to hit, reach 10 ft., one target. Hit: 6 (1d4 + 4) piercing damage, and the target must make a DC 11 Constitution saving throw, taking 10 (3d6) poison damage on a failed save, or half as much on a success.',
+        },
+      ],
+    },
+  ],
+};
+
+export const brownBear: StatblockData = {
+  name: 'Brown Bear',
+  source: mmSource('Brown Bear'),
+  subtitle: 'Large beast, unaligned',
+  topProps: [
+    { label: 'Armor Class', value: '11 (natural armor)' },
+    { label: 'Hit Points', value: '34 (4d10 + 12)' },
+    { label: 'Speed', value: '40 ft., climb 30 ft.' },
+  ],
+  abilities: { str: 19, dex: 10, con: 16, int: 2, wis: 13, cha: 7 },
+  bottomProps: [
+    { label: 'Skills', value: 'Perception +3' },
+    { label: 'Senses', value: 'passive Perception 13' },
+    { label: 'Challenge', value: '1 (200 XP)' },
+  ],
+  sections: [
+    {
+      entries: [
+        {
+          name: 'Keen Smell',
+          text: 'The bear has advantage on Wisdom (Perception) checks that rely on smell.',
+        },
+      ],
+    },
+    {
+      heading: 'Actions',
+      entries: [
+        {
+          name: 'Multiattack',
+          text: 'The bear makes two attacks: one with its bite and one with its claws.',
+        },
+        {
+          name: 'Bite',
+          text: 'Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 8 (1d8 + 4) piercing damage.',
+        },
+        {
+          name: 'Claws',
+          text: 'Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 11 (2d6 + 4) slashing damage.',
+        },
+      ],
+    },
+  ],
+};
+
 export const giantConstrictorSnake: StatblockData = {
   name: 'Giant Constrictor Snake',
   source: mmSource('Giant Constrictor Snake'),
