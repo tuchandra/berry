@@ -2,7 +2,7 @@ import './spellcard.css';
 
 export interface SpellData {
   name: string;
-  /** e.g. "Cantrip" or 1, 2, 3 */
+  /** e.g. "cantrip" or 1, 2, 3 */
   level: number | 'cantrip';
   school: string;
   castingTime: string;
@@ -15,6 +15,10 @@ export interface SpellData {
   higherLevels?: string;
   concentration?: boolean;
   ritual?: boolean;
+  /** Highlighted table-note callout (e.g. Berry's own reminders). */
+  note?: string;
+  /** Small pills near the header, e.g. "Wildfire", "Always Prepared". */
+  badges?: string[];
 }
 
 function levelLabel(spell: SpellData): string {
@@ -37,6 +41,18 @@ export function SpellCard({ spell }: { spell: SpellData }) {
         <h3 className="spellcard__name">{spell.name}</h3>
         <span className="spellcard__level">{levelLabel(spell)}</span>
       </div>
+
+      {(spell.badges?.length || spell.concentration || spell.ritual) && (
+        <div className="spellcard__tags">
+          {spell.badges?.map((b) => (
+            <span key={b} className="spellcard__tag spellcard__tag--badge">
+              {b}
+            </span>
+          ))}
+          {spell.concentration && <span className="spellcard__tag">Concentration</span>}
+          {spell.ritual && <span className="spellcard__tag">Ritual</span>}
+        </div>
+      )}
 
       <div className="spellcard__meta">
         <span className="spellcard__meta-label">Casting Time</span>
@@ -61,10 +77,9 @@ export function SpellCard({ spell }: { spell: SpellData }) {
         )}
       </div>
 
-      {(spell.concentration || spell.ritual) && (
-        <div className="spellcard__tags">
-          {spell.concentration && <span className="spellcard__tag">Concentration</span>}
-          {spell.ritual && <span className="spellcard__tag">Ritual</span>}
+      {spell.note && (
+        <div className="spellcard__note">
+          <span className="spellcard__note-label">Berry's note:</span> {spell.note}
         </div>
       )}
     </div>

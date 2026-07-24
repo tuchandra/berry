@@ -1,27 +1,28 @@
-import { SpellCard } from '@/components/SpellCard';
+import { FlowChart } from '@/components/FlowChart';
+import { SpellCard, type SpellData } from '@/components/SpellCard';
 import { Statblock } from '@/components/Statblock';
-import { cantrips, level1, level2, level3 } from '@/data/spells';
+import { wildShapeForms } from '@/data/beasts';
+import { abilities, character, spellSlots } from '@/data/character';
+import { cantrips, level1, level2, level3, wildfire } from '@/data/spells';
 import { wildfireSpirit } from '@/data/wildfire-spirit';
 
 const NAV = [
-  { id: 'overview', label: 'Overview' },
   { id: 'mechanics', label: 'Mechanics' },
+  { id: 'flowchart', label: 'Flowchart' },
   { id: 'spells', label: 'Spells' },
-  { id: 'wildfire-spirit', label: 'Wildfire Spirit' },
+  { id: 'wild-shape', label: 'Wild Shape' },
+  { id: 'summons', label: 'Summons' },
 ];
 
 function Header() {
   return (
-    <header className="border-b border-white/10 bg-black/20 backdrop-blur sticky top-0 z-10">
+    <header className="sticky top-0 z-10 border-b border-white/10 bg-black/30 backdrop-blur">
       <div className="mx-auto flex max-w-5xl flex-wrap items-baseline gap-x-6 gap-y-1 px-5 py-3">
-        <a
-          href="#overview"
-          className="display-font text-xl font-bold text-[var(--ember)] no-underline"
-        >
+        <a href="#top" className="display-font text-xl font-bold text-[var(--ember)] no-underline">
           Berry
         </a>
         <nav className="flex flex-wrap gap-x-5 gap-y-1 text-sm text-[var(--ink-dim)]">
-          {NAV.slice(1).map((item) => (
+          {NAV.map((item) => (
             <a
               key={item.id}
               href={`#${item.id}`}
@@ -53,6 +54,14 @@ function Section({
   );
 }
 
+function Card({ children, className = '' }: { children: React.ReactNode; className?: string }) {
+  return (
+    <div className={`rounded-lg border border-white/10 bg-black/25 p-4 ${className}`}>
+      {children}
+    </div>
+  );
+}
+
 function StatTile({ label, value, note }: { label: string; value: string; note?: string }) {
   return (
     <div className="rounded-md border border-white/10 bg-black/25 px-4 py-3">
@@ -63,21 +72,205 @@ function StatTile({ label, value, note }: { label: string; value: string; note?:
   );
 }
 
-function SpellGroup({ title, spells }: { title: string; spells: typeof cantrips }) {
-  if (spells.length === 0) {
-    return (
-      <div className="mb-6">
-        <h3 className="mb-2 text-lg text-[var(--ink)]">{title}</h3>
-        <p className="text-sm italic text-[var(--ink-dim)]">
-          Pending — to be added from your sheet.
-        </p>
+function SubHeading({ children }: { children: React.ReactNode }) {
+  return <h3 className="mb-2 mt-6 text-lg text-[var(--ink)]">{children}</h3>;
+}
+
+function Overview() {
+  return (
+    <section id="top" className="scroll-mt-16 pt-8 pb-2">
+      <p className="text-sm uppercase tracking-widest text-[var(--ink-dim)]">Level 6 · Wood Elf</p>
+      <h1 className="display-font mt-1 text-4xl font-bold text-[var(--ember)]">
+        Onyberyus <span className="text-[var(--ink-dim)]">"Berry"</span>
+      </h1>
+      <p className="mt-2 max-w-2xl text-[var(--ink)]">
+        A Circle of Wildfire Druid — chaotic good, gentler aspects of chaos, "plant guy but with
+        fire." This is my table reference: the numbers I forget, what I can do on my turn, my
+        spells, and my forms.
+      </p>
+      <div className="mt-4 flex flex-wrap gap-3 text-sm text-[var(--ink-dim)]">
+        <span className="rounded-full border border-white/15 px-3 py-1">{character.class}</span>
+        <span className="rounded-full border border-white/15 px-3 py-1">
+          Spellcasting: {character.spellcastingAbility}
+        </span>
+        <span className="rounded-full border border-white/15 px-3 py-1">{character.alignment}</span>
       </div>
-    );
-  }
+    </section>
+  );
+}
+
+function Mechanics() {
+  return (
+    <Section id="mechanics" title="Mechanics">
+      <p className="mb-4 max-w-2xl text-[var(--ink-dim)]">
+        The numbers that come up most, and the rules for what happens on my turn.
+      </p>
+
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <StatTile
+          label="Spell Save DC"
+          value={String(character.spellSaveDc)}
+          note="enemies roll vs this"
+        />
+        <StatTile label="Spell Attack" value={character.spellAttack} note="d20 + this to hit" />
+        <StatTile label="Armor Class" value={String(character.ac)} />
+        <StatTile label="Hit Points" value={String(character.hp)} note={character.hitDice} />
+        <StatTile label="Proficiency" value={character.proficiencyBonus} />
+        <StatTile label="Initiative" value={character.initiative} />
+        <StatTile label="Speed" value={character.speed} />
+        <StatTile label="Passive Perc." value={String(character.passivePerception)} />
+      </div>
+
+      <SubHeading>Ability scores &amp; saves</SubHeading>
+      <Card className="overflow-x-auto">
+        <table className="w-full min-w-[28rem] text-left text-sm">
+          <thead className="text-xs uppercase tracking-wide text-[var(--ink-dim)]">
+            <tr>
+              <th className="py-1 pr-4">Ability</th>
+              <th className="py-1 pr-4">Score</th>
+              <th className="py-1 pr-4">Modifier</th>
+              <th className="py-1 pr-4">Saving Throw</th>
+            </tr>
+          </thead>
+          <tbody>
+            {abilities.map((a) => (
+              <tr key={a.name} className="border-t border-white/10">
+                <td className="py-1 pr-4">{a.name}</td>
+                <td className="py-1 pr-4">{a.score}</td>
+                <td className="py-1 pr-4">{a.mod}</td>
+                <td className="py-1 pr-4">
+                  <span className={a.saveProficient ? 'font-bold text-[var(--ember)]' : ''}>
+                    {a.save}
+                  </span>
+                  {a.saveProficient && (
+                    <span className="ml-1 text-xs text-[var(--ink-dim)]">(proficient)</span>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p className="mt-3 text-xs text-[var(--ink-dim)]">
+          Proficient skills: Medicine +6, Nature +2, Perception +6. Thanks to the Resilient feat,
+          Constitution saves are proficient (+6) — handy for keeping concentration.
+        </p>
+      </Card>
+
+      <SubHeading>How rolls work</SubHeading>
+      <div className="grid gap-3 md:grid-cols-2">
+        <Card>
+          <div className="font-bold text-[var(--moss)]">When I attack or force a save</div>
+          <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-[var(--ink)]">
+            <li>
+              <b>Spell attack</b> (e.g. Scorching Ray, Ice Knife): roll <b>d20 + 6</b> vs their AC.
+            </li>
+            <li>
+              <b>Saving-throw spell</b> (e.g. Burning Hands, Entangle): the enemy rolls their save
+              vs my <b>DC 14</b>. I don't roll to hit.
+            </li>
+            <li>
+              <b>Weapon</b> (dart / quarterstaff): roll <b>d20 + 2</b> (Dex/Str) <b>+ 3</b> if
+              proficient.
+            </li>
+          </ul>
+        </Card>
+        <Card>
+          <div className="font-bold text-[var(--moss)]">When something happens to me</div>
+          <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-[var(--ink)]">
+            <li>
+              <b>My saving throw</b>: d20 + the save modifier above (Con/Int/Wis are proficient).
+            </li>
+            <li>
+              <b>Concentration</b>: take damage → Con save (DC 10 or half the damage, whichever is
+              higher). My Con save is <b>+6</b>.
+            </li>
+            <li>
+              <b>Skill check</b>: d20 + ability modifier (+3 more if proficient).
+            </li>
+          </ul>
+        </Card>
+      </div>
+
+      <SubHeading>Action economy — my turn</SubHeading>
+      <div className="grid gap-3 md:grid-cols-2">
+        <Card>
+          <div className="font-bold text-[var(--moss)]">Action (one per turn)</div>
+          <p className="mt-1 text-sm text-[var(--ink)]">
+            Cast most spells · Wild Shape · summon the Wildfire Spirit · Attack · Dash / Dodge /
+            Disengage.
+          </p>
+        </Card>
+        <Card>
+          <div className="font-bold text-[var(--moss)]">Bonus action (one per turn)</div>
+          <p className="mt-1 text-sm text-[var(--ink)]">
+            Healing Word · command the Wildfire Spirit · move Flaming Sphere / Healing Spirit · Aura
+            of Vitality heal.
+          </p>
+          <p className="mt-2 text-xs text-[var(--ink-dim)]">
+            Rule: if I cast a leveled spell as a bonus action, my Action that turn can only be a
+            cantrip.
+          </p>
+        </Card>
+        <Card>
+          <div className="font-bold text-[var(--moss)]">Reaction (one per round)</div>
+          <p className="mt-1 text-sm text-[var(--ink)]">
+            Opportunity attack when an enemy leaves my reach · certain spells.
+          </p>
+        </Card>
+        <Card>
+          <div className="font-bold text-[var(--moss)]">Movement</div>
+          <p className="mt-1 text-sm text-[var(--ink)]">
+            Up to {character.speed} · can split around my action.
+          </p>
+        </Card>
+      </div>
+
+      <SubHeading>Spellcasting &amp; Wild Shape</SubHeading>
+      <div className="grid gap-3 md:grid-cols-2">
+        <Card>
+          <div className="font-bold text-[var(--moss)]">Spell slots</div>
+          <div className="mt-2 flex gap-4">
+            {spellSlots.map((s) => (
+              <div key={s.level} className="text-center">
+                <div className="display-font text-2xl text-[var(--ember)]">{s.count}</div>
+                <div className="text-xs text-[var(--ink-dim)]">level {s.level}</div>
+              </div>
+            ))}
+          </div>
+          <p className="mt-3 text-sm text-[var(--ink)]">
+            I prepare <b>9 spells</b> (druid level 6 + Wis +3). Circle of Wildfire spells are{' '}
+            <b>always prepared</b> and don't count toward that. I know <b>4 cantrips</b>. Slots come
+            back on a long rest.
+          </p>
+        </Card>
+        <Card>
+          <div className="font-bold text-[var(--moss)]">Wild Shape</div>
+          <p className="mt-1 text-sm text-[var(--ink)]">
+            <b>2 uses</b>, regained on a short or long rest. At level 6 I can become a beast of{' '}
+            <b>CR 1/2 or lower</b> with <b>no flying speed</b> (swimming is fine). The form lasts{' '}
+            <b>3 hours</b>. I can spend a use to summon my Wildfire Spirit instead.
+          </p>
+        </Card>
+      </div>
+    </Section>
+  );
+}
+
+function SpellGroup({
+  title,
+  subtitle,
+  spells,
+}: {
+  title: string;
+  subtitle?: string;
+  spells: SpellData[];
+}) {
+  if (spells.length === 0) return null;
   return (
     <div className="mb-6">
-      <h3 className="mb-2 text-lg text-[var(--ink)]">{title}</h3>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <h3 className="text-lg text-[var(--ink)]">{title}</h3>
+      {subtitle && <p className="mb-2 text-sm italic text-[var(--ink-dim)]">{subtitle}</p>}
+      <div className="mt-2 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {spells.map((spell) => (
           <SpellCard key={spell.name} spell={spell} />
         ))}
@@ -86,56 +279,105 @@ function SpellGroup({ title, spells }: { title: string; spells: typeof cantrips 
   );
 }
 
+function Spells() {
+  return (
+    <Section id="spells" title="Spells">
+      <p className="mb-4 max-w-2xl text-[var(--ink-dim)]">
+        More than I can prepare at once — I keep the extras here for reference. Save DC is <b>14</b>
+        , spell attack is <b>+6</b>.
+      </p>
+      <SpellGroup title="Cantrips" subtitle="Always available, no slot needed." spells={cantrips} />
+      <SpellGroup
+        title="Wildfire Spells"
+        subtitle="Always prepared (Circle of Wildfire) — these don't count toward my 9 prepared."
+        spells={wildfire}
+      />
+      <SpellGroup title="Level 1" spells={level1} />
+      <SpellGroup title="Level 2" spells={level2} />
+      <SpellGroup title="Level 3" spells={level3} />
+    </Section>
+  );
+}
+
+function WildShape() {
+  return (
+    <Section id="wild-shape" title="Wild Shape">
+      <p className="mb-4 max-w-2xl text-[var(--ink-dim)]">
+        Forms I can take (CR 1/2 or lower, no flying). My favorites and their statblocks. Octopus
+        and badger are low-CR utility picks.
+      </p>
+      <div className="grid gap-5 lg:grid-cols-2">
+        {wildShapeForms.map((form) => (
+          <Statblock key={form.name} data={form} />
+        ))}
+      </div>
+      <Card className="mt-5">
+        <div className="font-bold text-[var(--moss)]">Notes</div>
+        <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-[var(--ink)]">
+          <li>
+            <b>Badger</b> can burrow 5 ft — good for ducking underground to hide or break line of
+            sight.
+          </li>
+          <li>
+            <b>Octopus</b> for underwater work: ink cloud to escape, strong Stealth while submerged.
+          </li>
+          <li>
+            Other solid CR 1/2 picks I could learn: Giant Goat (charge + knock prone), Reef Shark
+            (swim + pack tactics), Warhorse (trampling charge).
+          </li>
+        </ul>
+      </Card>
+    </Section>
+  );
+}
+
+function Summons() {
+  return (
+    <Section id="summons" title="Summons">
+      <SubHeading>Wildfire Spirit</SubHeading>
+      <p className="mb-3 max-w-2xl text-[var(--ink-dim)]">
+        My main summon — costs a Wild Shape use. It shares my initiative and I command it with a
+        bonus action.
+      </p>
+      <div className="max-w-3xl">
+        <Statblock data={wildfireSpirit} />
+      </div>
+
+      <SubHeading>Conjure Animals</SubHeading>
+      <Card className="max-w-2xl">
+        <p className="text-sm text-[var(--ink)]">
+          A 3rd-level slot summons fey spirits in beast form: one CR 2, two CR 1, <b>four CR 1/2</b>
+          , or eight CR 1/4. I've summoned <b>black bears</b> and <b>apes</b> before (four of them
+          at CR 1/2) — their statblocks are up in <a href="#wild-shape">Wild Shape</a>.
+        </p>
+        <p className="mt-2 text-xs text-[var(--ink-dim)]">
+          The DM controls the summoned creatures, but they obey my commands. They act on my
+          initiative.
+        </p>
+      </Card>
+    </Section>
+  );
+}
+
 export default function App() {
   return (
     <>
       <Header />
       <main className="mx-auto max-w-5xl px-5 pb-20">
-        <Section id="overview" title="Onyberyus — “Berry”">
-          <p className="max-w-2xl text-[var(--ink)]">
-            Level 6 Wildfire Druid. This is a personal reference for spells, actions, and the rules
-            that come up at the table. Content is still being filled in — the Wildfire Spirit
-            statblock below is live to show the styling.
-          </p>
-          <div className="mt-4 flex flex-wrap gap-3 text-sm text-[var(--ink-dim)]">
-            <span className="rounded-full border border-white/15 px-3 py-1">Druid 6</span>
-            <span className="rounded-full border border-white/15 px-3 py-1">
-              Circle of Wildfire
-            </span>
-            <span className="rounded-full border border-white/15 px-3 py-1">
-              Spellcasting: Wisdom
-            </span>
-          </div>
-        </Section>
-
-        <Section id="mechanics" title="Mechanics">
+        <Overview />
+        <Mechanics />
+        <Section id="flowchart" title="Combat Flowchart">
           <p className="mb-4 max-w-2xl text-[var(--ink-dim)]">
-            Quick-reference numbers and the rules for what you can do on your turn. Values marked
-            pending will be filled in once your ability scores are in.
+            My turn-by-turn priorities. Updated from the level-4 version for my current spells.
           </p>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-            <StatTile label="Spell Save DC" value="—" note="8 + PB + WIS" />
-            <StatTile label="Spell Attack" value="—" note="PB + WIS" />
-            <StatTile label="Proficiency Bonus" value="+3" note="level 6" />
-            <StatTile label="Wild Shape / Spirit" value="2/rest" note="regain on short/long rest" />
-          </div>
+          <FlowChart />
         </Section>
-
-        <Section id="spells" title="Spells">
-          <SpellGroup title="Cantrips" spells={cantrips} />
-          <SpellGroup title="Level 1" spells={level1} />
-          <SpellGroup title="Level 2" spells={level2} />
-          <SpellGroup title="Level 3" spells={level3} />
-        </Section>
-
-        <Section id="wildfire-spirit" title="Wildfire Spirit">
-          <div className="max-w-2xl">
-            <Statblock data={wildfireSpirit} />
-          </div>
-        </Section>
+        <Spells />
+        <WildShape />
+        <Summons />
       </main>
       <footer className="border-t border-white/10 py-6 text-center text-xs text-[var(--ink-dim)]">
-        Onyberyus · a Wildfire Druid reference
+        Onyberyus Thistleballow · a Wildfire Druid reference
       </footer>
     </>
   );

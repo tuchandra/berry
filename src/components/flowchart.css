@@ -1,0 +1,141 @@
+/* Combat decision flowchart — dark cards with ember accents. */
+
+.flow {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Round-by-round opener */
+.flow-opener {
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: 1fr 1fr;
+}
+@media (max-width: 640px) {
+  .flow-opener {
+    grid-template-columns: 1fr;
+  }
+}
+.flow-phase {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+  padding: 0.75rem 0.9rem;
+}
+.flow-phase__title {
+  font-family: "Cinzel", serif;
+  color: var(--moss);
+  font-size: 1.05rem;
+  margin: 0 0 0.5rem;
+}
+.flow-rule {
+  margin: 0.5rem 0;
+  padding-left: 0.7rem;
+  border-left: 2px solid rgba(224, 132, 43, 0.5);
+}
+.flow-rule__cond {
+  font-weight: 700;
+  color: var(--ink);
+}
+.flow-rule__line {
+  font-size: 0.9rem;
+  color: var(--ink-dim);
+}
+.flow-rule__k {
+  color: var(--ember);
+  font-variant: small-caps;
+  font-weight: 700;
+}
+
+/* Priority trees */
+.flow-trees {
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: repeat(3, 1fr);
+}
+@media (max-width: 900px) {
+  .flow-trees {
+    grid-template-columns: 1fr;
+  }
+}
+.flow-tree {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+  padding: 0.75rem 0.9rem 0.9rem;
+}
+.flow-tree__head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.5rem;
+}
+.flow-tree__pri {
+  font-family: "Cinzel", serif;
+  font-weight: 700;
+  color: var(--ember);
+  font-size: 1.2rem;
+}
+.flow-tree__title {
+  font-size: 1.05rem;
+  color: var(--ink);
+}
+.flow-tree__note {
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--ink-dim);
+  margin: 0 0 0.6rem;
+}
+.flow-branch {
+  margin: 0.55rem 0;
+}
+.flow-branch__cond {
+  font-size: 0.88rem;
+  color: var(--ink);
+}
+.flow-branch__arrow {
+  color: var(--ember);
+  margin: 0 0.15rem;
+}
+.flow-branch__result {
+  display: inline-block;
+  margin-top: 0.2rem;
+  font-variant: small-caps;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #14180f;
+  background: var(--moss);
+  border-radius: 3px;
+  padding: 0.05rem 0.5rem;
+}
+.flow-branch__hint {
+  display: block;
+  font-size: 0.76rem;
+  color: var(--ink-dim);
+  font-style: italic;
+  margin-top: 0.15rem;
+}
+.flow-branch__updated {
+  font-size: 0.65rem;
+  font-variant: small-caps;
+  color: var(--ember);
+  border: 1px solid rgba(224, 132, 43, 0.6);
+  border-radius: 2px;
+  padding: 0 0.3rem;
+  margin-left: 0.3rem;
+  vertical-align: middle;
+}
+
+.flow-habit {
+  text-align: center;
+  font-family: "Cinzel", serif;
+  font-size: 1.15rem;
+  color: var(--ember);
+  border: 1px dashed rgba(224, 132, 43, 0.6);
+  border-radius: 8px;
+  padding: 0.75rem;
+  background: rgba(224, 132, 43, 0.08);
+}

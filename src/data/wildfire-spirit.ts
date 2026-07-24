@@ -6,7 +6,7 @@ import type { StatblockData } from '@/components/Statblock';
  */
 export const wildfireSpirit: StatblockData = {
   name: 'Wildfire Spirit',
-  subtitle: 'Small elemental, neutral',
+  subtitle: 'Small elemental',
   description:
     'You can summon the primal spirit bound to your soul. As an action, you can expend one use of your Wild Shape feature to summon your wildfire spirit, rather than assuming a beast form.',
   topProps: [

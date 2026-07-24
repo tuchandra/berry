@@ -75,7 +75,7 @@
   font-style: italic;
 }
 
-/* Concentration / ritual pills */
+/* Concentration / ritual / badge pills */
 .spellcard__tags {
   display: flex;
   gap: 0.35rem;
@@ -90,4 +90,23 @@
   background: var(--sc-red);
   border-radius: 2px;
   padding: 0.05rem 0.4rem;
+}
+/* Always-prepared / Wildfire badges use a warmer ember fill */
+.spellcard__tag--badge {
+  background: #b5651d;
+}
+
+/* Highlighted personal note */
+.spellcard__note {
+  margin-top: 0.5rem;
+  padding: 0.35rem 0.5rem;
+  background: rgba(181, 101, 29, 0.16);
+  border-left: 3px solid #b5651d;
+  border-radius: 2px;
+  font-size: 0.78rem;
+}
+.spellcard__note-label {
+  font-weight: 700;
+  font-variant: small-caps;
+  color: var(--sc-red);
 }
