@@ -21,6 +21,7 @@ export const BOOKS: Record<string, Book> = {
     abbr: 'MotM',
     name: "Mordenkainen's Monsters of the Multiverse (also in Tomb of Annihilation)",
   },
+  VGM: { abbr: 'VGM', name: "Volo's Guide to Monsters (also in Tomb of Annihilation)" },
 };
 
 export type BookAbbr = keyof typeof BOOKS;

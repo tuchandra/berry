@@ -4,6 +4,7 @@ import { Statblock } from '@/components/Statblock';
 import {
   allosaurus,
   brownBear,
+  deinonychus,
   direWolf,
   giantConstrictorSnake,
   giantPoisonousSnake,
@@ -442,6 +443,12 @@ function Summons() {
           <Statblock data={brownBear} />
         </TieredForm>
         <TieredForm
+          label="2 × CR 1"
+          tagline="Deinonychus — Pounce + three attacks (bite + two claws), top CR 1 damage."
+        >
+          <Statblock data={deinonychus} />
+        </TieredForm>
+        <TieredForm
           label="1 × CR 2"
           tagline="Allosaurus — Pounce (knocks prone) + heavy single-target damage."
         >
@@ -460,11 +467,6 @@ function Summons() {
           <b>Rule of thumb:</b> more bodies usually wins — eight raptors put out far more attacks
           (and Pack Tactics advantage) than one big creature. Go fewer/bigger only for durability or
           to control a single tough enemy.
-        </p>
-        <p className="mt-2 text-xs text-[var(--ink-dim)]">
-          One more popular pick I can add on request: <b>Deinonychus</b> (Tomb of Annihilation, CR 1
-          — Pounce + three attacks). I left it off until I can cite its exact stats from a book your
-          DM uses.
         </p>
       </Card>
     </Section>

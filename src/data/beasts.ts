@@ -456,6 +456,54 @@ export const allosaurus: StatblockData = {
   ],
 };
 
+export const deinonychus: StatblockData = {
+  name: 'Deinonychus',
+  source: {
+    abbr: BOOKS.VGM.abbr,
+    name: BOOKS.VGM.name,
+    url: 'http://dndroll.wikidot.com/creatures:deinonychus-legacy',
+  },
+  subtitle: 'Medium beast, unaligned',
+  topProps: [
+    { label: 'Armor Class', value: '13 (natural armor)' },
+    { label: 'Hit Points', value: '26 (4d8 + 8)' },
+    { label: 'Speed', value: '40 ft.' },
+  ],
+  abilities: { str: 15, dex: 15, con: 14, int: 4, wis: 12, cha: 6 },
+  bottomProps: [
+    { label: 'Skills', value: 'Perception +3' },
+    { label: 'Senses', value: 'passive Perception 13' },
+    { label: 'Challenge', value: '1 (200 XP)' },
+  ],
+  sections: [
+    {
+      entries: [
+        {
+          name: 'Pounce',
+          text: 'If the deinonychus moves at least 20 feet straight toward a creature and then hits it with a claw attack on the same turn, that target must succeed on a DC 12 Strength saving throw or be knocked prone. If the target is prone, the deinonychus can make one bite attack against it as a bonus action.',
+        },
+      ],
+    },
+    {
+      heading: 'Actions',
+      entries: [
+        {
+          name: 'Multiattack',
+          text: 'The deinonychus makes three attacks: one with its bite and two with its claws.',
+        },
+        {
+          name: 'Bite',
+          text: 'Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 6 (1d8 + 2) piercing damage.',
+        },
+        {
+          name: 'Claw',
+          text: 'Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 6 (1d8 + 2) slashing damage.',
+        },
+      ],
+    },
+  ],
+};
+
 export const giantConstrictorSnake: StatblockData = {
   name: 'Giant Constrictor Snake',
   source: mmSource('Giant Constrictor Snake'),
