@@ -35,10 +35,10 @@ function Ref({ book, url }: { book: keyof typeof BOOKS; url: string }) {
 
 const NAV = [
   { id: 'mechanics', label: 'Mechanics' },
-  { id: 'flowchart', label: 'Flowchart' },
   { id: 'spells', label: 'Spells' },
   { id: 'wild-shape', label: 'Wild Shape' },
   { id: 'summons', label: 'Summons' },
+  { id: 'flowchart', label: 'Flowchart' },
   { id: 'sources', label: 'Sources' },
 ];
 
@@ -135,21 +135,20 @@ function TieredForm({
 function Overview() {
   return (
     <section id="top" className="scroll-mt-16 pt-8 pb-2">
-      <p className="text-sm uppercase tracking-widest text-[var(--ink-dim)]">Level 6 · Wood Elf</p>
+      <p className="text-sm uppercase tracking-widest text-[var(--ink-dim)]">
+        Level {character.level} · {character.race} · {character.alignment} ·{' '}
+        {character.spellcastingAbility} caster
+      </p>
       <h1 className="display-font mt-1 text-4xl font-bold text-[var(--accent)]">
-        Onyberyus <span className="text-[var(--ink-dim)]">"Berry"</span>
+        Onyberyus Thistleballow <span className="text-[var(--ink-dim)]">"Berry"</span>
       </h1>
       <p className="mt-2 max-w-2xl text-[var(--ink)]">
         A Circle of Wildfire Druid — chaotic good, gentler aspects of chaos, "plant guy but with
-        fire." This is my table reference: the numbers I forget, what I can do on my turn, my
-        spells, and my forms.
+        fire." He likes bears. This is my table reference: the numbers I forget, what I can do on my
+        turn, my spells, and my forms.
       </p>
       <div className="mt-4 flex flex-wrap gap-3 text-sm text-[var(--ink-dim)]">
         <span className="rounded-full border border-white/15 px-3 py-1">{character.class}</span>
-        <span className="rounded-full border border-white/15 px-3 py-1">
-          Spellcasting: {character.spellcastingAbility}
-        </span>
-        <span className="rounded-full border border-white/15 px-3 py-1">{character.alignment}</span>
       </div>
     </section>
   );
@@ -223,8 +222,11 @@ function Mechanics() {
           </tbody>
         </table>
         <p className="mt-3 text-xs text-[var(--ink-dim)]">
-          Proficient skills: Medicine +6, Nature +2, Perception +6. Thanks to the Resilient feat,
-          Constitution saves are proficient (+6) — handy for keeping concentration.
+          Proficient skills: Medicine +6, Nature +2, Perception +6.
+        </p>
+        <p className="mt-1 text-xs text-[var(--ink-dim)]">
+          Resilient (Constitution) feat: Constitution saves are proficient (+6) — handy for keeping
+          concentration.
         </p>
       </Card>
 
@@ -527,7 +529,7 @@ function WildShape() {
         </p>
       </Card>
 
-      <div className="grid gap-5 lg:grid-cols-2">
+      <div className="grid gap-5 sm:grid-cols-2">
         {wildShapeForms.map((form) => (
           <Statblock key={form.name} data={form} />
         ))}
@@ -567,7 +569,7 @@ function Summons() {
         four CR 1/2, two CR 1, or one CR 2. More bodies usually wins on action economy — eight
         wolves is a lot of attacks. The DM controls them, but they obey me and act on my initiative.
       </p>
-      <div className="grid gap-5 lg:grid-cols-2">
+      <div className="grid gap-5 sm:grid-cols-2">
         <TieredForm
           label="8 × CR 1/4"
           tagline="Velociraptor — Pack Tactics + multiattack, the top damage pick."
@@ -702,6 +704,9 @@ export default function App() {
       <main className="mx-auto max-w-5xl px-5 pb-20">
         <Overview />
         <Mechanics />
+        <Spells />
+        <WildShape />
+        <Summons />
         <Section id="flowchart" title="Combat Flowchart">
           <p className="mb-4 max-w-2xl text-[var(--ink-dim)]">
             My turn-by-turn priorities. Updated from the level-4 version for my current spells. This
@@ -709,9 +714,6 @@ export default function App() {
           </p>
           <FlowChart />
         </Section>
-        <Spells />
-        <WildShape />
-        <Summons />
         <SourcesLegend />
       </main>
       <footer className="border-t border-white/10 py-6 text-center text-xs text-[var(--ink-dim)]">
