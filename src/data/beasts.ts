@@ -209,3 +209,118 @@ export const crocodile: StatblockData = {
 
 /** Full-statblock forms shown on the page, in display order. */
 export const wildShapeForms: StatblockData[] = [ape, blackBear, crocodile, octopus, badger];
+
+// ── Conjure Animals picks ────────────────────────────────────────────────────
+// Beasts worth summoning that aren't already in the Wild Shape list.
+
+export const wolf: StatblockData = {
+  name: 'Wolf',
+  source: mmSource('Wolf'),
+  subtitle: 'Medium beast, unaligned',
+  topProps: [
+    { label: 'Armor Class', value: '13 (natural armor)' },
+    { label: 'Hit Points', value: '11 (2d8 + 2)' },
+    { label: 'Speed', value: '40 ft.' },
+  ],
+  abilities: { str: 12, dex: 15, con: 12, int: 3, wis: 12, cha: 6 },
+  bottomProps: [
+    { label: 'Skills', value: 'Perception +3, Stealth +4' },
+    { label: 'Senses', value: 'passive Perception 13' },
+    { label: 'Challenge', value: '1/4 (50 XP)' },
+  ],
+  sections: [
+    {
+      entries: [
+        {
+          name: 'Keen Hearing and Smell',
+          text: 'The wolf has advantage on Wisdom (Perception) checks that rely on hearing or smell.',
+        },
+        {
+          name: 'Pack Tactics',
+          text: "The wolf has advantage on an attack roll against a creature if at least one of the wolf's allies is within 5 feet of the creature and the ally isn't incapacitated.",
+        },
+      ],
+    },
+    {
+      heading: 'Actions',
+      entries: [
+        {
+          name: 'Bite',
+          text: 'Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 7 (2d4 + 2) piercing damage. If the target is a creature, it must succeed on a DC 11 Strength saving throw or be knocked prone.',
+        },
+      ],
+    },
+  ],
+};
+
+export const direWolf: StatblockData = {
+  name: 'Dire Wolf',
+  source: mmSource('Dire Wolf'),
+  subtitle: 'Large beast, unaligned',
+  topProps: [
+    { label: 'Armor Class', value: '14 (natural armor)' },
+    { label: 'Hit Points', value: '37 (5d10 + 10)' },
+    { label: 'Speed', value: '50 ft.' },
+  ],
+  abilities: { str: 17, dex: 15, con: 15, int: 3, wis: 12, cha: 7 },
+  bottomProps: [
+    { label: 'Skills', value: 'Perception +3, Stealth +4' },
+    { label: 'Senses', value: 'passive Perception 13' },
+    { label: 'Challenge', value: '1 (200 XP)' },
+  ],
+  sections: [
+    {
+      entries: [
+        {
+          name: 'Keen Hearing and Smell',
+          text: 'The wolf has advantage on Wisdom (Perception) checks that rely on hearing or smell.',
+        },
+        {
+          name: 'Pack Tactics',
+          text: "The wolf has advantage on an attack roll against a creature if at least one of the wolf's allies is within 5 feet of the creature and the ally isn't incapacitated.",
+        },
+      ],
+    },
+    {
+      heading: 'Actions',
+      entries: [
+        {
+          name: 'Bite',
+          text: 'Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 10 (2d6 + 3) piercing damage. If the target is a creature, it must succeed on a DC 13 Strength saving throw or be knocked prone.',
+        },
+      ],
+    },
+  ],
+};
+
+export const giantConstrictorSnake: StatblockData = {
+  name: 'Giant Constrictor Snake',
+  source: mmSource('Giant Constrictor Snake'),
+  subtitle: 'Huge beast, unaligned',
+  topProps: [
+    { label: 'Armor Class', value: '12' },
+    { label: 'Hit Points', value: '60 (8d12 + 8)' },
+    { label: 'Speed', value: '30 ft., swim 30 ft.' },
+  ],
+  abilities: { str: 19, dex: 14, con: 12, int: 1, wis: 10, cha: 3 },
+  bottomProps: [
+    { label: 'Skills', value: 'Perception +2' },
+    { label: 'Senses', value: 'blindsight 10 ft., passive Perception 12' },
+    { label: 'Challenge', value: '2 (450 XP)' },
+  ],
+  sections: [
+    {
+      heading: 'Actions',
+      entries: [
+        {
+          name: 'Bite',
+          text: 'Melee Weapon Attack: +6 to hit, reach 10 ft., one creature. Hit: 11 (2d6 + 4) piercing damage.',
+        },
+        {
+          name: 'Constrict',
+          text: "Melee Weapon Attack: +6 to hit, reach 5 ft., one creature. Hit: 13 (2d8 + 4) bludgeoning damage, and the target is grappled (escape DC 16). Until this grapple ends, the creature is restrained, and the snake can't constrict another target.",
+        },
+      ],
+    },
+  ],
+};

@@ -1,7 +1,7 @@
 import { FlowChart } from '@/components/FlowChart';
 import { SpellCard, type SpellData } from '@/components/SpellCard';
 import { Statblock } from '@/components/Statblock';
-import { wildShapeForms } from '@/data/beasts';
+import { direWolf, giantConstrictorSnake, wildShapeForms, wolf } from '@/data/beasts';
 import { abilities, character, spellSlots } from '@/data/character';
 import { BOOKS, DRUID_CLASS_URL, WILDFIRE_SUBCLASS_URL, spellRefUrl } from '@/data/sources';
 import { cantrips, level1, level2, level3, wildfire } from '@/data/spells';
@@ -91,6 +91,26 @@ function StatTile({ label, value, note }: { label: string; value: string; note?:
 
 function SubHeading({ children }: { children: React.ReactNode }) {
   return <h3 className="mb-2 mt-6 text-lg text-[var(--ink)]">{children}</h3>;
+}
+
+function TieredForm({
+  label,
+  tagline,
+  children,
+}: {
+  label: string;
+  tagline: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div>
+      <div className="mb-2 flex flex-wrap items-baseline gap-x-3">
+        <span className="display-font text-lg text-[var(--accent)]">{label}</span>
+        <span className="text-sm text-[var(--ink-dim)]">{tagline}</span>
+      </div>
+      {children}
+    </div>
+  );
 }
 
 function Overview() {
@@ -373,17 +393,31 @@ function Summons() {
         Conjure Animals
         <Ref book="PHB" url={spellRefUrl('Conjure Animals')} />
       </SubHeading>
-      <Card className="max-w-2xl">
-        <p className="text-sm text-[var(--ink)]">
-          A 3rd-level slot summons fey spirits in beast form: one CR 2, two CR 1, <b>four CR 1/2</b>
-          , or eight CR 1/4. I've summoned <b>black bears</b> and <b>apes</b> before (four of them
-          at CR 1/2) — their statblocks are up in <a href="#wild-shape">Wild Shape</a>.
-        </p>
-        <p className="mt-2 text-xs text-[var(--ink-dim)]">
-          The DM controls the summoned creatures, but they obey my commands. They act on my
-          initiative.
-        </p>
-      </Card>
+      <p className="mb-4 max-w-2xl text-[var(--ink-dim)]">
+        A 3rd-level slot summons fey spirits in beast form. I pick <b>one</b> option: eight CR 1/4,
+        four CR 1/2, two CR 1, or one CR 2. More bodies usually wins on action economy — eight
+        wolves is a lot of attacks. The DM controls them, but they obey me and act on my initiative.
+      </p>
+      <div className="grid gap-5 lg:grid-cols-2">
+        <TieredForm label="8 × CR 1/4" tagline="Pack Tactics + knocks prone — best action economy.">
+          <Statblock data={wolf} />
+        </TieredForm>
+        <TieredForm label="2 × CR 1" tagline="Same tricks, much tankier (37 HP, bigger bite).">
+          <Statblock data={direWolf} />
+        </TieredForm>
+        <TieredForm label="1 × CR 2" tagline="Grapple and restrain a single big threat.">
+          <Statblock data={giantConstrictorSnake} />
+        </TieredForm>
+        <TieredForm label="4 × CR 1/2" tagline="Ape (ranged rocks) or Black Bear (durable).">
+          <Card className="h-full">
+            <p className="text-sm text-[var(--ink)]">
+              For this tier I've used <b>apes</b> (ranged rock throw, no opportunity attacks) and{' '}
+              <b>black bears</b> (durable multiattack) — four of them. Their statblocks are up in{' '}
+              <a href="#wild-shape">Wild Shape</a>.
+            </p>
+          </Card>
+        </TieredForm>
+      </div>
     </Section>
   );
 }
