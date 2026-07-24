@@ -469,6 +469,31 @@ function Summons() {
           to control a single tough enemy.
         </p>
       </Card>
+
+      <SubHeading>Getting advantage with summons</SubHeading>
+      <div className="grid gap-3 md:grid-cols-2">
+        <Card>
+          <div className="font-bold text-[var(--accent-2)]">Pack Tactics (always on)</div>
+          <p className="mt-1 text-sm text-[var(--ink)]">
+            Wolf, Velociraptor, and Dire Wolf have advantage on an attack whenever another ally is
+            within 5 ft of the target. This is core rules — stack them on one enemy and they all
+            swing with advantage. It's why the raptor/wolf packs hit so hard.
+          </p>
+        </Card>
+        <Card>
+          <div className="font-bold text-[var(--accent-2)]">Flanking (ask the DM)</div>
+          <p className="mt-1 text-sm text-[var(--ink)]">
+            Flanking is an <b>optional</b> rule (DMG p. 251), not default 5e. If it's on, two
+            creatures on opposite sides of an enemy get advantage on <b>melee</b> attacks — eight
+            bodies can flank almost anything and set up advantage for the party too.
+          </p>
+          <p className="mt-2 text-xs text-[var(--ink-dim)]">
+            Advantage doesn't stack, so flanking adds nothing for Pack Tactics creatures — it only
+            helps the non-pack summons (apes, bears, the dinos). Many tables leave flanking off
+            because summons abuse it, so check first.
+          </p>
+        </Card>
+      </div>
     </Section>
   );
 }
