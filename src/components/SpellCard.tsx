@@ -128,7 +128,7 @@ export function SpellCard({
   dimmed?: boolean;
   onToggle?: () => void;
 }) {
-  const badge = spell.level === 'cantrip' ? 'C' : String(spell.level);
+  const badge = spell.level === 'cantrip' ? '0' : String(spell.level);
   const interactive = selectable && !locked;
   const notPrepared = (selectable && !prepared && !locked) || dimmed;
 
