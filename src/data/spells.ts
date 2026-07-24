@@ -347,6 +347,24 @@ export const level3: SpellData[] = [
     ],
   },
   {
+    name: 'Conjure Animals',
+    source: 'PHB',
+    level: 3,
+    school: 'Conjuration',
+    castingTime: '1 action',
+    range: '60 feet',
+    components: 'V, S',
+    duration: 'Concentration, up to 1 hour',
+    concentration: true,
+    description: [
+      'You summon fey spirits that take the form of beasts and appear in unoccupied spaces you can see within range. Choose one: one beast of CR 2 or lower, two of CR 1 or lower, four of CR 1/2 or lower, or eight of CR 1/4 or lower.',
+      'The beasts are friendly to you and your companions, roll initiative as a group, and obey your verbal commands. The DM has their statistics.',
+    ],
+    higherLevels:
+      'With a 5th-level slot you summon twice as many; a 7th-level slot, three times; a 9th-level slot, four times.',
+    note: 'See the Summons section for the exact beast picks and how the tiers compare — more bodies usually wins.',
+  },
+  {
     name: 'Dispel Magic',
     source: 'PHB',
     level: 3,
