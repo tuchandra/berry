@@ -1,12 +1,20 @@
 import type { StatblockData } from '@/components/Statblock';
+import { BOOKS, monsterRefUrl } from '@/data/sources';
 
 /**
  * Beast forms for Wild Shape and creatures summoned via Conjure Animals.
  * Values are from the Monster Manual / SRD.
  */
 
+const mmSource = (name: string) => ({
+  abbr: BOOKS.MM.abbr,
+  name: BOOKS.MM.name,
+  url: monsterRefUrl(name),
+});
+
 export const octopus: StatblockData = {
   name: 'Octopus',
+  source: mmSource('Octopus'),
   subtitle: 'Small beast, unaligned',
   topProps: [
     { label: 'Armor Class', value: '12' },
@@ -53,6 +61,7 @@ export const octopus: StatblockData = {
 
 export const badger: StatblockData = {
   name: 'Badger',
+  source: mmSource('Badger'),
   subtitle: 'Tiny beast, unaligned',
   topProps: [
     { label: 'Armor Class', value: '10' },
@@ -84,6 +93,7 @@ export const badger: StatblockData = {
 
 export const ape: StatblockData = {
   name: 'Ape',
+  source: mmSource('Ape'),
   subtitle: 'Medium beast, unaligned',
   topProps: [
     { label: 'Armor Class', value: '12' },
@@ -119,6 +129,7 @@ export const ape: StatblockData = {
 
 export const blackBear: StatblockData = {
   name: 'Black Bear',
+  source: mmSource('Black Bear'),
   subtitle: 'Medium beast, unaligned',
   topProps: [
     { label: 'Armor Class', value: '11 (natural armor)' },
@@ -162,6 +173,7 @@ export const blackBear: StatblockData = {
 
 export const crocodile: StatblockData = {
   name: 'Crocodile',
+  source: mmSource('Crocodile'),
   subtitle: 'Large beast, unaligned',
   topProps: [
     { label: 'Armor Class', value: '12 (natural armor)' },

@@ -96,6 +96,20 @@
   background: #b5651d;
 }
 
+/* Source citation */
+.spellcard__source {
+  margin-top: 0.55rem;
+  padding-top: 0.4rem;
+  border-top: 1px dotted rgba(122, 32, 13, 0.4);
+  font-size: 0.72rem;
+  color: #6b4a34;
+}
+.spellcard__source a {
+  color: var(--sc-red);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
 /* Highlighted personal note */
 .spellcard__note {
   margin-top: 0.5rem;

@@ -1,4 +1,5 @@
 import type { StatblockData } from '@/components/Statblock';
+import { BOOKS, WILDFIRE_SUBCLASS_URL } from '@/data/sources';
 
 /**
  * Wildfire Spirit — the summonable spirit for a Wildfire Druid.
@@ -6,6 +7,7 @@ import type { StatblockData } from '@/components/Statblock';
  */
 export const wildfireSpirit: StatblockData = {
   name: 'Wildfire Spirit',
+  source: { abbr: BOOKS.TCE.abbr, name: BOOKS.TCE.name, url: WILDFIRE_SUBCLASS_URL },
   subtitle: 'Small elemental',
   description:
     'You can summon the primal spirit bound to your soul. As an action, you can expend one use of your Wild Shape feature to summon your wildfire spirit, rather than assuming a beast form.',

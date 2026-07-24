@@ -3,8 +3,24 @@ import { SpellCard, type SpellData } from '@/components/SpellCard';
 import { Statblock } from '@/components/Statblock';
 import { wildShapeForms } from '@/data/beasts';
 import { abilities, character, spellSlots } from '@/data/character';
+import { BOOKS, DRUID_CLASS_URL, WILDFIRE_SUBCLASS_URL, spellRefUrl } from '@/data/sources';
 import { cantrips, level1, level2, level3, wildfire } from '@/data/spells';
 import { wildfireSpirit } from '@/data/wildfire-spirit';
+
+/** Small inline source citation. */
+function Ref({ book, url }: { book: keyof typeof BOOKS; url: string }) {
+  return (
+    <a
+      href={url}
+      target="_blank"
+      rel="noreferrer"
+      title={BOOKS[book].name}
+      className="ml-1 align-middle text-xs text-[var(--ink-dim)] underline decoration-dotted hover:text-[var(--ember)]"
+    >
+      {BOOKS[book].abbr}
+    </a>
+  );
+}
 
 const NAV = [
   { id: 'mechanics', label: 'Mechanics' },
@@ -12,6 +28,7 @@ const NAV = [
   { id: 'spells', label: 'Spells' },
   { id: 'wild-shape', label: 'Wild Shape' },
   { id: 'summons', label: 'Summons' },
+  { id: 'sources', label: 'Sources' },
 ];
 
 function Header() {
@@ -227,7 +244,10 @@ function Mechanics() {
       <SubHeading>Spellcasting &amp; Wild Shape</SubHeading>
       <div className="grid gap-3 md:grid-cols-2">
         <Card>
-          <div className="font-bold text-[var(--moss)]">Spell slots</div>
+          <div className="font-bold text-[var(--moss)]">
+            Spell slots
+            <Ref book="PHB" url={DRUID_CLASS_URL} />
+          </div>
           <div className="mt-2 flex gap-4">
             {spellSlots.map((s) => (
               <div key={s.level} className="text-center">
@@ -243,11 +263,15 @@ function Mechanics() {
           </p>
         </Card>
         <Card>
-          <div className="font-bold text-[var(--moss)]">Wild Shape</div>
+          <div className="font-bold text-[var(--moss)]">
+            Wild Shape
+            <Ref book="PHB" url={DRUID_CLASS_URL} />
+          </div>
           <p className="mt-1 text-sm text-[var(--ink)]">
             <b>2 uses</b>, regained on a short or long rest. At level 6 I can become a beast of{' '}
             <b>CR 1/2 or lower</b> with <b>no flying speed</b> (swimming is fine). The form lasts{' '}
-            <b>3 hours</b>. I can spend a use to summon my Wildfire Spirit instead.
+            <b>3 hours</b>. I can spend a use to summon my Wildfire Spirit instead
+            <Ref book="TCE" url={WILDFIRE_SUBCLASS_URL} />.
           </p>
         </Card>
       </div>
@@ -333,7 +357,10 @@ function WildShape() {
 function Summons() {
   return (
     <Section id="summons" title="Summons">
-      <SubHeading>Wildfire Spirit</SubHeading>
+      <SubHeading>
+        Wildfire Spirit
+        <Ref book="TCE" url={WILDFIRE_SUBCLASS_URL} />
+      </SubHeading>
       <p className="mb-3 max-w-2xl text-[var(--ink-dim)]">
         My main summon — costs a Wild Shape use. It shares my initiative and I command it with a
         bonus action.
@@ -342,7 +369,10 @@ function Summons() {
         <Statblock data={wildfireSpirit} />
       </div>
 
-      <SubHeading>Conjure Animals</SubHeading>
+      <SubHeading>
+        Conjure Animals
+        <Ref book="PHB" url={spellRefUrl('Conjure Animals')} />
+      </SubHeading>
       <Card className="max-w-2xl">
         <p className="text-sm text-[var(--ink)]">
           A 3rd-level slot summons fey spirits in beast form: one CR 2, two CR 1, <b>four CR 1/2</b>
@@ -358,6 +388,44 @@ function Summons() {
   );
 }
 
+function SourcesLegend() {
+  return (
+    <Section id="sources" title="Sources">
+      <p className="mb-4 max-w-2xl text-[var(--ink-dim)]">
+        Every spell and statblock links to a reference so I can show a DM where it comes from. Book
+        abbreviations:
+      </p>
+      <Card className="max-w-2xl">
+        <ul className="space-y-1 text-sm text-[var(--ink)]">
+          <li>
+            <b>PHB</b> — {BOOKS.PHB.name}
+          </li>
+          <li>
+            <b>XGE</b> — {BOOKS.XGE.name}
+          </li>
+          <li>
+            <b>TCE</b> — {BOOKS.TCE.name} (Circle of Wildfire)
+          </li>
+          <li>
+            <b>MM</b> — {BOOKS.MM.name} (beast statblocks)
+          </li>
+        </ul>
+        <p className="mt-3 text-xs text-[var(--ink-dim)]">
+          Spell and subclass links go to the{' '}
+          <a href="https://dnd5e.wikidot.com" target="_blank" rel="noreferrer">
+            D&amp;D 5e Wikidot
+          </a>{' '}
+          (each page cites its book); beast statblocks link to{' '}
+          <a href="https://open5e.com" target="_blank" rel="noreferrer">
+            Open5e
+          </a>{' '}
+          (SRD). The combat flowchart is my own strategy, not official rules.
+        </p>
+      </Card>
+    </Section>
+  );
+}
+
 export default function App() {
   return (
     <>
@@ -367,13 +435,15 @@ export default function App() {
         <Mechanics />
         <Section id="flowchart" title="Combat Flowchart">
           <p className="mb-4 max-w-2xl text-[var(--ink-dim)]">
-            My turn-by-turn priorities. Updated from the level-4 version for my current spells.
+            My turn-by-turn priorities. Updated from the level-4 version for my current spells. This
+            is my own strategy, not a rulebook — the spells it points to are sourced below.
           </p>
           <FlowChart />
         </Section>
         <Spells />
         <WildShape />
         <Summons />
+        <SourcesLegend />
       </main>
       <footer className="border-t border-white/10 py-6 text-center text-xs text-[var(--ink-dim)]">
         Onyberyus Thistleballow · a Wildfire Druid reference

@@ -12,6 +12,7 @@ import type { SpellData } from '@/components/SpellCard';
 export const cantrips: SpellData[] = [
   {
     name: 'Druidcraft',
+    source: 'PHB',
     level: 'cantrip',
     school: 'Transmutation',
     castingTime: '1 action',
@@ -24,6 +25,7 @@ export const cantrips: SpellData[] = [
   },
   {
     name: 'Guidance',
+    source: 'PHB',
     level: 'cantrip',
     school: 'Divination',
     castingTime: '1 action',
@@ -37,6 +39,7 @@ export const cantrips: SpellData[] = [
   },
   {
     name: 'Mold Earth',
+    source: 'XGE',
     level: 'cantrip',
     school: 'Transmutation',
     castingTime: '1 action',
@@ -49,6 +52,7 @@ export const cantrips: SpellData[] = [
   },
   {
     name: 'Resistance',
+    source: 'PHB',
     level: 'cantrip',
     school: 'Abjuration',
     castingTime: '1 action',
@@ -65,6 +69,7 @@ export const cantrips: SpellData[] = [
 export const wildfire: SpellData[] = [
   {
     name: 'Burning Hands',
+    source: 'PHB',
     level: 1,
     school: 'Evocation',
     castingTime: '1 action',
@@ -79,6 +84,7 @@ export const wildfire: SpellData[] = [
   },
   {
     name: 'Cure Wounds',
+    source: 'PHB',
     level: 1,
     school: 'Evocation',
     castingTime: '1 action',
@@ -93,6 +99,7 @@ export const wildfire: SpellData[] = [
   },
   {
     name: 'Flaming Sphere',
+    source: 'PHB',
     level: 2,
     school: 'Conjuration',
     castingTime: '1 action',
@@ -109,6 +116,7 @@ export const wildfire: SpellData[] = [
   },
   {
     name: 'Scorching Ray',
+    source: 'PHB',
     level: 2,
     school: 'Evocation',
     castingTime: '1 action',
@@ -123,6 +131,7 @@ export const wildfire: SpellData[] = [
   },
   {
     name: 'Revivify',
+    source: 'PHB',
     level: 3,
     school: 'Necromancy',
     castingTime: '1 action',
@@ -136,6 +145,7 @@ export const wildfire: SpellData[] = [
   },
   {
     name: 'Plant Growth',
+    source: 'PHB',
     level: 3,
     school: 'Transmutation',
     castingTime: '1 action or 8 hours',
@@ -153,6 +163,7 @@ export const wildfire: SpellData[] = [
 export const level1: SpellData[] = [
   {
     name: 'Entangle',
+    source: 'PHB',
     level: 1,
     school: 'Conjuration',
     castingTime: '1 action',
@@ -166,6 +177,7 @@ export const level1: SpellData[] = [
   },
   {
     name: 'Faerie Fire',
+    source: 'PHB',
     level: 1,
     school: 'Evocation',
     castingTime: '1 action',
@@ -179,6 +191,7 @@ export const level1: SpellData[] = [
   },
   {
     name: 'Goodberry',
+    source: 'PHB',
     level: 1,
     school: 'Transmutation',
     castingTime: '1 action',
@@ -192,6 +205,7 @@ export const level1: SpellData[] = [
   },
   {
     name: 'Healing Word',
+    source: 'PHB',
     level: 1,
     school: 'Evocation',
     castingTime: '1 bonus action',
@@ -206,6 +220,7 @@ export const level1: SpellData[] = [
   },
   {
     name: 'Ice Knife',
+    source: 'XGE',
     level: 1,
     school: 'Conjuration',
     castingTime: '1 action',
@@ -220,6 +235,7 @@ export const level1: SpellData[] = [
   },
   {
     name: 'Thunderwave',
+    source: 'PHB',
     level: 1,
     school: 'Evocation',
     castingTime: '1 action',
@@ -233,6 +249,7 @@ export const level1: SpellData[] = [
   },
   {
     name: 'Protection from Evil and Good',
+    source: 'PHB',
     level: 1,
     school: 'Abjuration',
     castingTime: '1 action',
@@ -249,6 +266,7 @@ export const level1: SpellData[] = [
 export const level2: SpellData[] = [
   {
     name: 'Healing Spirit',
+    source: 'XGE',
     level: 2,
     school: 'Conjuration',
     castingTime: '1 bonus action',
@@ -264,6 +282,7 @@ export const level2: SpellData[] = [
   },
   {
     name: 'Heat Metal',
+    source: 'PHB',
     level: 2,
     school: 'Transmutation',
     castingTime: '1 action',
@@ -279,6 +298,7 @@ export const level2: SpellData[] = [
   },
   {
     name: 'Spike Growth',
+    source: 'PHB',
     level: 2,
     school: 'Transmutation',
     castingTime: '1 action',
@@ -293,6 +313,7 @@ export const level2: SpellData[] = [
   },
   {
     name: 'Pass Without Trace',
+    source: 'PHB',
     level: 2,
     school: 'Abjuration',
     castingTime: '1 action',
@@ -306,6 +327,7 @@ export const level2: SpellData[] = [
   },
   {
     name: 'Lesser Restoration',
+    source: 'PHB',
     level: 2,
     school: 'Abjuration',
     castingTime: '1 action',
@@ -321,6 +343,7 @@ export const level2: SpellData[] = [
 export const level3: SpellData[] = [
   {
     name: 'Tidal Wave',
+    source: 'XGE',
     level: 3,
     school: 'Conjuration',
     castingTime: '1 action',
@@ -333,6 +356,7 @@ export const level3: SpellData[] = [
   },
   {
     name: 'Sleet Storm',
+    source: 'PHB',
     level: 3,
     school: 'Conjuration',
     castingTime: '1 action',
@@ -347,6 +371,7 @@ export const level3: SpellData[] = [
   },
   {
     name: 'Erupting Earth',
+    source: 'XGE',
     level: 3,
     school: 'Transmutation',
     castingTime: '1 action',

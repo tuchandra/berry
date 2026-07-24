@@ -41,6 +41,8 @@ export interface StatblockData {
   sections?: StatSection[];
   /** Render across two columns. */
   wide?: boolean;
+  /** Source book abbreviation (MM, TCE, ...) and a reference link. */
+  source?: { abbr: string; name: string; url: string };
 }
 
 const ABILITY_ORDER: [keyof AbilityScores, string][] = [
@@ -145,6 +147,15 @@ export function Statblock({ data }: { data: StatblockData }) {
           ))}
         </div>
       ))}
+
+      {data.source && (
+        <p className="statblock__source">
+          Source:{' '}
+          <a href={data.source.url} target="_blank" rel="noreferrer" title={data.source.name}>
+            {data.source.abbr}
+          </a>
+        </p>
+      )}
     </div>
   );
 }

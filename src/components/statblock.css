@@ -120,6 +120,20 @@
   color: var(--sb-text);
 }
 
+.statblock__source {
+  margin: 0.6rem 0 0;
+  padding-top: 0.4rem;
+  border-top: 1px dotted rgba(122, 32, 13, 0.4);
+  font-size: 0.72rem;
+  color: #6b4a34;
+  column-span: all;
+}
+.statblock__source a {
+  color: var(--sb-red);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
 /* Tapered rule (SVG) */
 .statblock__rule {
   display: block;

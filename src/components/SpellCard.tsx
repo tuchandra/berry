@@ -1,3 +1,4 @@
+import { BOOKS, type BookAbbr, spellRefUrl } from '@/data/sources';
 import './spellcard.css';
 
 export interface SpellData {
@@ -19,6 +20,8 @@ export interface SpellData {
   note?: string;
   /** Small pills near the header, e.g. "Wildfire", "Always Prepared". */
   badges?: string[];
+  /** Source book abbreviation (PHB, XGE, ...). */
+  source: BookAbbr;
 }
 
 function levelLabel(spell: SpellData): string {
@@ -82,6 +85,18 @@ export function SpellCard({ spell }: { spell: SpellData }) {
           <span className="spellcard__note-label">Berry's note:</span> {spell.note}
         </div>
       )}
+
+      <div className="spellcard__source">
+        Source:{' '}
+        <a
+          href={spellRefUrl(spell.name)}
+          target="_blank"
+          rel="noreferrer"
+          title={BOOKS[spell.source].name}
+        >
+          {BOOKS[spell.source].abbr}
+        </a>
+      </div>
     </div>
   );
 }
