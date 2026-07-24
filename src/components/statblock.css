@@ -1,0 +1,130 @@
+/*
+ * 5e statblock styling — a faithful re-creation of the look produced by the
+ * Obsidian "fantasy-statblocks" plugin (default / "5e" layout).
+ * Parchment background, dark-red small-caps headings, tapered rules, and the
+ * six-ability table.
+ */
+
+.statblock {
+  --sb-red: #7a200d;
+  --sb-rule: #922610;
+  --sb-parchment: #fdf1dc;
+  --sb-text: #17120c;
+
+  font-family: "Libre Baskerville", "Bookman Old Style", "Georgia", serif;
+  font-size: 0.86rem;
+  line-height: 1.35;
+  color: var(--sb-text);
+  background: var(--sb-parchment);
+  /* subtle vertical paper gradient */
+  background-image: linear-gradient(rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.02) 100%);
+  padding: 0.65rem 0.9rem 0.9rem;
+  border: 1px solid #d9c8a4;
+  border-top: 4px solid var(--sb-rule);
+  border-bottom: 4px solid var(--sb-rule);
+  box-shadow: 0 0 0.6rem rgba(94, 74, 45, 0.55);
+  box-sizing: border-box;
+}
+
+/* Two-column layout for larger creatures / features */
+.statblock--wide {
+  column-count: 2;
+  column-gap: 1.6rem;
+  column-fill: balance;
+}
+.statblock--wide > * {
+  break-inside: avoid;
+}
+
+@media (max-width: 640px) {
+  .statblock--wide {
+    column-count: 1;
+  }
+}
+
+.statblock__name {
+  font-family: "Libre Baskerville", "Georgia", serif;
+  font-variant: small-caps;
+  font-weight: 700;
+  color: var(--sb-red);
+  font-size: 1.5rem;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+
+.statblock__subtitle {
+  font-style: italic;
+  font-size: 0.85rem;
+  margin: 0.1rem 0 0.4rem;
+}
+
+.statblock__description {
+  font-style: italic;
+  margin: 0.4rem 0;
+}
+
+/* Property lines: "Armor Class 13 (natural armor)" */
+.statblock__props {
+  margin: 0.35rem 0;
+}
+.statblock__prop {
+  color: var(--sb-red);
+  line-height: 1.4;
+}
+.statblock__prop-value {
+  color: var(--sb-text);
+  font-weight: 400;
+}
+.statblock__prop-label {
+  font-weight: 700;
+}
+
+/* Section heading, e.g. "Actions" */
+.statblock__section-heading {
+  font-variant: small-caps;
+  font-weight: 400;
+  color: var(--sb-red);
+  font-size: 1.25rem;
+  border-bottom: 1px solid var(--sb-rule);
+  margin: 0.6rem 0 0.3rem;
+  padding-bottom: 0.1rem;
+  break-after: avoid;
+}
+
+.statblock__entry {
+  margin: 0.32rem 0;
+  text-indent: -1rem;
+  padding-left: 1rem;
+}
+.statblock__entry-name {
+  font-weight: 700;
+  font-style: italic;
+}
+
+/* Ability score table */
+.statblock__abilities {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  text-align: center;
+  color: var(--sb-red);
+  margin: 0.45rem 0;
+  gap: 0.15rem 0;
+}
+.statblock__ability-name {
+  font-weight: 700;
+  font-variant: small-caps;
+  font-size: 0.95rem;
+}
+.statblock__ability-value {
+  color: var(--sb-text);
+}
+
+/* Tapered rule (SVG) */
+.statblock__rule {
+  display: block;
+  width: 100%;
+  height: 5px;
+  margin: 0.4rem 0;
+  fill: var(--sb-rule);
+}
