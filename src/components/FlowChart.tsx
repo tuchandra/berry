@@ -38,7 +38,6 @@ export function FlowChart() {
                 <div className="flow-branch__cond">{branch.condition}</div>
                 <span className="flow-branch__arrow">↳</span>
                 <span className="flow-branch__result">{branch.result}</span>
-                {branch.updated && <span className="flow-branch__updated">updated</span>}
                 {branch.hint && <span className="flow-branch__hint">{branch.hint}</span>}
               </div>
             ))}

@@ -118,17 +118,6 @@
   font-style: italic;
   margin-top: 0.15rem;
 }
-.flow-branch__updated {
-  font-size: 0.65rem;
-  font-variant: small-caps;
-  color: var(--accent);
-  border: 1px solid rgba(111, 179, 239, 0.6);
-  border-radius: 2px;
-  padding: 0 0.3rem;
-  margin-left: 0.3rem;
-  vertical-align: middle;
-}
-
 .flow-habit {
   text-align: center;
   font-family: "Cinzel", serif;

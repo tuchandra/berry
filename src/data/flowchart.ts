@@ -52,7 +52,6 @@ export interface FlowBranch {
   condition: string;
   result: string;
   hint?: string;
-  updated?: boolean;
 }
 
 export interface FlowTree {
@@ -91,7 +90,6 @@ export const trees: FlowTree[] = [
         condition: 'Enemies spread out, but each within ~60 ft of the others?',
         result: 'Sleet Storm',
         hint: 'Heavily obscures the area and makes it difficult terrain.',
-        updated: true,
       },
       {
         condition: 'Enemies clustered within ~30 ft of each other (bonus if they are flammable)?',
@@ -113,7 +111,6 @@ export const trees: FlowTree[] = [
       {
         condition: 'Single close enemy, or you want sustained damage?',
         result: 'Flaming Sphere',
-        updated: true,
       },
     ],
   },
