@@ -2,6 +2,7 @@ import { FlowChart } from '@/components/FlowChart';
 import { SpellCard, type SpellData } from '@/components/SpellCard';
 import { Statblock } from '@/components/Statblock';
 import {
+  allosaurus,
   brownBear,
   direWolf,
   giantConstrictorSnake,
@@ -442,6 +443,12 @@ function Summons() {
         </TieredForm>
         <TieredForm
           label="1 × CR 2"
+          tagline="Allosaurus — Pounce (knocks prone) + heavy single-target damage."
+        >
+          <Statblock data={allosaurus} />
+        </TieredForm>
+        <TieredForm
+          label="1 × CR 2"
           tagline="Giant Constrictor Snake — grapple and restrain a big threat."
         >
           <Statblock data={giantConstrictorSnake} />
@@ -455,9 +462,9 @@ function Summons() {
           to control a single tough enemy.
         </p>
         <p className="mt-2 text-xs text-[var(--ink-dim)]">
-          Other popular picks I can add on request: <b>Deinonychus</b> (Tomb of Annihilation, CR 1 —
-          Pounce + three attacks) and <b>Allosaurus</b> (CR 2 — Pounce, heavy single-target damage).
-          I left them off until I can cite exact stats from a book your DM uses.
+          One more popular pick I can add on request: <b>Deinonychus</b> (Tomb of Annihilation, CR 1
+          — Pounce + three attacks). I left it off until I can cite its exact stats from a book your
+          DM uses.
         </p>
       </Card>
     </Section>

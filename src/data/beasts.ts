@@ -412,6 +412,50 @@ export const brownBear: StatblockData = {
   ],
 };
 
+export const allosaurus: StatblockData = {
+  name: 'Allosaurus',
+  source: {
+    abbr: BOOKS.MM.abbr,
+    name: BOOKS.MM.name,
+    url: 'https://www.aidedd.org/dnd/monstres.php?vo=allosaurus',
+  },
+  subtitle: 'Large beast, unaligned',
+  topProps: [
+    { label: 'Armor Class', value: '13 (natural armor)' },
+    { label: 'Hit Points', value: '51 (6d10 + 18)' },
+    { label: 'Speed', value: '60 ft.' },
+  ],
+  abilities: { str: 19, dex: 13, con: 17, int: 2, wis: 12, cha: 5 },
+  bottomProps: [
+    { label: 'Skills', value: 'Perception +5' },
+    { label: 'Senses', value: 'passive Perception 15' },
+    { label: 'Challenge', value: '2 (450 XP)' },
+  ],
+  sections: [
+    {
+      entries: [
+        {
+          name: 'Pounce',
+          text: 'If the allosaurus moves at least 30 feet straight toward a creature and then hits it with a claw attack on the same turn, that target must succeed on a DC 13 Strength saving throw or be knocked prone. If the target is prone, the allosaurus can make one bite attack against it as a bonus action.',
+        },
+      ],
+    },
+    {
+      heading: 'Actions',
+      entries: [
+        {
+          name: 'Bite',
+          text: 'Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 15 (2d10 + 4) piercing damage.',
+        },
+        {
+          name: 'Claw',
+          text: 'Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 8 (1d8 + 4) slashing damage.',
+        },
+      ],
+    },
+  ],
+};
+
 export const giantConstrictorSnake: StatblockData = {
   name: 'Giant Constrictor Snake',
   source: mmSource('Giant Constrictor Snake'),
