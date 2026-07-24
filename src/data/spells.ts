@@ -135,17 +135,17 @@ export const wildfire: SpellData[] = [
     ],
   },
   {
-    name: 'Aura of Vitality',
+    name: 'Plant Growth',
     level: 3,
-    school: 'Evocation',
-    castingTime: '1 action',
-    range: 'Self (30-foot aura)',
-    components: 'V',
-    duration: 'Concentration, up to 1 minute',
-    concentration: true,
+    school: 'Transmutation',
+    castingTime: '1 action or 8 hours',
+    range: '150 feet',
+    components: 'V, S',
+    duration: 'Instantaneous',
     badges: ['Wildfire', 'Always Prepared'],
     description: [
-      'Healing energy radiates from you in a 30-foot aura. As a bonus action on each of your turns while the spell lasts, you can heal one creature in the aura for 2d6 hit points.',
+      'Overgrowth (action): plants in a 100-foot radius become thick and overgrown. A creature moving through the area must spend 4 feet of movement for every 1 foot it moves.',
+      'Enrichment (8 hours): all plants in a half-mile radius become enriched for one year, yielding twice the normal amount of food when harvested.',
     ],
   },
 ];
@@ -329,19 +329,6 @@ export const level3: SpellData[] = [
     duration: 'Instantaneous',
     description: [
       'You conjure a wave of water that crashes down in a line 30 feet long, 10 feet wide, and 10 feet tall. Each creature there must make a Dexterity save (DC 14), taking 4d8 bludgeoning damage and being knocked prone on a fail, or half damage on a success. The area becomes lightly obscured until your next turn.',
-    ],
-  },
-  {
-    name: 'Plant Growth',
-    level: 3,
-    school: 'Transmutation',
-    castingTime: '1 action or 8 hours',
-    range: '150 feet',
-    components: 'V, S',
-    duration: 'Instantaneous',
-    description: [
-      'Overgrowth (action): plants in a 100-foot radius become thick and overgrown. A creature moving through the area must spend 4 feet of movement for every 1 foot it moves.',
-      'Enrichment (8 hours): all plants in a half-mile radius become enriched for one year, yielding twice the normal amount of food when harvested.',
     ],
   },
   {

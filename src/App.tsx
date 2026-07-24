@@ -203,8 +203,7 @@ function Mechanics() {
         <Card>
           <div className="font-bold text-[var(--moss)]">Bonus action (one per turn)</div>
           <p className="mt-1 text-sm text-[var(--ink)]">
-            Healing Word · command the Wildfire Spirit · move Flaming Sphere / Healing Spirit · Aura
-            of Vitality heal.
+            Healing Word · command the Wildfire Spirit · move Flaming Sphere / Healing Spirit.
           </p>
           <p className="mt-2 text-xs text-[var(--ink-dim)]">
             Rule: if I cast a leveled spell as a bonus action, my Action that turn can only be a
