@@ -90,7 +90,15 @@ function Card({ children, className = '' }: { children: React.ReactNode; classNa
   );
 }
 
-function StatTile({ label, value, note }: { label: string; value: string; note?: string }) {
+function StatTile({
+  label,
+  value,
+  note,
+}: {
+  label: string;
+  value: string;
+  note?: React.ReactNode;
+}) {
   return (
     <div className="rounded-md border border-white/10 bg-black/25 px-4 py-3">
       <div className="text-xs uppercase tracking-wide text-[var(--ink-dim)]">{label}</div>
@@ -162,9 +170,25 @@ function Mechanics() {
         />
         <StatTile label="Spell Attack" value={character.spellAttack} note="d20 + this to hit" />
         <StatTile label="Armor Class" value={String(character.ac)} />
-        <StatTile label="Hit Points" value={String(character.hp)} note={character.hitDice} />
+        <StatTile
+          label="Hit Points"
+          value={String(character.hp)}
+          note={
+            <>
+              {character.hitDice} ·{' '}
+              <a
+                href="https://5ehpcalculator.com/"
+                target="_blank"
+                rel="noreferrer"
+                className="underline decoration-dotted hover:text-[var(--accent)]"
+              >
+                HP calc
+              </a>
+            </>
+          }
+        />
         <StatTile label="Proficiency" value={character.proficiencyBonus} />
-        <StatTile label="Initiative" value={character.initiative} />
+        <StatTile label="Initiative" value={character.initiative} note="d20 + Dex" />
         <StatTile label="Speed" value={character.speed} />
         <StatTile label="Passive Perc." value={String(character.passivePerception)} />
       </div>
