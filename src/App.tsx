@@ -15,7 +15,18 @@ import {
   wildShapeForms,
   wolf,
 } from '@/data/beasts';
-import { abilities, character, preparedLimit, skills, spellSlots } from '@/data/character';
+import {
+  abilities,
+  character,
+  classSkillCounts,
+  languages,
+  otherProficiencies,
+  preparedLimit,
+  skillSources,
+  skills,
+  spellSlots,
+} from '@/data/character';
+import { inventory } from '@/data/inventory';
 import { BOOKS, DRUID_CLASS_URL, WILDFIRE_SUBCLASS_URL, spellRefUrl } from '@/data/sources';
 import { cantrips, level1, level2, level3, level4 } from '@/data/spells';
 import { wildfireSpirit } from '@/data/wildfire-spirit';
@@ -38,12 +49,16 @@ function Ref({ book, url }: { book: keyof typeof BOOKS; url: string }) {
 
 const NAV = [
   { id: 'mechanics', label: 'Mechanics' },
+  { id: 'proficiencies', label: 'Proficiencies' },
   { id: 'spells', label: 'Spells' },
   { id: 'wild-shape', label: 'Wild Shape' },
   { id: 'summons', label: 'Summons' },
   { id: 'flowchart', label: 'Flowchart' },
+  { id: 'inventory', label: 'Inventory' },
   { id: 'sources', label: 'Sources' },
 ];
+
+const BACKGROUNDS_URL = 'https://5thsrd.org/character/backgrounds/';
 
 function Header() {
   return (
@@ -299,7 +314,8 @@ function Mechanics() {
         </div>
         <p className="mt-3 text-xs text-[var(--ink-dim)]">
           <b className="text-[var(--accent)]">●</b> proficient (bonus includes my +3). Everything
-          else is just the ability modifier.
+          else is just the ability modifier. Only three are marked — see{' '}
+          <a href="#proficiencies">Proficiencies</a> for why that's two short.
         </p>
       </Card>
 
@@ -422,6 +438,184 @@ function Mechanics() {
           </p>
         </Card>
       </div>
+    </Section>
+  );
+}
+
+function Proficiencies() {
+  const proficientSkills = skills.filter((s) => s.proficient);
+
+  return (
+    <Section id="proficiencies" title="Proficiencies &amp; Languages">
+      <p className="mb-4 max-w-3xl text-[var(--ink-dim)]">
+        I have <b>{proficientSkills.length}</b> skill proficiencies and other people at the table
+        have four to seven. I looked into why. Short version: I'm not doing the math wrong — I'm
+        missing a <b>Background</b>, and it's worth two skills.
+      </p>
+
+      <SubHeading>Where skill proficiencies come from</SubHeading>
+      <p className="mb-3 max-w-3xl text-sm text-[var(--ink-dim)]">
+        Every 5e character draws them from three places, and they stack. My class and race are
+        accounted for; the third row is the gap.
+      </p>
+      <Card className="overflow-x-auto">
+        <table className="w-full min-w-[38rem] text-left text-sm">
+          <thead>
+            <tr className="text-xs uppercase tracking-wide text-[var(--ink-dim)]">
+              <th className="py-1 pr-4 font-normal">Source</th>
+              <th className="py-1 pr-4 font-normal">What it grants</th>
+              <th className="py-1 font-normal">What I have</th>
+            </tr>
+          </thead>
+          <tbody>
+            {skillSources.map((s) => (
+              <tr key={s.from} className="border-t border-white/10 align-top">
+                <td className="py-2 pr-4 font-bold text-[var(--accent-2)]">{s.from}</td>
+                <td className="py-2 pr-4 text-[var(--ink-dim)]">{s.grants}</td>
+                <td
+                  className={`py-2 ${s.missing ? 'font-bold text-[var(--accent)]' : 'text-[var(--ink)]'}`}
+                >
+                  {s.recorded}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p className="mt-3 text-xs text-[var(--ink-dim)]">
+          A background gives every character proficiency in <b>two skills</b>, plus two tool
+          proficiencies or languages, a starting-equipment package, and a roleplay feature
+          <Ref book="PHB" url={BACKGROUNDS_URL} />. So my total should be{' '}
+          <b>{proficientSkills.length + 2}</b>, not {proficientSkills.length}.
+        </p>
+      </Card>
+
+      <SubHeading>Why the rest of the party has more</SubHeading>
+      <p className="mb-3 max-w-3xl text-sm text-[var(--ink-dim)]">
+        Class is the big differentiator — druid is on the low end at two.
+      </p>
+      <Card className="overflow-x-auto">
+        <table className="w-full min-w-[32rem] text-left text-sm">
+          <thead>
+            <tr className="text-xs uppercase tracking-wide text-[var(--ink-dim)]">
+              <th className="py-1 pr-4 font-normal">Class</th>
+              <th className="py-1 pr-4 text-center font-normal">Skills</th>
+              <th className="py-1 font-normal" />
+            </tr>
+          </thead>
+          <tbody>
+            {classSkillCounts.map((c) => (
+              <tr key={c.klass} className="border-t border-white/10 align-top">
+                <td className="py-2 pr-4 text-[var(--ink)]">{c.klass}</td>
+                <td className="display-font py-2 pr-4 text-center text-[var(--accent)]">
+                  {c.count}
+                </td>
+                <td className="py-2 text-xs text-[var(--ink-dim)]">{c.note}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p className="mt-3 text-xs text-[var(--ink-dim)]">
+          Add <b>+2 from a background</b> to any of those, then race on top — most races give zero
+          or one skill, but a Half-Elf gives <b>two</b>. So a Half-Elf Rogue lands at 4 + 2 + 2 ={' '}
+          <b>8</b>, with two of them doubled by Expertise. A Druid with a background lands at 5.
+          That spread of 3–8 is exactly what we saw in the skill challenge.
+        </p>
+      </Card>
+
+      <Note className="mt-4 max-w-3xl" label="What I should actually do">
+        <p>
+          Ask the DM to let me pick a background — it's a normal thing to backfill, and I'd gain two
+          skills, two tools-or-languages, and a feature. Best fits for Berry:
+        </p>
+        <ul>
+          <li>
+            <b>Outlander</b> — Athletics + Survival. No overlap with what I already have, and
+            Survival with Wisdom becomes <b>+6</b>. Also a musical instrument and a language.
+            Wanderer: I always remember terrain, and can forage food and water for six people a day.
+          </li>
+          <li>
+            <b>Folk Hero</b> — Animal Handling + Survival. Very druid, and Animal Handling is the
+            check I keep wanting to make.
+          </li>
+          <li>
+            <b>Sage</b> — Arcana + History, plus two languages. Covers my two worst skills (Int −1),
+            so proficiency only brings them to +2 — flavour more than fix.
+          </li>
+        </ul>
+        <p>
+          One wrinkle: if a background hands me a skill I already have from the druid list (Hermit
+          gives Medicine, for example), the rules don't automatically swap it — I'd just lose that
+          one. The <b>customizing a background</b> rule lets me choose <i>any</i> two skills
+          instead, which avoids the problem entirely; worth asking for.
+        </p>
+      </Note>
+
+      <SubHeading>Everything else I'm proficient with</SubHeading>
+      <Card className="max-w-3xl">
+        <dl className="space-y-2 text-sm">
+          {otherProficiencies.map((p) => (
+            <div key={p.label}>
+              <dt className="text-xs uppercase tracking-wide text-[var(--accent-2)]">{p.label}</dt>
+              <dd className="text-[var(--ink)]">{p.value}</dd>
+            </div>
+          ))}
+        </dl>
+        <p className="mt-3 text-xs text-[var(--ink-dim)]">
+          The Wood Elf weapon list is easy to forget — I can use a longbow, which most druids can't.
+        </p>
+      </Card>
+
+      <SubHeading>Languages</SubHeading>
+      <Card className="max-w-3xl">
+        <dl className="space-y-2 text-sm">
+          {languages.map((l) => (
+            <div key={l.name}>
+              <dt
+                className={`font-bold ${l.flagged ? 'text-[var(--ink-dim)]' : 'text-[var(--accent)]'}`}
+              >
+                {l.name}
+                {l.flagged && (
+                  <span className="ml-2 rounded-full border border-white/20 px-2 py-0.5 text-[0.65rem] font-normal uppercase tracking-wide">
+                    check this
+                  </span>
+                )}
+              </dt>
+              <dd className="text-[var(--ink-dim)]">{l.detail}</dd>
+            </div>
+          ))}
+        </dl>
+        <p className="mt-3 text-xs text-[var(--ink-dim)]">
+          The <b>Helm of Languages</b> in <a href="#inventory">Inventory</a> is the thing to reach
+          for when none of these work.
+        </p>
+      </Card>
+    </Section>
+  );
+}
+
+function Inventory() {
+  return (
+    <Section id="inventory" title="Inventory">
+      <p className="mb-4 max-w-2xl text-[var(--ink-dim)]">
+        Magic items and loot worth remembering. Several of these aren't fully identified yet, so the
+        descriptions are only what we know at the table.
+      </p>
+      <Card className="max-w-3xl">
+        <ul className="space-y-1.5 text-sm">
+          {inventory.map((item) => (
+            <li
+              key={item.name}
+              className="flex flex-wrap items-baseline gap-x-2 border-b border-white/5 pb-1.5 last:border-0"
+            >
+              <span className="font-bold text-[var(--accent)]">
+                {item.count ? `${item.count} × ` : ''}
+                {item.name}
+              </span>
+              {item.detail && <span className="text-[var(--ink-dim)]">{item.detail}</span>}
+            </li>
+          ))}
+        </ul>
+      </Card>
     </Section>
   );
 }
@@ -834,6 +1028,7 @@ export default function App() {
       <main className="mx-auto max-w-5xl px-5 pb-20">
         <Overview />
         <Mechanics />
+        <Proficiencies />
         <Spells />
         <WildShape />
         <Summons />
@@ -844,6 +1039,7 @@ export default function App() {
           </p>
           <FlowChart />
         </Section>
+        <Inventory />
         <SourcesLegend />
       </main>
       <footer className="border-t border-white/10 py-6 text-center text-xs text-[var(--ink-dim)]">
