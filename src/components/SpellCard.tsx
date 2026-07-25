@@ -155,7 +155,7 @@ export function SpellCard({
           <h3 className="spellcard__name">{spell.name}</h3>
           <span className="spellcard__level">{levelLabel(spell)}</span>
         </div>
-        {locked && <span className="spellcard__status spellcard__status--locked">Always</span>}
+        {locked && <span className="spellcard__status spellcard__status--wildfire">Wildfire</span>}
         {selectable && !locked && (
           <span className={`spellcard__status${prepared ? ' is-prepared' : ''}`} aria-hidden="true">
             {prepared ? '✓' : ''}

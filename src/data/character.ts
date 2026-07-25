@@ -106,20 +106,6 @@ export const skillSources: ProficiencySource[] = [
   },
 ];
 
-/**
- * Typical skill-proficiency counts by class, before background (+2) and race.
- * This is why other party members ranged 4–7 where Berry had 3 — druid is on the
- * low end at two, and his background was blank.
- */
-export const classSkillCounts: { klass: string; count: number; note?: string }[] = [
-  { klass: 'Rogue', count: 4, note: 'plus Expertise — doubles proficiency on 2 of them' },
-  { klass: 'Bard, Ranger', count: 3, note: 'Bard also gets Expertise at level 3' },
-  {
-    klass: 'Druid, Cleric, Fighter, Wizard, Paladin, Barbarian, Sorcerer, Warlock, Monk',
-    count: 2,
-  },
-];
-
 /** Everything else Berry is proficient with, beyond skills. */
 export const otherProficiencies: { label: string; value: string }[] = [
   { label: 'Armor', value: 'Light, medium, shields — but never metal ones' },

@@ -79,7 +79,6 @@ export const level1: SpellData[] = [
     components: 'V, S',
     duration: 'Instantaneous',
     alwaysPrepared: true,
-    badges: ['Wildfire'],
     description: [
       "Each creature in a 15-foot cone must make a Dexterity saving throw (DC 14). A creature takes 3d6 fire damage on a failed save, or half as much on a success. Flammable objects that aren't worn or carried ignite.",
     ],
@@ -95,7 +94,6 @@ export const level1: SpellData[] = [
     components: 'V, S',
     duration: 'Instantaneous',
     alwaysPrepared: true,
-    badges: ['Wildfire'],
     description: [
       'A creature you touch regains 1d8 + 3 hit points. No effect on undead or constructs.',
     ],
@@ -215,7 +213,6 @@ export const level2: SpellData[] = [
     duration: 'Concentration, up to 1 minute',
     concentration: true,
     alwaysPrepared: true,
-    badges: ['Wildfire'],
     description: [
       'A 5-foot-diameter sphere of fire appears. A creature within 5 feet makes a Dexterity save (DC 14), taking 2d6 fire damage on a fail, half on success.',
       'As a bonus action you can move the sphere up to 30 feet, ramming a creature (forcing the save). It ignites flammable objects it touches and sheds bright light.',
@@ -232,7 +229,6 @@ export const level2: SpellData[] = [
     components: 'V, S',
     duration: 'Instantaneous',
     alwaysPrepared: true,
-    badges: ['Wildfire'],
     description: [
       'You create three rays of fire. Make a ranged spell attack (+6) for each ray, aimed at targets of your choice. On a hit, a target takes 2d6 fire damage.',
     ],
@@ -325,7 +321,6 @@ export const level3: SpellData[] = [
     components: 'V, S, M (a diamond worth 300 gp, consumed)',
     duration: 'Instantaneous',
     alwaysPrepared: true,
-    badges: ['Wildfire'],
     description: [
       "Touch a creature that has died within the last minute. It returns to life with 1 hit point. This spell can't return a creature that has died of old age, nor restore missing body parts.",
     ],
@@ -340,7 +335,6 @@ export const level3: SpellData[] = [
     components: 'V, S',
     duration: 'Instantaneous',
     alwaysPrepared: true,
-    badges: ['Wildfire'],
     description: [
       'Overgrowth (action): plants in a 100-foot radius become thick and overgrown. A creature moving through the area must spend 4 feet of movement for every 1 foot it moves.',
       'Enrichment (8 hours): all plants in a half-mile radius become enriched for one year, yielding twice the normal amount of food when harvested.',
@@ -437,7 +431,6 @@ export const level4: SpellData[] = [
     duration: 'Concentration, up to 10 minutes',
     concentration: true,
     alwaysPrepared: true,
-    badges: ['Wildfire'],
     description: [
       "Life-preserving energy radiates from you in a 30-foot radius. Until the spell ends, the aura moves with you, centered on you. Each non-hostile creature in the aura (including you) has resistance to necrotic damage, and its hit point maximum can't be reduced.",
       'In addition, a non-hostile living creature regains 1 hit point when it starts its turn in the aura with 0 hit points.',
@@ -454,7 +447,6 @@ export const level4: SpellData[] = [
     components: 'V, S, M (a bit of phosphorus or a firefly)',
     duration: '10 minutes',
     alwaysPrepared: true,
-    badges: ['Wildfire'],
     description: [
       'Thin and vaporous flame surrounds your body for the duration, shedding bright light in a 10-foot radius and dim light for another 10 feet. You can end the spell early as an action.',
       'Choose a warm shield or a chill shield. The warm shield grants you resistance to cold damage; the chill shield grants resistance to fire damage.',

@@ -102,13 +102,20 @@
   color: var(--sc-parchment);
   font-size: 0.9rem;
 }
-.spellcard__status--locked {
+/*
+ * Circle of Wildfire spell — always prepared. Filled in the card's own red so it
+ * reads as "this one is granted by my subclass", distinct from the blue prepared
+ * check. Contrast is carried by brightness, not hue.
+ */
+.spellcard__status--wildfire {
   border-radius: 3px;
   min-width: 0;
-  padding: 0 0.4rem;
-  border-color: #2f6690;
-  color: #2f6690;
+  padding: 0 0.45rem;
+  background: var(--sc-red);
+  border-color: var(--sc-red);
+  color: var(--sc-parchment);
   font-weight: 700;
+  letter-spacing: 0.05em;
 }
 
 /* ── Compact meta line ────────────────────────────────────────────────────── */

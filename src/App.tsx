@@ -19,7 +19,6 @@ import {
   abilities,
   backgroundFeature,
   character,
-  classSkillCounts,
   languages,
   otherProficiencies,
   preparedLimit,
@@ -33,19 +32,18 @@ import { cantrips, level1, level2, level3, level4 } from '@/data/spells';
 import { wildfireSpirit } from '@/data/wildfire-spirit';
 import { useEffect, useState } from 'react';
 
-/** Small inline source citation. */
+/** Bracketed source citation — [PHB], [TCE]. Reads as a footnote, not a heading. */
 function Ref({ book, url }: { book: keyof typeof BOOKS; url: string }) {
   return (
-    <a
-      href={url}
-      target="_blank"
-      rel="noreferrer"
-      title={BOOKS[book].name}
-      className="ml-1 align-middle text-xs text-[var(--ink-dim)] underline decoration-dotted hover:text-[var(--accent)]"
-    >
-      {BOOKS[book].abbr}
+    <a href={url} target="_blank" rel="noreferrer" title={BOOKS[book].name} className="src-ref">
+      [{BOOKS[book].abbr}]
     </a>
   );
+}
+
+/** An ability abbreviation — WIS, CON, the tag beside a skill name. */
+function Abbr({ children }: { children: React.ReactNode }) {
+  return <span className="abbr">{children}</span>;
 }
 
 const NAV = [
@@ -181,20 +179,13 @@ function Overview() {
         {character.spellcastingAbility} caster
       </p>
       <h1 className="display-font mt-1 text-4xl font-bold text-[var(--accent)]">
-        Onyberyus Thistleballow <span className="text-[var(--ink-dim)]">"Berry"</span>
+        Onyberyus <span className="text-[var(--ink-dim)]">"Berry"</span> Thistleballow
       </h1>
       <p className="mt-2 max-w-2xl text-[var(--ink)]">
         A Circle of Wildfire Druid — chaotic good, gentler aspects of chaos, "plant guy but with
         fire." An Outlander who came in from the wilds: he remembers every stretch of terrain he's
-        walked and can feed the whole party off the land. He likes bears. This is my table
-        reference: the numbers I forget, what I can do on my turn, my spells, and my forms.
+        walked and can feed the whole party off the land. He likes bears.
       </p>
-      <div className="mt-4 flex flex-wrap gap-3 text-sm text-[var(--ink-dim)]">
-        <span className="rounded-full border border-white/15 px-3 py-1">{character.class}</span>
-        <span className="rounded-full border border-white/15 px-3 py-1">
-          {character.background} background
-        </span>
-      </div>
     </section>
   );
 }
@@ -202,10 +193,6 @@ function Overview() {
 function Mechanics() {
   return (
     <Section id="mechanics" title="Mechanics">
-      <p className="mb-4 max-w-2xl text-[var(--ink-dim)]">
-        The numbers that come up most, and the rules for what happens on my turn.
-      </p>
-
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         <StatTile
           label="Spell Save DC"
@@ -232,9 +219,17 @@ function Mechanics() {
           }
         />
         <StatTile label="Proficiency" value={character.proficiencyBonus} />
-        <StatTile label="Initiative" value={character.initiative} note="d20 + Dex" />
+        <StatTile
+          label="Initiative"
+          value={character.initiative}
+          note={
+            <>
+              d20 + <Abbr>DEX</Abbr>
+            </>
+          }
+        />
         <StatTile label="Speed" value={character.speed} />
-        <StatTile label="Passive Perc." value={String(character.passivePerception)} />
+        <StatTile label="Passive Perception" value={String(character.passivePerception)} />
       </div>
 
       <SubHeading>Ability scores &amp; saves</SubHeading>
@@ -244,8 +239,8 @@ function Mechanics() {
             <tr className="text-xs uppercase tracking-wide text-[var(--ink-dim)]">
               <th className="py-1 pr-3 text-left font-normal"> </th>
               {abilities.map((a) => (
-                <th key={a.name} className="px-2 py-1 text-[var(--accent-2)]">
-                  {a.name.slice(0, 3).toUpperCase()}
+                <th key={a.name} className="px-2 py-1">
+                  <Abbr>{a.name.slice(0, 3).toUpperCase()}</Abbr>
                 </th>
               ))}
             </tr>
@@ -288,8 +283,9 @@ function Mechanics() {
           </tbody>
         </table>
         <p className="mt-3 text-xs text-[var(--ink-dim)]">
-          <b className="text-[var(--accent)]">•</b> proficient save (Con, Int, Wis). Con is
-          proficient thanks to the Resilient feat — handy for keeping concentration.
+          <b className="text-[var(--accent)]">•</b> proficient save (<Abbr>CON</Abbr>,{' '}
+          <Abbr>INT</Abbr>, <Abbr>WIS</Abbr>). <Abbr>CON</Abbr> is proficient thanks to the
+          Resilient feat — handy for keeping concentration.
         </p>
       </Card>
 
@@ -305,7 +301,7 @@ function Mechanics() {
                 className={s.proficient ? 'font-bold text-[var(--accent)]' : 'text-[var(--ink)]'}
               >
                 {s.proficient && <span aria-hidden="true">● </span>}
-                {s.name} <span className="text-xs text-[var(--ink-dim)]">{s.ability}</span>
+                {s.name} <Abbr>{s.ability.toUpperCase()}</Abbr>
               </span>
               <span
                 className={
@@ -318,9 +314,8 @@ function Mechanics() {
           ))}
         </div>
         <p className="mt-3 text-xs text-[var(--ink-dim)]">
-          <b className="text-[var(--accent)]">●</b> proficient (bonus includes my +3). Everything
-          else is just the ability modifier. Athletics and Survival are new — see{' '}
-          <a href="#proficiencies">Proficiencies</a> for where they came from.
+          <b className="text-[var(--accent)]">●</b> <a href="#proficiencies">proficient</a> (bonus
+          includes my +3). Everything else is just the ability modifier.
         </p>
       </Card>
 
@@ -330,15 +325,15 @@ function Mechanics() {
           <div className="font-bold text-[var(--accent-2)]">When I attack or force a save</div>
           <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-[var(--ink)]">
             <li>
-              <b>Spell attack</b> (e.g. Scorching Ray, Ice Knife): roll <b>d20 + 6</b> vs their AC.
+              <b>Spell attack</b> (e.g., Scorching Ray, Ice Knife): roll <b>d20 + 6</b> vs their AC.
             </li>
             <li>
-              <b>Saving-throw spell</b> (e.g. Burning Hands, Entangle): the enemy rolls their save
+              <b>Saving-throw spell</b> (e.g., Burning Hands, Entangle): the enemy rolls their save
               vs my <b>DC 14</b>. I don't roll to hit.
             </li>
             <li>
-              <b>Weapon</b> (dart / quarterstaff): roll <b>d20 + 2</b> (Dex/Str) <b>+ 3</b> if
-              proficient.
+              <b>Weapon</b> (dart / quarterstaff): roll <b>d20 + 2</b> (<Abbr>DEX</Abbr>/
+              <Abbr>STR</Abbr>) <b>+ 3</b> if proficient.
             </li>
           </ul>
         </Card>
@@ -346,11 +341,12 @@ function Mechanics() {
           <div className="font-bold text-[var(--accent-2)]">When something happens to me</div>
           <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-[var(--ink)]">
             <li>
-              <b>My saving throw</b>: d20 + the save modifier above (Con/Int/Wis are proficient).
+              <b>My saving throw</b>: d20 + the save modifier above (<Abbr>CON</Abbr>/
+              <Abbr>INT</Abbr>/<Abbr>WIS</Abbr> are proficient).
             </li>
             <li>
-              <b>Concentration</b>: take damage → Con save (DC 10 or half the damage, whichever is
-              higher). My Con save is <b>+6</b>.
+              <b>Concentration</b>: take damage → <Abbr>CON</Abbr> save (DC 10 or half the damage,
+              whichever is higher). My <Abbr>CON</Abbr> save is <b>+6</b>.
             </li>
             <li>
               <b>Skill check</b>: d20 + ability modifier (+3 more if proficient).
@@ -361,17 +357,14 @@ function Mechanics() {
 
       <Note className="mt-3 max-w-3xl" label='"Spellcasting modifier" is two different numbers'>
         <p>
-          This trips me up, so: my <b>spell attack modifier is +6</b> — that's Wisdom +3 plus my
-          proficiency +3, and it's the number I add to a d20 when a spell makes me roll to hit
-          (Scorching Ray, Ice Knife, Thorn Whip). It's the number my sheet labels "spellcasting."
-          Same +3 and +3 build my <b>save DC of 14</b> (8 + 3 + 3).
+          My <b>spell attack modifier</b> is +6 (+3 from <Abbr>WIS</Abbr> and +3 from proficiency).
+          Use this when rolling the d20 to hit with a spell. The same +6 builds my{' '}
+          <b>spell save DC</b> of 14.
         </p>
         <p>
-          But when a spell's text says "your spellcasting ability modifier" inside a{' '}
-          <b>damage, healing, or count</b> formula, that means <b>Wisdom alone: +3</b> — proficiency
-          never applies there. So Cure Wounds heals 1d8 <b>+ 3</b>, and Healing Spirit gets <b>4</b>{' '}
-          heals (1 + 3), not 7. Anywhere on this page you see a bare +6, it's an attack roll; a bare
-          +3 in a damage or healing line is Wisdom.
+          My <b>spellcasting ability modifier</b> inside damage, healing, or count is{' '}
+          <Abbr>WIS</Abbr> alone (+3) without proficiency. Cure Wounds heals 1d8 + 3; Healing Spirit
+          gets 4 heals (1 + 3).
         </p>
       </Note>
 
@@ -424,9 +417,9 @@ function Mechanics() {
             ))}
           </div>
           <p className="mt-3 text-sm text-[var(--ink)]">
-            I prepare <b>{preparedLimit} spells</b> (druid level {character.level} + Wis +3). Circle
-            of Wildfire spells are <b>always prepared</b> and don't count toward that. I know{' '}
-            <b>4 cantrips</b>. Slots come back on a long rest.
+            I prepare <b>{preparedLimit} spells</b> (druid level {character.level} +{' '}
+            <Abbr>WIS</Abbr> +3). Circle of Wildfire spells are <b>always prepared</b> and don't
+            count toward that. I know <b>4 cantrips</b>. Slots come back on a long rest.
           </p>
         </Card>
         <Card>
@@ -434,13 +427,22 @@ function Mechanics() {
             Wild Shape
             <Ref book="PHB" url={DRUID_CLASS_URL} />
           </div>
-          <p className="mt-1 text-sm text-[var(--ink)]">
-            <b>2 uses</b>, regained on a short or long rest. At level {character.level} I can become
-            a beast of <b>CR 1/2 or lower</b> with <b>no flying speed</b> (swimming is fine) — CR 1
-            and flight unlock at level 8. The form lasts <b>3 hours</b> (half my druid level in
-            hours, rounded down). I can spend a use to summon my Wildfire Spirit instead
-            <Ref book="TCE" url={WILDFIRE_SUBCLASS_URL} />.
-          </p>
+          <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-[var(--ink)]">
+            <li>
+              <b>2 uses</b>, regained on short or long rest.
+            </li>
+            <li>
+              Level {character.level}: any beast with <b>CR 1/2 or lower</b> and with{' '}
+              <b>no flying speed</b>.
+            </li>
+            <li>
+              Lasts <b>3 hours</b> (half my Druid level, rounded down).
+            </li>
+            <li>
+              Alternatively, spend a use to summon Wildfire Spirit
+              <Ref book="TCE" url={WILDFIRE_SUBCLASS_URL} />.
+            </li>
+          </ul>
         </Card>
       </div>
     </Section>
@@ -448,22 +450,8 @@ function Mechanics() {
 }
 
 function Proficiencies() {
-  const proficientSkills = skills.filter((s) => s.proficient);
-
   return (
     <Section id="proficiencies" title="Proficiencies &amp; Languages">
-      <p className="mb-4 max-w-3xl text-[var(--ink-dim)]">
-        I had three skill proficiencies when everyone else at the table had four to seven, so I
-        looked into why. I wasn't doing the math wrong — I was missing a <b>Background</b>, which is
-        worth two skills. I've taken <b>{character.background}</b>, so I'm now at{' '}
-        <b>{proficientSkills.length}</b>: Athletics and Survival are new.
-      </p>
-
-      <SubHeading>Where skill proficiencies come from</SubHeading>
-      <p className="mb-3 max-w-3xl text-sm text-[var(--ink-dim)]">
-        Every 5e character draws them from three places, and they stack. The third row is the one
-        that was blank.
-      </p>
       <Card className="overflow-x-auto">
         <table className="w-full min-w-[38rem] text-left text-sm">
           <thead>
@@ -476,92 +464,20 @@ function Proficiencies() {
           <tbody>
             {skillSources.map((s) => (
               <tr key={s.from} className="border-t border-white/10 align-top">
-                <td className="py-2 pr-4 font-bold text-[var(--accent-2)]">{s.from}</td>
+                <td className="py-2 pr-4 font-bold text-[var(--accent-2)]">
+                  {s.from}
+                  {s.added && <Ref book="PHB" url={BACKGROUNDS_URL} />}
+                </td>
                 <td className="py-2 pr-4 text-[var(--ink-dim)]">{s.grants}</td>
-                <td
-                  className={`py-2 ${s.added ? 'font-bold text-[var(--accent)]' : 'text-[var(--ink)]'}`}
-                >
-                  {s.recorded}
-                </td>
+                <td className="py-2 text-[var(--ink)]">{s.recorded}</td>
               </tr>
             ))}
           </tbody>
         </table>
-        <p className="mt-3 text-xs text-[var(--ink-dim)]">
-          A background gives every character proficiency in <b>two skills</b>, plus two tool
-          proficiencies or languages, a starting-equipment package, and a roleplay feature
-          <Ref book="PHB" url={BACKGROUNDS_URL} />. Mine was never written down, which is the whole
-          explanation for the gap.
-        </p>
       </Card>
 
-      <SubHeading>Why the rest of the party has more</SubHeading>
-      <p className="mb-3 max-w-3xl text-sm text-[var(--ink-dim)]">
-        Class is the big differentiator — druid is on the low end at two.
-      </p>
-      <Card className="overflow-x-auto">
-        <table className="w-full min-w-[32rem] text-left text-sm">
-          <thead>
-            <tr className="text-xs uppercase tracking-wide text-[var(--ink-dim)]">
-              <th className="py-1 pr-4 font-normal">Class</th>
-              <th className="py-1 pr-4 text-center font-normal">Skills</th>
-              <th className="py-1 font-normal" />
-            </tr>
-          </thead>
-          <tbody>
-            {classSkillCounts.map((c) => (
-              <tr key={c.klass} className="border-t border-white/10 align-top">
-                <td className="py-2 pr-4 text-[var(--ink)]">{c.klass}</td>
-                <td className="display-font py-2 pr-4 text-center text-[var(--accent)]">
-                  {c.count}
-                </td>
-                <td className="py-2 text-xs text-[var(--ink-dim)]">{c.note}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <p className="mt-3 text-xs text-[var(--ink-dim)]">
-          Add <b>+2 from a background</b> to any of those, then race on top — most races give zero
-          or one skill, but a Half-Elf gives <b>two</b>. So a Half-Elf Rogue lands at 4 + 2 + 2 ={' '}
-          <b>8</b>, with two of them doubled by Expertise. Me, now: 2 + 1 + 2 = <b>5</b>. That
-          spread of 3–8 is exactly what we saw in the skill challenge.
-        </p>
-      </Card>
-
-      <SubHeading>My background: {character.background}</SubHeading>
-      <Card className="max-w-3xl">
-        <p className="text-sm text-[var(--ink)]">
-          Outlander was the best fit. Neither of its skills overlaps what I already had, so I got
-          the full two — and <b>Survival goes to +6</b> with my Wisdom, the most druid skill on the
-          sheet. Athletics only reaches <b>+3</b> (Strength 10), but that's still a real bonus on
-          grapples, shoving, and climbing, where I used to roll flat.
-        </p>
-        <div className="mt-3">
-          <div className="text-xs uppercase tracking-wide text-[var(--accent-2)]">
-            Feature: {backgroundFeature.name}
-          </div>
-          <p className="mt-0.5 text-sm text-[var(--ink)]">{backgroundFeature.detail}</p>
-        </div>
-        <p className="mt-3 text-xs text-[var(--ink-dim)]">
-          It also came with a <b>musical instrument</b> proficiency and the <b>language</b> slot I'm
-          using for Grippli.
-        </p>
-      </Card>
-
-      <Note className="mt-4 max-w-3xl" label="Why not one of the others">
-        <p>
-          <b>Folk Hero</b> (Animal Handling + Survival) was the close second and very druid, but
-          both its skills are Wisdom — I'd be stacking my best stat instead of covering a hole.{' '}
-          <b>Sage</b> (Arcana + History) only lifts my two worst skills from −1 to +2, so it's
-          flavour rather than a fix. <b>Hermit</b> gives Medicine, which I already have from the
-          druid list — and the rules don't automatically swap a duplicate, I'd just lose it.
-        </p>
-        <p>
-          If I ever want a skill outside a background's fixed pair, the{' '}
-          <b>customizing a background</b> rule lets me choose <i>any</i> two
-          <Ref book="PHB" url={BACKGROUNDS_URL} /> — good to know, but Outlander's pair is already
-          what I wanted.
-        </p>
+      <Note className="mt-4 max-w-3xl" label={`Feature: ${backgroundFeature.name}`}>
+        <p>{backgroundFeature.detail}</p>
       </Note>
 
       <SubHeading>Everything else I'm proficient with</SubHeading>
@@ -588,11 +504,6 @@ function Proficiencies() {
                 className={`font-bold ${l.flagged ? 'text-[var(--ink-dim)]' : 'text-[var(--accent)]'}`}
               >
                 {l.name}
-                {l.flagged && (
-                  <span className="ml-2 rounded-full border border-white/20 px-2 py-0.5 text-[0.65rem] font-normal uppercase tracking-wide">
-                    check this
-                  </span>
-                )}
               </dt>
               <dd className="text-[var(--ink-dim)]">{l.detail}</dd>
             </div>
@@ -761,8 +672,8 @@ function Spells() {
 
       {prepMode && (
         <p className="mb-4 max-w-2xl rounded-md border border-[var(--accent)]/40 bg-[var(--accent)]/10 px-3 py-2 text-sm text-[var(--ink)]">
-          Tap any card to prepare or unprepare it. Wildfire spells are locked (marked <b>Always</b>
-          ). Cantrips are always available and aren't prepared.
+          Tap any card to prepare or unprepare it. Circle spells are locked (marked <b>Wildfire</b>)
+          and always prepared. Cantrips are always available and aren't prepared.
         </p>
       )}
 

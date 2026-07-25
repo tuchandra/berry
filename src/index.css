@@ -44,6 +44,40 @@ a:hover {
 }
 
 /*
+ * Ability abbreviations — STR, DEX, CON, and the ability tag next to each skill.
+ * Small-caps display type in the secondary accent so an ability reads as a label
+ * rather than as prose, wherever it appears.
+ */
+.abbr {
+  font-family: "Cinzel", "Libre Baskerville", serif;
+  font-weight: 700;
+  font-size: 0.78em;
+  letter-spacing: 0.08em;
+  color: var(--accent-2);
+}
+
+/*
+ * Source citation — [PHB], [TCE]. Deliberately quieter than the heading it sits
+ * beside: dimmed ink, bracketed, so it reads as a footnote and never competes
+ * with the title.
+ */
+.src-ref {
+  margin-left: 0.4rem;
+  font-family: "Cinzel", "Libre Baskerville", serif;
+  font-size: 0.68em;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: color-mix(in srgb, var(--ink-dim) 65%, transparent);
+  text-decoration: none;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.src-ref:hover {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+/*
  * Berry's notes — one shared callout for my own notes about spells, techniques,
  * and table rulings. The dark-page twin of `.spellcard__note` / `.statblock__note`
  * on the parchment cards: same blue tint, same left rule, same small-caps label.
