@@ -64,7 +64,7 @@ export const cantrips: SpellData[] = [
     description: [
       'You create a long, vine-like whip covered in thorns that lashes out at a creature in range. Make a melee spell attack (+6). On a hit, the target takes 1d6 piercing damage, and if it is Large or smaller you pull it up to 10 feet closer to you.',
     ],
-    note: 'At my level this deals 2d6 (cantrips scale at character levels 5, 11, and 17). Handy for yanking an enemy into Spike Growth, off a ledge, or into the Wildfire Spirit.',
+    note: "At my level this deals 2d6 (cantrips scale at character levels 5, 11, and 17). Handy for yanking an enemy into Spike Growth, off a ledge, or into the Wildfire Spirit. Combos with Gloomy's Booming Blade: he hits a target and the booming aura only detonates if it moves — so I Thorn Whip it 10 feet toward me and it eats the thunder damage without ever choosing to move.",
   },
 ];
 
@@ -141,7 +141,7 @@ export const level1: SpellData[] = [
     description: [
       'Up to ten berries appear in your hand, infused with magic for the next 24 hours. A creature can use its action to eat one berry, regaining 1 hit point; the berry also provides enough nourishment to sustain a creature for one day.',
     ],
-    note: 'Cast this every day and hand out 2 berries to each person in the party.',
+    note: "Cast this every day and hand out 2 berries to each person in the party. Table ruling at ours: eating one of my berries changes the eater's voice — not in the spell, but it's ours now.",
   },
   {
     name: 'Healing Word',
