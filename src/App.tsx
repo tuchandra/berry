@@ -12,7 +12,7 @@ import {
   wildShapeForms,
   wolf,
 } from '@/data/beasts';
-import { abilities, character, spellSlots } from '@/data/character';
+import { abilities, character, skills, spellSlots } from '@/data/character';
 import { BOOKS, DRUID_CLASS_URL, WILDFIRE_SUBCLASS_URL, spellRefUrl } from '@/data/sources';
 import { cantrips, level1, level2, level3 } from '@/data/spells';
 import { wildfireSpirit } from '@/data/wildfire-spirit';
@@ -194,39 +194,87 @@ function Mechanics() {
 
       <SubHeading>Ability scores &amp; saves</SubHeading>
       <Card className="overflow-x-auto">
-        <table className="w-full min-w-[28rem] text-left text-sm">
-          <thead className="text-xs uppercase tracking-wide text-[var(--ink-dim)]">
-            <tr>
-              <th className="py-1 pr-4">Ability</th>
-              <th className="py-1 pr-4">Score</th>
-              <th className="py-1 pr-4">Modifier</th>
-              <th className="py-1 pr-4">Saving Throw</th>
+        <table className="w-full min-w-[34rem] text-center text-sm">
+          <thead>
+            <tr className="text-xs uppercase tracking-wide text-[var(--ink-dim)]">
+              <th className="py-1 pr-3 text-left font-normal"> </th>
+              {abilities.map((a) => (
+                <th key={a.name} className="px-2 py-1 text-[var(--accent-2)]">
+                  {a.name.slice(0, 3).toUpperCase()}
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody>
-            {abilities.map((a) => (
-              <tr key={a.name} className="border-t border-white/10">
-                <td className="py-1 pr-4">{a.name}</td>
-                <td className="py-1 pr-4">{a.score}</td>
-                <td className="py-1 pr-4">{a.mod}</td>
-                <td className="py-1 pr-4">
-                  <span className={a.saveProficient ? 'font-bold text-[var(--accent)]' : ''}>
-                    {a.save}
-                  </span>
-                  {a.saveProficient && (
-                    <span className="ml-1 text-xs text-[var(--ink-dim)]">(proficient)</span>
-                  )}
+            <tr className="border-t border-white/10">
+              <th className="py-1 pr-3 text-left text-xs font-normal uppercase tracking-wide text-[var(--ink-dim)]">
+                Score
+              </th>
+              {abilities.map((a) => (
+                <td key={a.name} className="px-2 py-1">
+                  {a.score}
                 </td>
-              </tr>
-            ))}
+              ))}
+            </tr>
+            <tr className="border-t border-white/10">
+              <th className="py-1 pr-3 text-left text-xs font-normal uppercase tracking-wide text-[var(--ink-dim)]">
+                Mod
+              </th>
+              {abilities.map((a) => (
+                <td key={a.name} className="display-font px-2 py-1 text-[var(--accent)]">
+                  {a.mod}
+                </td>
+              ))}
+            </tr>
+            <tr className="border-t border-white/10">
+              <th className="py-1 pr-3 text-left text-xs font-normal uppercase tracking-wide text-[var(--ink-dim)]">
+                Save
+              </th>
+              {abilities.map((a) => (
+                <td
+                  key={a.name}
+                  className={`px-2 py-1 ${a.saveProficient ? 'font-bold text-[var(--accent)]' : 'text-[var(--ink-dim)]'}`}
+                >
+                  {a.save}
+                  {a.saveProficient && <span aria-hidden="true"> •</span>}
+                </td>
+              ))}
+            </tr>
           </tbody>
         </table>
         <p className="mt-3 text-xs text-[var(--ink-dim)]">
-          Proficient skills: Medicine +6, Nature +2, Perception +6.
+          <b className="text-[var(--accent)]">•</b> proficient save (Con, Int, Wis). Con is
+          proficient thanks to the Resilient feat — handy for keeping concentration.
         </p>
-        <p className="mt-1 text-xs text-[var(--ink-dim)]">
-          Resilient (Constitution) feat: Constitution saves are proficient (+6) — handy for keeping
-          concentration.
+      </Card>
+
+      <SubHeading>Skills</SubHeading>
+      <Card>
+        <div className="grid grid-cols-2 gap-x-6 gap-y-0.5 sm:grid-cols-3">
+          {skills.map((s) => (
+            <div
+              key={s.name}
+              className="flex items-baseline justify-between gap-2 border-b border-white/5 py-0.5 text-sm"
+            >
+              <span
+                className={s.proficient ? 'font-bold text-[var(--accent)]' : 'text-[var(--ink)]'}
+              >
+                {s.proficient && <span aria-hidden="true">● </span>}
+                {s.name} <span className="text-xs text-[var(--ink-dim)]">{s.ability}</span>
+              </span>
+              <span
+                className={
+                  s.proficient ? 'font-bold text-[var(--accent)]' : 'text-[var(--ink-dim)]'
+                }
+              >
+                {s.bonus}
+              </span>
+            </div>
+          ))}
+        </div>
+        <p className="mt-3 text-xs text-[var(--ink-dim)]">
+          <b className="text-[var(--accent)]">●</b> proficient (bonus includes my +3). Everything
+          else is just the ability modifier.
         </p>
       </Card>
 
