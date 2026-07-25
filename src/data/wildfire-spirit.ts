@@ -30,11 +30,11 @@ export const wildfireSpirit: StatblockData = {
       entries: [
         {
           name: 'Flame Seed (Ranged Weapon Attack)',
-          text: 'Spell attack modifier to hit; range 60 ft., one target you can see. Hit: 1d6 + 3 (+ PB) fire damage.',
+          text: 'Spell attack modifier to hit; range 60 ft., one target you can see. Hit: 1d6 + 3 (PB) fire damage.',
         },
         {
           name: 'Fiery Teleportation',
-          text: 'The spirit and each willing creature of your choice within 5 feet of it teleport up to 15 feet to unoccupied spaces you can see. Then each creature within 5 feet of the space that the spirit left must succeed on a Dexterity saving throw against your spell save DC or take 1d6 + 3 (+ PB) fire damage.',
+          text: 'The spirit and each willing creature of your choice within 5 feet of it teleport up to 15 feet to unoccupied spaces you can see. Then each creature within 5 feet of the space that the spirit left must succeed on a Dexterity saving throw against your spell save DC or take 1d6 + 3 (PB) fire damage.',
         },
       ],
     },
