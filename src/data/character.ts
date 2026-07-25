@@ -36,6 +36,35 @@ export const abilities: AbilityLine[] = [
   { name: 'Charisma', score: 10, mod: '+0', save: '+0', saveProficient: false },
 ];
 
+export interface Skill {
+  name: string;
+  ability: string;
+  bonus: string;
+  proficient: boolean;
+}
+
+/** All 18 skills with Berry's bonuses. Proficient: Medicine & Nature (druid), Perception (elf). */
+export const skills: Skill[] = [
+  { name: 'Acrobatics', ability: 'Dex', bonus: '+2', proficient: false },
+  { name: 'Animal Handling', ability: 'Wis', bonus: '+3', proficient: false },
+  { name: 'Arcana', ability: 'Int', bonus: '−1', proficient: false },
+  { name: 'Athletics', ability: 'Str', bonus: '+0', proficient: false },
+  { name: 'Deception', ability: 'Cha', bonus: '+0', proficient: false },
+  { name: 'History', ability: 'Int', bonus: '−1', proficient: false },
+  { name: 'Insight', ability: 'Wis', bonus: '+3', proficient: false },
+  { name: 'Intimidation', ability: 'Cha', bonus: '+0', proficient: false },
+  { name: 'Investigation', ability: 'Int', bonus: '−1', proficient: false },
+  { name: 'Medicine', ability: 'Wis', bonus: '+6', proficient: true },
+  { name: 'Nature', ability: 'Int', bonus: '+2', proficient: true },
+  { name: 'Perception', ability: 'Wis', bonus: '+6', proficient: true },
+  { name: 'Performance', ability: 'Cha', bonus: '+0', proficient: false },
+  { name: 'Persuasion', ability: 'Cha', bonus: '+0', proficient: false },
+  { name: 'Religion', ability: 'Int', bonus: '−1', proficient: false },
+  { name: 'Sleight of Hand', ability: 'Dex', bonus: '+2', proficient: false },
+  { name: 'Stealth', ability: 'Dex', bonus: '+2', proficient: false },
+  { name: 'Survival', ability: 'Wis', bonus: '+3', proficient: false },
+];
+
 export interface SpellSlots {
   level: number;
   count: number;
