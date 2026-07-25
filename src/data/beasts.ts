@@ -414,6 +414,130 @@ export const brownBear: StatblockData = {
   ],
 };
 
+export const reefShark: StatblockData = {
+  name: 'Reef Shark',
+  source: mmSource('Reef Shark'),
+  subtitle: 'Medium beast, unaligned',
+  topProps: [
+    { label: 'Armor Class', value: '12 (natural armor)' },
+    { label: 'Hit Points', value: '22 (4d8 + 4)' },
+    { label: 'Speed', value: '0 ft., swim 40 ft.' },
+  ],
+  abilities: { str: 14, dex: 13, con: 13, int: 1, wis: 10, cha: 4 },
+  bottomProps: [
+    { label: 'Skills', value: 'Perception +2' },
+    { label: 'Senses', value: 'blindsight 30 ft., passive Perception 12' },
+    { label: 'Challenge', value: '1/2 (100 XP)' },
+  ],
+  sections: [
+    {
+      entries: [
+        {
+          name: 'Pack Tactics',
+          text: "The shark has advantage on an attack roll against a creature if at least one of the shark's allies is within 5 ft. of the creature and the ally isn't incapacitated.",
+        },
+        { name: 'Water Breathing', text: 'The shark can breathe only underwater.' },
+      ],
+    },
+    {
+      heading: 'Actions',
+      entries: [
+        {
+          name: 'Bite',
+          text: 'Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 6 (1d8 + 2) piercing damage.',
+        },
+      ],
+    },
+  ],
+  note: 'Underwater only — swim 40 ft. and no land speed at all, so this is a dead pick on dry ground. In water it is the best CR 1/2 option I have: four of them with Pack Tactics all swing with advantage, and blindsight 30 ft. ignores murky water and invisibility.',
+};
+
+export const giantToad: StatblockData = {
+  name: 'Giant Toad',
+  source: mmSource('Giant Toad'),
+  subtitle: 'Large beast, unaligned',
+  topProps: [
+    { label: 'Armor Class', value: '11' },
+    { label: 'Hit Points', value: '39 (6d10 + 6)' },
+    { label: 'Speed', value: '20 ft., swim 40 ft.' },
+  ],
+  abilities: { str: 15, dex: 13, con: 13, int: 2, wis: 10, cha: 3 },
+  bottomProps: [
+    { label: 'Senses', value: 'darkvision 30 ft., passive Perception 10' },
+    { label: 'Challenge', value: '1 (200 XP)' },
+  ],
+  sections: [
+    {
+      entries: [
+        { name: 'Amphibious', text: 'The toad can breathe air and water.' },
+        {
+          name: 'Standing Leap',
+          text: "The toad's long jump is up to 20 ft. and its high jump is up to 10 ft., with or without a running start.",
+        },
+      ],
+    },
+    {
+      heading: 'Actions',
+      entries: [
+        {
+          name: 'Bite',
+          text: "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 7 (1d10 + 2) piercing damage plus 5 (1d10) poison damage, and the target is grappled (escape DC 13). Until this grapple ends, the target is restrained, and the toad can't bite another target.",
+        },
+        {
+          name: 'Swallow',
+          text: "The toad makes one bite attack against a Medium or smaller target it is grappling. If the attack hits, the target is swallowed and the grapple ends. The swallowed target is blinded and restrained, it has total cover against attacks and other effects outside the toad, and it takes 10 (3d6) acid damage at the start of each of the toad's turns. The toad can have only one target swallowed at a time. If the toad dies, a swallowed creature can escape from the corpse using 5 feet of movement, exiting prone.",
+        },
+      ],
+    },
+  ],
+  note: 'The control pick at CR 1. Two toads can bite-and-swallow two Medium enemies and take them out of the fight entirely: blinded, restrained, no line of sight, 3d6 acid a turn. Highest HP of my CR 1 options (39) and amphibious, so it works in water too.',
+};
+
+export const polarBear: StatblockData = {
+  name: 'Polar Bear',
+  source: mmSource('Polar Bear'),
+  subtitle: 'Large beast, unaligned',
+  topProps: [
+    { label: 'Armor Class', value: '12 (natural armor)' },
+    { label: 'Hit Points', value: '42 (5d10 + 15)' },
+    { label: 'Speed', value: '40 ft., swim 30 ft.' },
+  ],
+  abilities: { str: 20, dex: 10, con: 16, int: 2, wis: 13, cha: 7 },
+  bottomProps: [
+    { label: 'Skills', value: 'Perception +3' },
+    { label: 'Senses', value: 'passive Perception 13' },
+    { label: 'Challenge', value: '2 (450 XP)' },
+  ],
+  sections: [
+    {
+      entries: [
+        {
+          name: 'Keen Smell',
+          text: 'The bear has advantage on Wisdom (Perception) checks that rely on smell.',
+        },
+      ],
+    },
+    {
+      heading: 'Actions',
+      entries: [
+        {
+          name: 'Multiattack',
+          text: 'The bear makes two attacks: one with its bite and one with its claws.',
+        },
+        {
+          name: 'Bite',
+          text: 'Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 9 (1d8 + 5) piercing damage.',
+        },
+        {
+          name: 'Claws',
+          text: 'Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 12 (2d6 + 5) slashing damage.',
+        },
+      ],
+    },
+  ],
+  note: 'A brown bear turned up to CR 2 — Str 20, +7 to hit, 21 damage a round across two attacks, and 42 HP. Sturdier than the Allosaurus and it swims, but no Pounce, so the Allosaurus still wins if I want a target knocked prone. He likes bears.',
+};
+
 export const allosaurus: StatblockData = {
   name: 'Allosaurus',
   source: {

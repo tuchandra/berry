@@ -8,6 +8,9 @@ import {
   direWolf,
   giantConstrictorSnake,
   giantPoisonousSnake,
+  giantToad,
+  polarBear,
+  reefShark,
   velociraptor,
   wildShapeForms,
   wolf,
@@ -619,8 +622,9 @@ function WildShape() {
       </div>
       <Note className="mt-5 max-w-2xl" label="Other forms to consider">
         <p>
-          Other solid CR 1/2 picks I could learn: Giant Goat (charge + knock prone), Reef Shark
-          (swim + pack tactics), Warhorse (trampling charge).
+          Other solid CR 1/2 picks I could learn: Giant Goat (charge + knock prone), Warhorse
+          (trampling charge), and <a href="#summons">Reef Shark</a> — swimming forms are legal for
+          me now, and the shark's blindsight is the best underwater sense I can get.
         </p>
       </Note>
 
@@ -687,8 +691,17 @@ function Summons() {
             </p>
           </Card>
         </TieredForm>
+        <TieredForm
+          label="4 × CR 1/2"
+          tagline="Reef Shark — Pack Tactics + blindsight, but underwater only."
+        >
+          <Statblock data={reefShark} />
+        </TieredForm>
         <TieredForm label="2 × CR 1" tagline="Dire Wolf — Pack Tactics + prone, tanky (37 HP).">
           <Statblock data={direWolf} />
+        </TieredForm>
+        <TieredForm label="2 × CR 1" tagline="Giant Toad — swallow a Medium enemy whole, 39 HP.">
+          <Statblock data={giantToad} />
         </TieredForm>
         <TieredForm
           label="2 × CR 1"
@@ -707,6 +720,12 @@ function Summons() {
           tagline="Allosaurus — Pounce (knocks prone) + heavy single-target damage."
         >
           <Statblock data={allosaurus} />
+        </TieredForm>
+        <TieredForm
+          label="1 × CR 2"
+          tagline="Polar Bear — Str 20, two attacks for ~21 damage, 42 HP."
+        >
+          <Statblock data={polarBear} />
         </TieredForm>
         <TieredForm
           label="1 × CR 2"
