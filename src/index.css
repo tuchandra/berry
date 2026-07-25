@@ -42,3 +42,40 @@ a:hover {
 .display-font {
   font-family: "Cinzel", "Libre Baskerville", serif;
 }
+
+/*
+ * Berry's notes — one shared callout for my own notes about spells, techniques,
+ * and table rulings. The dark-page twin of `.spellcard__note` / `.statblock__note`
+ * on the parchment cards: same blue tint, same left rule, same small-caps label.
+ */
+.note {
+  border-left: 3px solid var(--accent);
+  border-radius: 0 4px 4px 0;
+  background: rgba(111, 179, 239, 0.1);
+  padding: 0.5rem 0.8rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
+.note__label {
+  display: block;
+  font-variant: small-caps;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+}
+.note__body > :first-child {
+  margin-top: 0.1rem;
+}
+.note__body p {
+  margin: 0.35rem 0 0;
+}
+.note__body ul {
+  margin: 0.35rem 0 0;
+  padding-left: 1.1rem;
+  list-style: disc;
+}
+.note__body li {
+  margin: 0.15rem 0;
+}

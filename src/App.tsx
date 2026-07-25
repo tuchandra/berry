@@ -112,6 +112,28 @@ function SubHeading({ children }: { children: React.ReactNode }) {
   return <h3 className="mb-2 mt-6 text-lg text-[var(--ink)]">{children}</h3>;
 }
 
+/**
+ * One of Berry's own notes — reminders, table rulings, and things to try. Styled
+ * to match the notes on the parchment spell cards and statblocks, so a note reads
+ * the same wherever it appears.
+ */
+function Note({
+  label = "Berry's note",
+  className = '',
+  children,
+}: {
+  label?: React.ReactNode;
+  className?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className={`note ${className}`}>
+      <span className="note__label">{label}</span>
+      <div className="note__body">{children}</div>
+    </div>
+  );
+}
+
 function TieredForm({
   label,
   tagline,
@@ -559,36 +581,50 @@ function WildShape() {
         Forms I can take (CR 1/2 or lower, no flying). My favorites and their statblocks.
       </p>
 
-      <Card className="mb-5 max-w-3xl border-[var(--accent)]/30 bg-[var(--accent)]/5">
-        <div className="font-bold text-[var(--accent-2)]">
-          I keep my own mind in every form
-          <Ref book="PHB" url={DRUID_CLASS_URL} />
-        </div>
-        <p className="mt-1 text-sm text-[var(--ink)]">
+      <Note
+        className="mb-5 max-w-3xl"
+        label={
+          <>
+            I keep my own mind in every form
+            <Ref book="PHB" url={DRUID_CLASS_URL} />
+          </>
+        }
+      >
+        <p>
           When I Wild Shape I take the beast's{' '}
           <b>Strength, Dexterity, Constitution, AC, HP, and speed</b>, but I keep my own{' '}
           <b>Intelligence 9 (−1), Wisdom 16 (+3), Charisma 10 (+0)</b> and all my saving-throw and
           skill proficiencies. So the mental scores printed in the blocks below are <b>not</b> what
           I use — ignore the beast's Int/Wis/Cha and use mine.
         </p>
-        <p className="mt-2 text-xs text-[var(--ink-dim)]">
+        <p>
           I can't cast spells while transformed, but my Wisdom still drives things like Wisdom saves
           and Perception. I can drop out of a form as a bonus action.
         </p>
-      </Card>
+      </Note>
 
       <div className="grid gap-5 sm:grid-cols-2">
         {wildShapeForms.map((form) => (
           <Statblock key={form.name} data={form} />
         ))}
       </div>
-      <Card className="mt-5 max-w-2xl">
-        <div className="font-bold text-[var(--accent-2)]">Other forms to consider</div>
-        <p className="mt-1 text-sm text-[var(--ink)]">
+      <Note className="mt-5 max-w-2xl" label="Other forms to consider">
+        <p>
           Other solid CR 1/2 picks I could learn: Giant Goat (charge + knock prone), Reef Shark
           (swim + pack tactics), Warhorse (trampling charge).
         </p>
-      </Card>
+      </Note>
+
+      <Note className="mt-3 max-w-2xl" label="Unexplored: mounting mechanics">
+        <p>
+          We haven't tried this yet, but a Wild Shape form could work as a <b>mount</b> for a
+          smaller party member. A creature can ride a willing mount that is at least one size larger
+          than it and has an appropriate anatomy — so a Medium form (black bear, crocodile) could
+          carry a Small ally, and a Large form would carry a Medium one. Worth asking the DM about:
+          a controlled mount moves and acts on my initiative, which could hand someone a free
+          reposition every round.
+        </p>
+      </Note>
     </Section>
   );
 }
@@ -671,13 +707,13 @@ function Summons() {
         </TieredForm>
       </div>
 
-      <Card className="mt-5 max-w-2xl">
-        <p className="text-sm text-[var(--ink)]">
-          <b>Rule of thumb:</b> more bodies usually wins — eight raptors put out far more attacks
-          (and Pack Tactics advantage) than one big creature. Go fewer/bigger only for durability or
-          to control a single tough enemy.
+      <Note className="mt-5 max-w-2xl" label="Rule of thumb">
+        <p>
+          More bodies usually wins — eight raptors put out far more attacks (and Pack Tactics
+          advantage) than one big creature. Go fewer/bigger only for durability or to control a
+          single tough enemy.
         </p>
-      </Card>
+      </Note>
 
       <SubHeading>Getting advantage with summons</SubHeading>
       <div className="grid gap-3 md:grid-cols-2">
@@ -696,11 +732,13 @@ function Summons() {
             creatures on opposite sides of an enemy get advantage on <b>melee</b> attacks — eight
             bodies can flank almost anything and set up advantage for the party too.
           </p>
-          <p className="mt-2 text-xs text-[var(--ink-dim)]">
-            Advantage doesn't stack, so flanking adds nothing for Pack Tactics creatures — it only
-            helps the non-pack summons (apes, bears, the dinos). Many tables leave flanking off
-            because summons abuse it, so check first.
-          </p>
+          <Note className="mt-3">
+            <p>
+              Advantage doesn't stack, so flanking adds nothing for Pack Tactics creatures — it only
+              helps the non-pack summons (apes, bears, the dinos). Many tables leave flanking off
+              because summons abuse it, so check first.
+            </p>
+          </Note>
         </Card>
       </div>
     </Section>
