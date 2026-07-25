@@ -250,7 +250,7 @@ export const level2: SpellData[] = [
     concentration: true,
     description: [
       "A nature spirit occupies a 5-foot cube. When it appears, and as a bonus action on your later turns, you can move it up to 30 feet. Whenever a creature (you choose which) enters the spirit's space or starts its turn there, it regains 1d6 hit points.",
-      'The spirit can heal a number of times equal to 1 + your spellcasting modifier (4 times for Berry), then vanishes.',
+      'The spirit can heal a number of times equal to 1 + your spellcasting ability modifier — Wisdom +3, so 4 times for Berry — then vanishes.',
     ],
     higherLevels: 'The healing increases by 1d6 for each slot level above 2nd.',
   },

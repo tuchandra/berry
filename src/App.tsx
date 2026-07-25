@@ -338,6 +338,22 @@ function Mechanics() {
         </Card>
       </div>
 
+      <Note className="mt-3 max-w-3xl" label='"Spellcasting modifier" is two different numbers'>
+        <p>
+          This trips me up, so: my <b>spell attack modifier is +6</b> — that's Wisdom +3 plus my
+          proficiency +3, and it's the number I add to a d20 when a spell makes me roll to hit
+          (Scorching Ray, Ice Knife, Thorn Whip). It's the number my sheet labels "spellcasting."
+          Same +3 and +3 build my <b>save DC of 14</b> (8 + 3 + 3).
+        </p>
+        <p>
+          But when a spell's text says "your spellcasting ability modifier" inside a{' '}
+          <b>damage, healing, or count</b> formula, that means <b>Wisdom alone: +3</b> — proficiency
+          never applies there. So Cure Wounds heals 1d8 <b>+ 3</b>, and Healing Spirit gets <b>4</b>{' '}
+          heals (1 + 3), not 7. Anywhere on this page you see a bare +6, it's an attack roll; a bare
+          +3 in a damage or healing line is Wisdom.
+        </p>
+      </Note>
+
       <SubHeading>Action economy — my turn</SubHeading>
       <div className="grid gap-3 md:grid-cols-2">
         <Card>
