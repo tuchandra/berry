@@ -17,6 +17,7 @@ import {
 } from '@/data/beasts';
 import {
   abilities,
+  backgroundFeature,
   character,
   classSkillCounts,
   languages,
@@ -176,7 +177,7 @@ function Overview() {
   return (
     <section id="top" className="scroll-mt-16 pt-8 pb-2">
       <p className="text-sm uppercase tracking-widest text-[var(--ink-dim)]">
-        Level {character.level} · {character.race} · {character.alignment} ·{' '}
+        Level {character.level} · {character.race} {character.background} · {character.alignment} ·{' '}
         {character.spellcastingAbility} caster
       </p>
       <h1 className="display-font mt-1 text-4xl font-bold text-[var(--accent)]">
@@ -184,11 +185,15 @@ function Overview() {
       </h1>
       <p className="mt-2 max-w-2xl text-[var(--ink)]">
         A Circle of Wildfire Druid — chaotic good, gentler aspects of chaos, "plant guy but with
-        fire." He likes bears. This is my table reference: the numbers I forget, what I can do on my
-        turn, my spells, and my forms.
+        fire." An Outlander who came in from the wilds: he remembers every stretch of terrain he's
+        walked and can feed the whole party off the land. He likes bears. This is my table
+        reference: the numbers I forget, what I can do on my turn, my spells, and my forms.
       </p>
       <div className="mt-4 flex flex-wrap gap-3 text-sm text-[var(--ink-dim)]">
         <span className="rounded-full border border-white/15 px-3 py-1">{character.class}</span>
+        <span className="rounded-full border border-white/15 px-3 py-1">
+          {character.background} background
+        </span>
       </div>
     </section>
   );
@@ -314,8 +319,8 @@ function Mechanics() {
         </div>
         <p className="mt-3 text-xs text-[var(--ink-dim)]">
           <b className="text-[var(--accent)]">●</b> proficient (bonus includes my +3). Everything
-          else is just the ability modifier. Only three are marked — see{' '}
-          <a href="#proficiencies">Proficiencies</a> for why that's two short.
+          else is just the ability modifier. Athletics and Survival are new — see{' '}
+          <a href="#proficiencies">Proficiencies</a> for where they came from.
         </p>
       </Card>
 
@@ -448,15 +453,16 @@ function Proficiencies() {
   return (
     <Section id="proficiencies" title="Proficiencies &amp; Languages">
       <p className="mb-4 max-w-3xl text-[var(--ink-dim)]">
-        I have <b>{proficientSkills.length}</b> skill proficiencies and other people at the table
-        have four to seven. I looked into why. Short version: I'm not doing the math wrong — I'm
-        missing a <b>Background</b>, and it's worth two skills.
+        I had three skill proficiencies when everyone else at the table had four to seven, so I
+        looked into why. I wasn't doing the math wrong — I was missing a <b>Background</b>, which is
+        worth two skills. I've taken <b>{character.background}</b>, so I'm now at{' '}
+        <b>{proficientSkills.length}</b>: Athletics and Survival are new.
       </p>
 
       <SubHeading>Where skill proficiencies come from</SubHeading>
       <p className="mb-3 max-w-3xl text-sm text-[var(--ink-dim)]">
-        Every 5e character draws them from three places, and they stack. My class and race are
-        accounted for; the third row is the gap.
+        Every 5e character draws them from three places, and they stack. The third row is the one
+        that was blank.
       </p>
       <Card className="overflow-x-auto">
         <table className="w-full min-w-[38rem] text-left text-sm">
@@ -473,7 +479,7 @@ function Proficiencies() {
                 <td className="py-2 pr-4 font-bold text-[var(--accent-2)]">{s.from}</td>
                 <td className="py-2 pr-4 text-[var(--ink-dim)]">{s.grants}</td>
                 <td
-                  className={`py-2 ${s.missing ? 'font-bold text-[var(--accent)]' : 'text-[var(--ink)]'}`}
+                  className={`py-2 ${s.added ? 'font-bold text-[var(--accent)]' : 'text-[var(--ink)]'}`}
                 >
                   {s.recorded}
                 </td>
@@ -484,8 +490,8 @@ function Proficiencies() {
         <p className="mt-3 text-xs text-[var(--ink-dim)]">
           A background gives every character proficiency in <b>two skills</b>, plus two tool
           proficiencies or languages, a starting-equipment package, and a roleplay feature
-          <Ref book="PHB" url={BACKGROUNDS_URL} />. So my total should be{' '}
-          <b>{proficientSkills.length + 2}</b>, not {proficientSkills.length}.
+          <Ref book="PHB" url={BACKGROUNDS_URL} />. Mine was never written down, which is the whole
+          explanation for the gap.
         </p>
       </Card>
 
@@ -517,36 +523,44 @@ function Proficiencies() {
         <p className="mt-3 text-xs text-[var(--ink-dim)]">
           Add <b>+2 from a background</b> to any of those, then race on top — most races give zero
           or one skill, but a Half-Elf gives <b>two</b>. So a Half-Elf Rogue lands at 4 + 2 + 2 ={' '}
-          <b>8</b>, with two of them doubled by Expertise. A Druid with a background lands at 5.
-          That spread of 3–8 is exactly what we saw in the skill challenge.
+          <b>8</b>, with two of them doubled by Expertise. Me, now: 2 + 1 + 2 = <b>5</b>. That
+          spread of 3–8 is exactly what we saw in the skill challenge.
         </p>
       </Card>
 
-      <Note className="mt-4 max-w-3xl" label="What I should actually do">
-        <p>
-          Ask the DM to let me pick a background — it's a normal thing to backfill, and I'd gain two
-          skills, two tools-or-languages, and a feature. Best fits for Berry:
+      <SubHeading>My background: {character.background}</SubHeading>
+      <Card className="max-w-3xl">
+        <p className="text-sm text-[var(--ink)]">
+          Outlander was the best fit. Neither of its skills overlaps what I already had, so I got
+          the full two — and <b>Survival goes to +6</b> with my Wisdom, the most druid skill on the
+          sheet. Athletics only reaches <b>+3</b> (Strength 10), but that's still a real bonus on
+          grapples, shoving, and climbing, where I used to roll flat.
         </p>
-        <ul>
-          <li>
-            <b>Outlander</b> — Athletics + Survival. No overlap with what I already have, and
-            Survival with Wisdom becomes <b>+6</b>. Also a musical instrument and a language.
-            Wanderer: I always remember terrain, and can forage food and water for six people a day.
-          </li>
-          <li>
-            <b>Folk Hero</b> — Animal Handling + Survival. Very druid, and Animal Handling is the
-            check I keep wanting to make.
-          </li>
-          <li>
-            <b>Sage</b> — Arcana + History, plus two languages. Covers my two worst skills (Int −1),
-            so proficiency only brings them to +2 — flavour more than fix.
-          </li>
-        </ul>
+        <div className="mt-3">
+          <div className="text-xs uppercase tracking-wide text-[var(--accent-2)]">
+            Feature: {backgroundFeature.name}
+          </div>
+          <p className="mt-0.5 text-sm text-[var(--ink)]">{backgroundFeature.detail}</p>
+        </div>
+        <p className="mt-3 text-xs text-[var(--ink-dim)]">
+          It also came with a <b>musical instrument</b> proficiency and the <b>language</b> slot I'm
+          using for Grippli.
+        </p>
+      </Card>
+
+      <Note className="mt-4 max-w-3xl" label="Why not one of the others">
         <p>
-          One wrinkle: if a background hands me a skill I already have from the druid list (Hermit
-          gives Medicine, for example), the rules don't automatically swap it — I'd just lose that
-          one. The <b>customizing a background</b> rule lets me choose <i>any</i> two skills
-          instead, which avoids the problem entirely; worth asking for.
+          <b>Folk Hero</b> (Animal Handling + Survival) was the close second and very druid, but
+          both its skills are Wisdom — I'd be stacking my best stat instead of covering a hole.{' '}
+          <b>Sage</b> (Arcana + History) only lifts my two worst skills from −1 to +2, so it's
+          flavour rather than a fix. <b>Hermit</b> gives Medicine, which I already have from the
+          druid list — and the rules don't automatically swap a duplicate, I'd just lose it.
+        </p>
+        <p>
+          If I ever want a skill outside a background's fixed pair, the{' '}
+          <b>customizing a background</b> rule lets me choose <i>any</i> two
+          <Ref book="PHB" url={BACKGROUNDS_URL} /> — good to know, but Outlander's pair is already
+          what I wanted.
         </p>
       </Note>
 

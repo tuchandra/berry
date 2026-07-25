@@ -13,6 +13,7 @@ export const character = {
   nickname: 'Berry',
   race: 'Wood Elf',
   class: 'Druid (Circle of Wildfire)',
+  background: 'Outlander',
   level: 7,
   alignment: 'Chaotic Good',
   proficiencyBonus: '+3',
@@ -43,12 +44,15 @@ export interface Skill {
   proficient: boolean;
 }
 
-/** All 18 skills with Berry's bonuses. Proficient: Medicine & Nature (druid), Perception (elf). */
+/**
+ * All 18 skills with Berry's bonuses. Proficient: Medicine & Nature (druid),
+ * Perception (Wood Elf), Athletics & Survival (Outlander background).
+ */
 export const skills: Skill[] = [
   { name: 'Acrobatics', ability: 'Dex', bonus: '+2', proficient: false },
   { name: 'Animal Handling', ability: 'Wis', bonus: '+3', proficient: false },
   { name: 'Arcana', ability: 'Int', bonus: '−1', proficient: false },
-  { name: 'Athletics', ability: 'Str', bonus: '+0', proficient: false },
+  { name: 'Athletics', ability: 'Str', bonus: '+3', proficient: true },
   { name: 'Deception', ability: 'Cha', bonus: '+0', proficient: false },
   { name: 'History', ability: 'Int', bonus: '−1', proficient: false },
   { name: 'Insight', ability: 'Wis', bonus: '+3', proficient: false },
@@ -62,14 +66,14 @@ export const skills: Skill[] = [
   { name: 'Religion', ability: 'Int', bonus: '−1', proficient: false },
   { name: 'Sleight of Hand', ability: 'Dex', bonus: '+2', proficient: false },
   { name: 'Stealth', ability: 'Dex', bonus: '+2', proficient: false },
-  { name: 'Survival', ability: 'Wis', bonus: '+3', proficient: false },
+  { name: 'Survival', ability: 'Wis', bonus: '+6', proficient: true },
 ];
 
 /**
  * Where each of Berry's skill proficiencies comes from. A 5e character collects
- * them from three places — class, race, and background — and the background is
- * the one currently unaccounted for, which is why the sheet shows 3 instead of 5.
- * See the Proficiencies section for the full write-up.
+ * them from three places — class, race, and background. The background row was
+ * blank until 2026-07-25, which is why the sheet showed 3 skills instead of 5;
+ * taking Outlander closed the gap. See the Proficiencies section for the write-up.
  */
 export interface ProficiencySource {
   /** Where it comes from, e.g. "Druid (class)". */
@@ -78,8 +82,8 @@ export interface ProficiencySource {
   grants: string;
   /** What Berry actually has recorded from it. */
   recorded: string;
-  /** Unclaimed — shows as a gap on the page. */
-  missing?: boolean;
+  /** Newly claimed — highlighted on the page. */
+  added?: boolean;
 }
 
 export const skillSources: ProficiencySource[] = [
@@ -95,16 +99,17 @@ export const skillSources: ProficiencySource[] = [
     recorded: 'Perception',
   },
   {
-    from: 'Background',
+    from: 'Outlander (background)',
     grants: 'Any 2 skills, plus 2 tool proficiencies or languages',
-    recorded: 'Nothing — no background is written down',
-    missing: true,
+    recorded: 'Athletics, Survival — plus a musical instrument and a language',
+    added: true,
   },
 ];
 
 /**
  * Typical skill-proficiency counts by class, before background (+2) and race.
- * This is why other party members have 4–7 where Berry has 3.
+ * This is why other party members ranged 4–7 where Berry had 3 — druid is on the
+ * low end at two, and his background was blank.
  */
 export const classSkillCounts: { klass: string; count: number; note?: string }[] = [
   { klass: 'Rogue', count: 4, note: 'plus Expertise — doubles proficiency on 2 of them' },
@@ -123,9 +128,22 @@ export const otherProficiencies: { label: string; value: string }[] = [
     value:
       'Clubs, daggers, darts, javelins, maces, quarterstaffs, scimitars, sickles, slings, spears (druid) · longswords, shortswords, shortbows, longbows (Wood Elf)',
   },
-  { label: 'Tools', value: 'Herbalism kit (druid)' },
+  {
+    label: 'Tools',
+    value: 'Herbalism kit (druid) · one musical instrument of my choice (Outlander)',
+  },
   { label: 'Saving throws', value: 'Intelligence, Wisdom (druid) · Constitution (Resilient feat)' },
 ];
+
+/**
+ * The Outlander background's feature. A background grants a roleplay ability
+ * alongside its proficiencies — this is the half that isn't a number.
+ */
+export const backgroundFeature = {
+  name: 'Wanderer',
+  detail:
+    'I have an excellent memory for maps and geography, and can always recall the general layout of terrain, settlements, and other features around me. I can also find food and fresh water for myself and up to five other people each day, provided the land offers berries, small game, water, and so forth.',
+};
 
 export interface Language {
   name: string;
@@ -135,7 +153,7 @@ export interface Language {
 }
 
 export const languages: Language[] = [
-  { name: 'Common', detail: 'Standard for Wood Elves.' },
+  { name: 'Common', detail: 'From Wood Elf.' },
   {
     name: 'Druidic',
     detail:
@@ -144,7 +162,7 @@ export const languages: Language[] = [
   {
     name: 'Grippli',
     detail:
-      'Speak and understand. The whole party has this except Dectart — so it doubles as a way to talk past him, deliberately or not.',
+      'Speak and understand — this is the language slot from my Outlander background. The whole party has it except Dectart, so it doubles as a way to talk past him, deliberately or not.',
   },
   {
     name: 'Elvish',
