@@ -3,12 +3,12 @@ import type { SpellData } from '@/components/SpellCard';
 /**
  * Berry's spells. Groups:
  *  - cantrips: the 4 known cantrips (always available, never "prepared")
- *  - level1 / level2 / level3: druid spells. Circle of Wildfire spells lead each
- *    group and are marked `alwaysPrepared` — they're always prepared and don't
- *    count toward the 9 prepared, so they can't be un-prepared in prep mode.
+ *  - level1 / level2 / level3 / level4: druid spells. Circle of Wildfire spells
+ *    lead each group and are marked `alwaysPrepared` — they're always prepared and
+ *    don't count toward the limit, so they can't be un-prepared in prep mode.
  *
- * Prepared limit is druid level (6) + Wisdom modifier (+3) = 9, plus the always-
- * prepared wildfire spells. The list is deliberately broader than 9 as a reference.
+ * Prepared limit is druid level (7) + Wisdom modifier (+3) = 10, plus the always-
+ * prepared wildfire spells. The list is deliberately broader than 10 as a reference.
  */
 
 export const cantrips: SpellData[] = [
@@ -422,5 +422,77 @@ export const level3: SpellData[] = [
       'A fountain of churned earth and stone erupts in a 20-foot cube. Each creature in the area must make a Dexterity save (DC 14), taking 3d12 bludgeoning damage on a fail, half on a success. The ground in the area becomes difficult terrain.',
     ],
     higherLevels: 'The damage increases by 1d12 for each slot level above 3rd.',
+  },
+];
+
+export const level4: SpellData[] = [
+  {
+    name: 'Aura of Life',
+    source: 'PHB',
+    level: 4,
+    school: 'Abjuration',
+    castingTime: '1 action',
+    range: 'Self (30-foot radius)',
+    components: 'V',
+    duration: 'Concentration, up to 10 minutes',
+    concentration: true,
+    alwaysPrepared: true,
+    badges: ['Wildfire'],
+    description: [
+      "Life-preserving energy radiates from you in a 30-foot radius. Until the spell ends, the aura moves with you, centered on you. Each non-hostile creature in the aura (including you) has resistance to necrotic damage, and its hit point maximum can't be reduced.",
+      'In addition, a non-hostile living creature regains 1 hit point when it starts its turn in the aura with 0 hit points.',
+    ],
+    note: 'The 0-HP clause is the real prize: a downed ally inside the aura pops back to 1 HP at the start of its turn instead of rolling a death save. Cast this before a fight I expect to go badly and it covers the whole party.',
+  },
+  {
+    name: 'Fire Shield',
+    source: 'PHB',
+    level: 4,
+    school: 'Evocation',
+    castingTime: '1 action',
+    range: 'Self',
+    components: 'V, S, M (a bit of phosphorus or a firefly)',
+    duration: '10 minutes',
+    alwaysPrepared: true,
+    badges: ['Wildfire'],
+    description: [
+      'Thin and vaporous flame surrounds your body for the duration, shedding bright light in a 10-foot radius and dim light for another 10 feet. You can end the spell early as an action.',
+      'Choose a warm shield or a chill shield. The warm shield grants you resistance to cold damage; the chill shield grants resistance to fire damage.',
+      'In addition, whenever a creature within 5 feet of you hits you with a melee attack, the shield erupts with flame: the attacker takes 2d8 fire damage (warm shield) or 2d8 cold damage (chill shield).',
+    ],
+    note: "No concentration — this stacks with Spike Growth, Flaming Sphere, or anything else I'm already holding. Pick the shield to counter what's hurting me: warm shield against a cold enemy, chill shield against a fire one.",
+  },
+  {
+    name: 'Polymorph',
+    source: 'PHB',
+    level: 4,
+    school: 'Transmutation',
+    castingTime: '1 action',
+    range: '60 feet',
+    components: 'V, S, M (a caterpillar cocoon)',
+    duration: 'Concentration, up to 1 hour',
+    concentration: true,
+    description: [
+      "This spell transforms a creature you can see into a new form. An unwilling creature must make a Wisdom saving throw (DC 14) to avoid the effect. The new form can be any beast whose challenge rating is equal to or less than the target's (or its level, if it doesn't have a CR).",
+      "The target's game statistics are replaced by the beast's, but it keeps its alignment and personality. It gains a separate pool of hit points; when they drop to 0, it reverts to its normal form with its original hit points. It can't cast spells, speak, or take actions its new form can't perform.",
+    ],
+    note: 'Two ways to use it. Offensively: turn one big enemy into a harmless beast — even on a success I lose nothing but the slot. Defensively: turn a battered ally into a giant ape (CR 7, 157 temporary HP) and they fight on with a fresh pool of hit points.',
+  },
+  {
+    name: 'Conjure Woodland Beings',
+    source: 'PHB',
+    level: 4,
+    school: 'Conjuration',
+    castingTime: '1 action',
+    range: '60 feet',
+    components: 'V, S, M (one holly berry per creature summoned)',
+    duration: 'Concentration, up to 1 hour',
+    concentration: true,
+    description: [
+      'You summon fey creatures that appear in unoccupied spaces you can see within range. Choose one: one fey of CR 2 or lower, two of CR 1 or lower, four of CR 1/2 or lower, or eight of CR 1/4 or lower.',
+      'The creatures are friendly to you and your companions, roll initiative as a group, and obey your verbal commands. The DM has their statistics.',
+    ],
+    higherLevels: 'With a 6th-level slot you summon twice as many; an 8th-level slot, three times.',
+    note: "Fey, not beasts — so this is a different menu from Conjure Animals: pixies (Polymorph and Confusion at will, invisible), sprites (Heart Sight, invisibility), satyrs, blink dogs. Eight pixies is the famous pick, but plenty of DMs limit it. Ask what's on the list before I burn my only 4th-level slot.",
   },
 ];

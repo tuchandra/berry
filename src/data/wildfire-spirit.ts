@@ -3,7 +3,7 @@ import { BOOKS, WILDFIRE_SUBCLASS_URL } from '@/data/sources';
 
 /**
  * Wildfire Spirit — the summonable spirit for a Wildfire Druid.
- * Values reflect Berry's level 6 stats (Proficiency Bonus +3, HP 35).
+ * Values reflect Berry's level 7 stats (Proficiency Bonus +3, HP 40).
  */
 export const wildfireSpirit: StatblockData = {
   name: 'Wildfire Spirit',
@@ -13,7 +13,7 @@ export const wildfireSpirit: StatblockData = {
     'You can summon the primal spirit bound to your soul. As an action, you can expend one use of your Wild Shape feature to summon your wildfire spirit, rather than assuming a beast form.',
   topProps: [
     { label: 'Armor Class', value: '13 (natural armor)' },
-    { label: 'Hit Points', value: '35 (5 + 5 × your druid level)' },
+    { label: 'Hit Points', value: '40 (5 + 5 × your druid level)' },
     { label: 'Speed', value: '30 ft., fly 30 ft. (hover)' },
     { label: 'Proficiency Bonus', value: '+3 (yours)' },
   ],

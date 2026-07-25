@@ -1,4 +1,4 @@
-/** Berry's core numbers — level 6 Wood Elf Wildfire Druid. */
+/** Berry's core numbers — level 7 Wood Elf Wildfire Druid. */
 
 export interface AbilityLine {
   name: string;
@@ -13,12 +13,12 @@ export const character = {
   nickname: 'Berry',
   race: 'Wood Elf',
   class: 'Druid (Circle of Wildfire)',
-  level: 6,
+  level: 7,
   alignment: 'Chaotic Good',
   proficiencyBonus: '+3',
   ac: 13,
-  hp: 51,
-  hitDice: '6d8',
+  hp: 59,
+  hitDice: '7d8',
   initiative: '+2',
   speed: '35 ft.',
   passivePerception: 16,
@@ -74,4 +74,8 @@ export const spellSlots: SpellSlots[] = [
   { level: 1, count: 4 },
   { level: 2, count: 3 },
   { level: 3, count: 3 },
+  { level: 4, count: 1 },
 ];
+
+/** Druid level (7) + Wisdom modifier (+3). Wildfire circle spells don't count. */
+export const preparedLimit = 10;

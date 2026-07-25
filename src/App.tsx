@@ -12,9 +12,9 @@ import {
   wildShapeForms,
   wolf,
 } from '@/data/beasts';
-import { abilities, character, skills, spellSlots } from '@/data/character';
+import { abilities, character, preparedLimit, skills, spellSlots } from '@/data/character';
 import { BOOKS, DRUID_CLASS_URL, WILDFIRE_SUBCLASS_URL, spellRefUrl } from '@/data/sources';
-import { cantrips, level1, level2, level3 } from '@/data/spells';
+import { cantrips, level1, level2, level3, level4 } from '@/data/spells';
 import { wildfireSpirit } from '@/data/wildfire-spirit';
 import { useEffect, useState } from 'react';
 
@@ -384,9 +384,9 @@ function Mechanics() {
             ))}
           </div>
           <p className="mt-3 text-sm text-[var(--ink)]">
-            I prepare <b>9 spells</b> (druid level 6 + Wis +3). Circle of Wildfire spells are{' '}
-            <b>always prepared</b> and don't count toward that. I know <b>4 cantrips</b>. Slots come
-            back on a long rest.
+            I prepare <b>{preparedLimit} spells</b> (druid level {character.level} + Wis +3). Circle
+            of Wildfire spells are <b>always prepared</b> and don't count toward that. I know{' '}
+            <b>4 cantrips</b>. Slots come back on a long rest.
           </p>
         </Card>
         <Card>
@@ -395,9 +395,10 @@ function Mechanics() {
             <Ref book="PHB" url={DRUID_CLASS_URL} />
           </div>
           <p className="mt-1 text-sm text-[var(--ink)]">
-            <b>2 uses</b>, regained on a short or long rest. At level 6 I can become a beast of{' '}
-            <b>CR 1/2 or lower</b> with <b>no flying speed</b> (swimming is fine). The form lasts{' '}
-            <b>3 hours</b>. I can spend a use to summon my Wildfire Spirit instead
+            <b>2 uses</b>, regained on a short or long rest. At level {character.level} I can become
+            a beast of <b>CR 1/2 or lower</b> with <b>no flying speed</b> (swimming is fine) — CR 1
+            and flight unlock at level 8. The form lasts <b>3 hours</b> (half my druid level in
+            hours, rounded down). I can spend a use to summon my Wildfire Spirit instead
             <Ref book="TCE" url={WILDFIRE_SUBCLASS_URL} />.
           </p>
         </Card>
@@ -407,7 +408,7 @@ function Mechanics() {
 }
 
 const PREP_STORAGE_KEY = 'berry-prepared-v1';
-const LEVELED_SPELLS: SpellData[] = [...level1, ...level2, ...level3];
+const LEVELED_SPELLS: SpellData[] = [...level1, ...level2, ...level3, ...level4];
 
 /** Prepared-spell selection, persisted to localStorage. Defaults to all prepared. */
 function usePrepared() {
@@ -502,13 +503,14 @@ function Spells() {
   const [prepMode, setPrepMode] = useState(false);
 
   const preparedCount = LEVELED_SPELLS.filter((s) => !s.alwaysPrepared && prepared[s.name]).length;
-  const overLimit = preparedCount > 9;
+  const overLimit = preparedCount > preparedLimit;
 
   return (
     <Section id="spells" title="Spells">
       <p className="mb-4 max-w-2xl text-[var(--ink-dim)]">
         Save DC is <b>14</b>, spell attack is <b>+6</b>. This list is broader than I can prepare —
-        use <b>Edit prepared</b> to pick my nine; the rest tuck away at the end of each level.
+        use <b>Edit prepared</b> to pick my {preparedLimit}; the rest tuck away at the end of each
+        level.
       </p>
 
       <div className="mb-5 flex flex-wrap items-center gap-3">
@@ -524,7 +526,7 @@ function Spells() {
           {prepMode ? 'Done' : 'Edit prepared spells'}
         </button>
         <span className="text-sm text-[var(--ink-dim)]">
-          <b className="text-[var(--accent)]">{preparedCount}</b> / 9 prepared
+          <b className="text-[var(--accent)]">{preparedCount}</b> / {preparedLimit} prepared
           {overLimit && <b className="text-[var(--accent-2)]"> — over your limit</b>}
           <span className="ml-1">· Wildfire spells are always prepared and don't count.</span>
         </span>
@@ -566,6 +568,13 @@ function Spells() {
       <LevelGroup
         title="Level 3"
         spells={level3}
+        prepMode={prepMode}
+        prepared={prepared}
+        toggle={toggle}
+      />
+      <LevelGroup
+        title="Level 4"
+        spells={level4}
         prepMode={prepMode}
         prepared={prepared}
         toggle={toggle}
