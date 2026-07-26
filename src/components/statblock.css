@@ -42,6 +42,19 @@
   }
 }
 
+/*
+ * Header row: name, availability tags, and the source citation pushed to the
+ * right. Keeping the source up here costs no vertical space, which matters when
+ * a page is a wall of statblocks.
+ */
+.statblock__head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.5rem;
+  column-span: all;
+}
+
 .statblock__name {
   font-family: "Libre Baskerville", "Georgia", serif;
   font-variant: small-caps;
@@ -53,6 +66,47 @@
   margin: 0;
 }
 
+.statblock__source-top {
+  margin-left: auto;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: rgba(122, 32, 13, 0.55);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.statblock__source-top:hover {
+  color: var(--sb-red);
+  text-decoration: underline;
+}
+
+/*
+ * Availability tags — how Berry can get this creature. Wild Shape is the blue
+ * used elsewhere for "mine"; Conjure Animals is outlined so the two read apart
+ * by shape as well as colour.
+ */
+.statblock__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+.statblock__tag {
+  font-variant: small-caps;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  border-radius: 2px;
+  padding: 0.05rem 0.4rem;
+  white-space: nowrap;
+}
+.statblock__tag--ws {
+  background: #2f6690;
+  color: var(--sb-parchment);
+}
+.statblock__tag--ca {
+  border: 1px solid #2f6690;
+  color: #2f6690;
+}
+
 .statblock__subtitle {
   font-style: italic;
   font-size: 0.85rem;
@@ -62,6 +116,23 @@
 .statblock__description {
   font-style: italic;
   margin: 0.4rem 0;
+}
+
+/* AC · HP · Speed, all on one line. */
+.statblock__statline {
+  color: var(--sb-red);
+  line-height: 1.4;
+  margin: 0.35rem 0;
+}
+.statblock__dot {
+  color: rgba(122, 32, 13, 0.45);
+}
+
+/* Skills · senses · CR, one line, labels omitted — so these are all values. */
+.statblock__meta {
+  color: var(--sb-text);
+  line-height: 1.4;
+  margin: 0.35rem 0;
 }
 
 /* Property lines: "Armor Class 13 (natural armor)" */

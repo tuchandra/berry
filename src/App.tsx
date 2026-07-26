@@ -1,20 +1,7 @@
 import { FlowChart } from '@/components/FlowChart';
 import { SpellCard, type SpellData } from '@/components/SpellCard';
 import { Statblock } from '@/components/Statblock';
-import {
-  allosaurus,
-  brownBear,
-  deinonychus,
-  direWolf,
-  giantConstrictorSnake,
-  giantPoisonousSnake,
-  giantToad,
-  polarBear,
-  reefShark,
-  velociraptor,
-  wildShapeForms,
-  wolf,
-} from '@/data/beasts';
+import { beasts } from '@/data/beasts';
 import {
   abilities,
   backgroundFeature,
@@ -52,6 +39,7 @@ const NAV = [
   { id: 'spells', label: 'Spells' },
   { id: 'wild-shape', label: 'Wild Shape' },
   { id: 'summons', label: 'Summons' },
+  { id: 'beasts', label: 'Beasts' },
   { id: 'flowchart', label: 'Flowchart' },
   { id: 'inventory', label: 'Inventory' },
   { id: 'sources', label: 'Sources' },
@@ -147,26 +135,6 @@ function Note({
     <div className={`note ${className}`}>
       <span className="note__label">{label}</span>
       <div className="note__body">{children}</div>
-    </div>
-  );
-}
-
-function TieredForm({
-  label,
-  tagline,
-  children,
-}: {
-  label: string;
-  tagline: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div>
-      <div className="mb-2 flex flex-wrap items-baseline gap-x-3">
-        <span className="display-font text-lg text-[var(--accent)]">{label}</span>
-        <span className="text-sm text-[var(--ink-dim)]">{tagline}</span>
-      </div>
-      {children}
     </div>
   );
 }
@@ -725,7 +693,8 @@ function WildShape() {
   return (
     <Section id="wild-shape" title="Wild Shape">
       <p className="mb-4 max-w-2xl text-[var(--ink-dim)]">
-        Forms I can take (CR 1/2 or lower, no flying). My favorites and their statblocks.
+        Forms I can take: CR 1/2 or lower, no flying. Statblocks are in <a href="#beasts">Beasts</a>
+        , tagged <b>Wild Shape</b>.
       </p>
 
       <Note
@@ -750,16 +719,10 @@ function WildShape() {
         </p>
       </Note>
 
-      <div className="grid gap-5 sm:grid-cols-2">
-        {wildShapeForms.map((form) => (
-          <Statblock key={form.name} data={form} />
-        ))}
-      </div>
       <Note className="mt-5 max-w-2xl" label="Other forms to consider">
         <p>
-          Other solid CR 1/2 picks I could learn: Giant Goat (charge + knock prone), Warhorse
-          (trampling charge), and <a href="#summons">Reef Shark</a> — swimming forms are legal for
-          me now, and the shark's blindsight is the best underwater sense I can get.
+          Other solid CR 1/2 picks I could learn: Giant Goat (charge + knock prone) and Warhorse
+          (trampling charge).
         </p>
       </Note>
 
@@ -767,10 +730,10 @@ function WildShape() {
         <p>
           We haven't tried this yet, but a Wild Shape form could work as a <b>mount</b> for a
           smaller party member. A creature can ride a willing mount that is at least one size larger
-          than it and has an appropriate anatomy — so a Medium form (black bear, crocodile) could
-          carry a Small ally, and a Large form would carry a Medium one. Worth asking the DM about:
-          a controlled mount moves and acts on my initiative, which could hand someone a free
-          reposition every round.
+          than it and has an appropriate anatomy — so a Medium form (ape, black bear) could carry a
+          Small ally, and the crocodile, my only <b>Large</b> form, could carry a Medium one. Worth
+          asking the DM about: a controlled mount moves and acts on my initiative, which could hand
+          someone a free reposition every round.
         </p>
       </Note>
     </Section>
@@ -798,77 +761,9 @@ function Summons() {
       </SubHeading>
       <p className="mb-4 max-w-2xl text-[var(--ink-dim)]">
         A 3rd-level slot summons fey spirits in beast form. I pick <b>one</b> option: eight CR 1/4,
-        four CR 1/2, two CR 1, or one CR 2. More bodies usually wins on action economy — eight
-        wolves is a lot of attacks. The DM controls them, but they obey me and act on my initiative.
+        four CR 1/2, two CR 1, or one CR 2. The DM controls them, but they obey me and act on my
+        initiative. Statblocks are in <a href="#beasts">Beasts</a>, each tagged with how many I get.
       </p>
-      <div className="grid gap-5 sm:grid-cols-2">
-        <TieredForm
-          label="8 × CR 1/4"
-          tagline="Velociraptor — Pack Tactics + multiattack, the top damage pick."
-        >
-          <Statblock data={velociraptor} />
-        </TieredForm>
-        <TieredForm label="8 × CR 1/4" tagline="Wolf — Pack Tactics + knocks prone, great control.">
-          <Statblock data={wolf} />
-        </TieredForm>
-        <TieredForm
-          label="8 × CR 1/4"
-          tagline="Giant Poisonous Snake — 10-ft reach + poison, hits from the back."
-        >
-          <Statblock data={giantPoisonousSnake} />
-        </TieredForm>
-        <TieredForm label="4 × CR 1/2" tagline="Ape (ranged rocks) or Black Bear (durable).">
-          <Card className="h-full">
-            <p className="text-sm text-[var(--ink)]">
-              For this tier I've used <b>apes</b> (ranged rock throw, no opportunity attacks) and{' '}
-              <b>black bears</b> (durable multiattack) — four of them. Their statblocks are up in{' '}
-              <a href="#wild-shape">Wild Shape</a>.
-            </p>
-          </Card>
-        </TieredForm>
-        <TieredForm
-          label="4 × CR 1/2"
-          tagline="Reef Shark — Pack Tactics + blindsight, but underwater only."
-        >
-          <Statblock data={reefShark} />
-        </TieredForm>
-        <TieredForm label="2 × CR 1" tagline="Dire Wolf — Pack Tactics + prone, tanky (37 HP).">
-          <Statblock data={direWolf} />
-        </TieredForm>
-        <TieredForm label="2 × CR 1" tagline="Giant Toad — swallow a Medium enemy whole, 39 HP.">
-          <Statblock data={giantToad} />
-        </TieredForm>
-        <TieredForm
-          label="2 × CR 1"
-          tagline="Brown Bear — big multiattack (1d8+4 bite, 2d6+4 claws)."
-        >
-          <Statblock data={brownBear} />
-        </TieredForm>
-        <TieredForm
-          label="2 × CR 1"
-          tagline="Deinonychus — Pounce + three attacks (bite + two claws), top CR 1 damage."
-        >
-          <Statblock data={deinonychus} />
-        </TieredForm>
-        <TieredForm
-          label="1 × CR 2"
-          tagline="Allosaurus — Pounce (knocks prone) + heavy single-target damage."
-        >
-          <Statblock data={allosaurus} />
-        </TieredForm>
-        <TieredForm
-          label="1 × CR 2"
-          tagline="Polar Bear — Str 20, two attacks for ~21 damage, 42 HP."
-        >
-          <Statblock data={polarBear} />
-        </TieredForm>
-        <TieredForm
-          label="1 × CR 2"
-          tagline="Giant Constrictor Snake — grapple and restrain a big threat."
-        >
-          <Statblock data={giantConstrictorSnake} />
-        </TieredForm>
-      </div>
 
       <Note className="mt-5 max-w-2xl" label="Rule of thumb">
         <p>
@@ -903,6 +798,45 @@ function Summons() {
             </p>
           </Note>
         </Card>
+      </div>
+    </Section>
+  );
+}
+
+/**
+ * Every beast statblock in one place, ordered by challenge rating. Wild Shape and
+ * Conjure Animals draw from an overlapping pool, so each card carries a tag rather
+ * than being written out twice.
+ */
+function Beasts() {
+  return (
+    <Section id="beasts" title="Beasts">
+      <p className="mb-3 max-w-3xl text-[var(--ink-dim)]">
+        One roster for both <a href="#wild-shape">Wild Shape</a> and{' '}
+        <a href="#summons">Conjure Animals</a>, ordered by challenge rating. The tag on each card
+        says how I get it.
+      </p>
+      <Card className="mb-5 max-w-3xl">
+        <ul className="space-y-1.5 text-sm">
+          <li>
+            <span className="statblock__tag statblock__tag--ws">Wild Shape</span>{' '}
+            <span className="text-[var(--ink-dim)]">
+              — I can become it: CR 1/2 or lower with no flying speed.
+            </span>
+          </li>
+          <li>
+            <span className="statblock__tag statblock__tag--ca">Conjure ×N</span>{' '}
+            <span className="text-[var(--ink-dim)]">
+              — I can summon it, and N is how many the spell gives me at that CR: eight at CR 1/4,
+              four at CR 1/2, two at CR 1, one at CR 2.
+            </span>
+          </li>
+        </ul>
+      </Card>
+      <div className="grid gap-5 sm:grid-cols-2">
+        {beasts.map((beast) => (
+          <Statblock key={beast.name} data={beast} />
+        ))}
       </div>
     </Section>
   );
@@ -957,6 +891,7 @@ export default function App() {
         <Spells />
         <WildShape />
         <Summons />
+        <Beasts />
         <Section id="flowchart" title="Combat Flowchart">
           <p className="mb-4 max-w-2xl text-[var(--ink-dim)]">
             My turn-by-turn priorities. Updated from the level-4 version for my current spells. This

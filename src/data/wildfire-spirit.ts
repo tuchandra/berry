@@ -11,17 +11,14 @@ export const wildfireSpirit: StatblockData = {
   subtitle: 'Small elemental',
   description:
     'You can summon the primal spirit bound to your soul. As an action, you can expend one use of your Wild Shape feature to summon your wildfire spirit, rather than assuming a beast form.',
-  topProps: [
-    { label: 'Armor Class', value: '13 (natural armor)' },
-    { label: 'Hit Points', value: '40 (5 + 5 × your druid level)' },
-    { label: 'Speed', value: '30 ft., fly 30 ft. (hover)' },
-    { label: 'Proficiency Bonus', value: '+3 (yours)' },
-  ],
+  ac: '13 (natural armor)',
+  hp: '40 (5 + 5 × your druid level)',
+  speed: '30 ft., fly 30 ft. (hover)',
   abilities: { str: 10, dex: 14, con: 14, int: 13, wis: 15, cha: 11 },
+  meta: ['darkvision 60 ft., passive Perception 12', 'Proficiency Bonus +3 (yours)'],
   bottomProps: [
     { label: 'Damage Immunities', value: 'fire' },
     { label: 'Condition Immunities', value: 'charmed, frightened, grappled, prone, restrained' },
-    { label: 'Senses', value: 'darkvision 60 ft., passive Perception 12' },
   ],
   wide: true,
   sections: [
