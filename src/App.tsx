@@ -489,10 +489,6 @@ function Proficiencies() {
 function Inventory() {
   return (
     <Section id="inventory" title="Inventory">
-      <p className="mb-4 max-w-2xl text-[var(--ink-dim)]">
-        Magic items and loot worth remembering. Several of these aren't fully identified yet, so the
-        descriptions are only what we know at the table.
-      </p>
       <Card className="max-w-3xl">
         <ul className="space-y-1.5 text-sm">
           {inventory.map((item) => (
@@ -893,10 +889,6 @@ export default function App() {
         <Summons />
         <Beasts />
         <Section id="flowchart" title="Combat Flowchart">
-          <p className="mb-4 max-w-2xl text-[var(--ink-dim)]">
-            My turn-by-turn priorities. Updated from the level-4 version for my current spells. This
-            is my own strategy, not a rulebook — the spells it points to are sourced below.
-          </p>
           <FlowChart />
         </Section>
         <Inventory />

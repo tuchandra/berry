@@ -42,10 +42,12 @@
   font-size: 0.9rem;
   color: var(--ink-dim);
 }
+/* "Action:" / "Bonus:" — a quiet label, not a headline. */
 .flow-rule__k {
-  color: var(--accent);
+  color: var(--ink-dim);
   font-variant: small-caps;
-  font-weight: 700;
+  font-weight: 400;
+  letter-spacing: 0.03em;
 }
 
 /* Priority trees */
@@ -100,16 +102,22 @@
   color: var(--accent);
   margin: 0 0.15rem;
 }
+/*
+ * The spell or action to take. Was a solid accent block, which shouted louder
+ * than the condition above it — now a faint tint so the eye still lands on it
+ * without the whole chart turning into rows of bright bars.
+ */
 .flow-branch__result {
   display: inline-block;
   margin-top: 0.2rem;
   font-variant: small-caps;
   font-weight: 700;
   letter-spacing: 0.02em;
-  color: #0e1522;
-  background: var(--accent);
+  color: var(--accent);
+  background: rgba(111, 179, 239, 0.1);
+  border: 1px solid rgba(111, 179, 239, 0.22);
   border-radius: 3px;
-  padding: 0.05rem 0.5rem;
+  padding: 0.05rem 0.45rem;
 }
 .flow-branch__hint {
   display: block;
