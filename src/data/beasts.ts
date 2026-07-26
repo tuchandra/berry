@@ -91,7 +91,7 @@ export const velociraptor: StatblockData = {
       ],
     },
   ],
-  note: 'Pack Tactics + multiattack — the top damage pick at this tier. Eight of them stacked on one enemy is two attacks each, all with advantage.',
+  note: 'Pack Tactics + multiattack, the top damage pick.',
 };
 
 export const wolf: StatblockData = {
@@ -128,7 +128,7 @@ export const wolf: StatblockData = {
       ],
     },
   ],
-  note: 'Pack Tactics + knocks prone — great control. Less raw damage than the velociraptor, but eight prone-checks a round shuts a melee enemy down.',
+  note: 'Pack Tactics + knocks prone, great control.',
 };
 
 export const giantPoisonousSnake: StatblockData = {
@@ -153,7 +153,7 @@ export const giantPoisonousSnake: StatblockData = {
       ],
     },
   ],
-  note: '10-ft reach + poison, so it hits from the back rank without stepping into danger. No Pack Tactics, but +6 to hit is the best at this tier and 3d6 poison on top adds up fast across eight of them.',
+  note: '10-ft reach + poison, hits from the back.',
 };
 
 export const ape: StatblockData = {
@@ -186,7 +186,7 @@ export const ape: StatblockData = {
       ],
     },
   ],
-  note: 'The ranged option — rocks at 25/50 ft mean no opportunity attacks and no need to close. Climb 30 ft and Athletics +5 also make this my best climbing and grappling form.',
+  note: 'Ranged rocks.',
 };
 
 export const blackBear: StatblockData = {
@@ -227,7 +227,7 @@ export const blackBear: StatblockData = {
       ],
     },
   ],
-  note: 'Durable multiattack and my default Wild Shape when I just want to be a bear in the way of something. 19 HP plus climb 30 ft.',
+  note: 'Durable.',
 };
 
 export const crocodile: StatblockData = {
@@ -260,7 +260,6 @@ export const crocodile: StatblockData = {
       ],
     },
   ],
-  note: 'Grapple-and-restrain on a single bite, and the only Large form I can take — which is what makes the mounting question interesting. Holds its breath 15 minutes, so it works in and out of water.',
 };
 
 export const reefShark: StatblockData = {
@@ -294,7 +293,6 @@ export const reefShark: StatblockData = {
       ],
     },
   ],
-  note: 'Underwater only — swim 40 ft. and no land speed at all, so this is a dead pick on dry ground. In water it is the best CR 1/2 option I have: four of them with Pack Tactics all swing with advantage, and blindsight 30 ft. ignores murky water and invisibility.',
 };
 
 export const direWolf: StatblockData = {
@@ -331,7 +329,7 @@ export const direWolf: StatblockData = {
       ],
     },
   ],
-  note: 'Pack Tactics + prone and tanky at 37 HP. The two of them still have advantage on each other, so this is the CR 1 pick that keeps the wolf-pack trick working.',
+  note: 'Pack Tactics + prone, tanky (37 HP).',
 };
 
 export const brownBear: StatblockData = {
@@ -372,7 +370,7 @@ export const brownBear: StatblockData = {
       ],
     },
   ],
-  note: 'Big multiattack — 1d8+4 bite and 2d6+4 claws, about 19 damage a round from each of the two.',
+  note: 'Big multiattack (1d8+4 bite, 2d6+4 claws).',
 };
 
 export const deinonychus: StatblockData = {
@@ -417,7 +415,7 @@ export const deinonychus: StatblockData = {
       ],
     },
   ],
-  note: 'Pounce + three attacks (bite and two claws) — the top CR 1 damage pick, and Pounce adds a fourth attack as a bonus action once the target is prone.',
+  note: 'Pounce + three attacks (bite + two claws), top CR 1 damage.',
 };
 
 export const giantToad: StatblockData = {
@@ -455,7 +453,6 @@ export const giantToad: StatblockData = {
       ],
     },
   ],
-  note: 'The control pick at CR 1. Two toads can bite-and-swallow two Medium enemies and take them out of the fight entirely: blinded, restrained, no line of sight, 3d6 acid a turn. Highest HP of my CR 1 options (39) and amphibious, so it works in water too.',
 };
 
 export const allosaurus: StatblockData = {
@@ -496,7 +493,7 @@ export const allosaurus: StatblockData = {
       ],
     },
   ],
-  note: 'Pounce (knocks prone) plus heavy single-target damage — 2d10+4 on the bite. Speed 60 ft. makes the 30-ft Pounce run easy to set up.',
+  note: 'Pounce (knocks prone) + heavy single-target damage.',
 };
 
 export const polarBear: StatblockData = {
@@ -537,7 +534,6 @@ export const polarBear: StatblockData = {
       ],
     },
   ],
-  note: 'A brown bear turned up to CR 2 — Str 20, +7 to hit, 21 damage a round across two attacks, and 42 HP. Sturdier than the Allosaurus and it swims, but no Pounce, so the Allosaurus still wins if I want a target knocked prone.',
 };
 
 export const giantConstrictorSnake: StatblockData = {
@@ -566,7 +562,7 @@ export const giantConstrictorSnake: StatblockData = {
       ],
     },
   ],
-  note: 'Grapple and restrain a big threat — escape DC 16 is hard to beat, and 60 HP is the most of any option. The pick when one enemy needs to stop acting.',
+  note: 'Grapple and restrain a big threat.',
 };
 
 /** Every beast, ordered by challenge rating. */

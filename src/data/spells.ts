@@ -356,7 +356,7 @@ export const level3: SpellData[] = [
     ],
     higherLevels:
       'With a 5th-level slot you summon twice as many; a 7th-level slot, three times; a 9th-level slot, four times.',
-    note: 'See the Summons section for the exact beast picks and how the tiers compare — more bodies usually wins.',
+    note: 'See the Beasts section for the exact beast picks and how the tiers compare — more bodies usually wins.',
   },
   {
     name: 'Dispel Magic',
@@ -435,7 +435,6 @@ export const level4: SpellData[] = [
       "Life-preserving energy radiates from you in a 30-foot radius. Until the spell ends, the aura moves with you, centered on you. Each non-hostile creature in the aura (including you) has resistance to necrotic damage, and its hit point maximum can't be reduced.",
       'In addition, a non-hostile living creature regains 1 hit point when it starts its turn in the aura with 0 hit points.',
     ],
-    note: 'The 0-HP clause is the real prize: a downed ally inside the aura pops back to 1 HP at the start of its turn instead of rolling a death save. Cast this before a fight I expect to go badly and it covers the whole party.',
   },
   {
     name: 'Fire Shield',
@@ -452,7 +451,6 @@ export const level4: SpellData[] = [
       'Choose a warm shield or a chill shield. The warm shield grants you resistance to cold damage; the chill shield grants resistance to fire damage.',
       'In addition, whenever a creature within 5 feet of you hits you with a melee attack, the shield erupts with flame: the attacker takes 2d8 fire damage (warm shield) or 2d8 cold damage (chill shield).',
     ],
-    note: "No concentration — this stacks with Spike Growth, Flaming Sphere, or anything else I'm already holding. Pick the shield to counter what's hurting me: warm shield against a cold enemy, chill shield against a fire one.",
   },
   {
     name: 'Polymorph',
@@ -468,7 +466,6 @@ export const level4: SpellData[] = [
       "This spell transforms a creature you can see into a new form. An unwilling creature must make a Wisdom saving throw (DC 14) to avoid the effect. The new form can be any beast whose challenge rating is equal to or less than the target's (or its level, if it doesn't have a CR).",
       "The target's game statistics are replaced by the beast's, but it keeps its alignment and personality. It gains a separate pool of hit points; when they drop to 0, it reverts to its normal form with its original hit points. It can't cast spells, speak, or take actions its new form can't perform.",
     ],
-    note: 'Two ways to use it. Offensively: turn one big enemy into a harmless beast — even on a success I lose nothing but the slot. Defensively: turn a battered ally into a giant ape (CR 7, 157 temporary HP) and they fight on with a fresh pool of hit points.',
   },
   {
     name: 'Conjure Woodland Beings',
@@ -485,6 +482,5 @@ export const level4: SpellData[] = [
       'The creatures are friendly to you and your companions, roll initiative as a group, and obey your verbal commands. The DM has their statistics.',
     ],
     higherLevels: 'With a 6th-level slot you summon twice as many; an 8th-level slot, three times.',
-    note: "Fey, not beasts — so this is a different menu from Conjure Animals: pixies (Polymorph and Confusion at will, invisible), sprites (Heart Sight, invisibility), satyrs, blink dogs. Eight pixies is the famous pick, but plenty of DMs limit it. Ask what's on the list before I burn my only 4th-level slot.",
   },
 ];
