@@ -26,7 +26,7 @@ export const badger: StatblockData = {
   hp: '3 (1d4 + 1)',
   speed: '20 ft., burrow 5 ft.',
   abilities: { str: 4, dex: 11, con: 12, int: 2, wis: 12, cha: 5 },
-  meta: ['darkvision 30 ft., passive Perception 11', 'CR 0'],
+  meta: ['darkvision 30 ft., passive Perception 11'],
   sections: [
     {
       entries: [
@@ -63,7 +63,7 @@ export const velociraptor: StatblockData = {
   hp: '10 (3d4 + 3)',
   speed: '30 ft.',
   abilities: { str: 6, dex: 14, con: 13, int: 4, wis: 12, cha: 6 },
-  meta: ['Perception +3', 'passive Perception 13', 'CR 1/4'],
+  meta: ['Perception +3', 'passive Perception 13'],
   sections: [
     {
       entries: [
@@ -104,7 +104,7 @@ export const wolf: StatblockData = {
   hp: '11 (2d8 + 2)',
   speed: '40 ft.',
   abilities: { str: 12, dex: 15, con: 12, int: 3, wis: 12, cha: 6 },
-  meta: ['Perception +3, Stealth +4', 'passive Perception 13', 'CR 1/4'],
+  meta: ['Perception +3, Stealth +4', 'passive Perception 13'],
   sections: [
     {
       entries: [
@@ -141,7 +141,7 @@ export const giantPoisonousSnake: StatblockData = {
   hp: '11 (2d8 + 2)',
   speed: '30 ft., swim 30 ft.',
   abilities: { str: 10, dex: 18, con: 13, int: 2, wis: 10, cha: 3 },
-  meta: ['blindsight 10 ft., passive Perception 10', 'CR 1/4'],
+  meta: ['blindsight 10 ft., passive Perception 10'],
   sections: [
     {
       heading: 'Actions',
@@ -166,7 +166,7 @@ export const ape: StatblockData = {
   hp: '19 (3d8 + 6)',
   speed: '30 ft., climb 30 ft.',
   abilities: { str: 16, dex: 14, con: 14, int: 6, wis: 12, cha: 7 },
-  meta: ['Athletics +5, Perception +3', 'passive Perception 13', 'CR 1/2'],
+  meta: ['Athletics +5, Perception +3', 'passive Perception 13'],
   sections: [
     {
       heading: 'Actions',
@@ -199,7 +199,7 @@ export const blackBear: StatblockData = {
   hp: '19 (3d8 + 6)',
   speed: '40 ft., climb 30 ft.',
   abilities: { str: 15, dex: 10, con: 14, int: 2, wis: 12, cha: 7 },
-  meta: ['Perception +3', 'passive Perception 13', 'CR 1/2'],
+  meta: ['Perception +3', 'passive Perception 13'],
   sections: [
     {
       entries: [
@@ -240,7 +240,7 @@ export const crocodile: StatblockData = {
   hp: '19 (3d8 + 6)',
   speed: '20 ft., swim 30 ft.',
   abilities: { str: 15, dex: 10, con: 13, int: 2, wis: 10, cha: 5 },
-  meta: ['Stealth +2', 'passive Perception 10', 'CR 1/2'],
+  meta: ['Stealth +2', 'passive Perception 10'],
   sections: [
     {
       entries: [
@@ -273,7 +273,7 @@ export const reefShark: StatblockData = {
   hp: '22 (4d8 + 4)',
   speed: '0 ft., swim 40 ft.',
   abilities: { str: 14, dex: 13, con: 13, int: 1, wis: 10, cha: 4 },
-  meta: ['Perception +2', 'blindsight 30 ft., passive Perception 12', 'CR 1/2'],
+  meta: ['Perception +2', 'blindsight 30 ft., passive Perception 12'],
   sections: [
     {
       entries: [
@@ -307,7 +307,7 @@ export const direWolf: StatblockData = {
   hp: '37 (5d10 + 10)',
   speed: '50 ft.',
   abilities: { str: 17, dex: 15, con: 15, int: 3, wis: 12, cha: 7 },
-  meta: ['Perception +3, Stealth +4', 'passive Perception 13', 'CR 1'],
+  meta: ['Perception +3, Stealth +4', 'passive Perception 13'],
   sections: [
     {
       entries: [
@@ -344,7 +344,7 @@ export const brownBear: StatblockData = {
   hp: '34 (4d10 + 12)',
   speed: '40 ft., climb 30 ft.',
   abilities: { str: 19, dex: 10, con: 16, int: 2, wis: 13, cha: 7 },
-  meta: ['Perception +3', 'passive Perception 13', 'CR 1'],
+  meta: ['Perception +3', 'passive Perception 13'],
   sections: [
     {
       entries: [
@@ -389,7 +389,7 @@ export const deinonychus: StatblockData = {
   hp: '26 (4d8 + 8)',
   speed: '40 ft.',
   abilities: { str: 15, dex: 15, con: 14, int: 4, wis: 12, cha: 6 },
-  meta: ['Perception +3', 'passive Perception 13', 'CR 1'],
+  meta: ['Perception +3', 'passive Perception 13'],
   sections: [
     {
       entries: [
@@ -430,7 +430,7 @@ export const giantToad: StatblockData = {
   hp: '39 (6d10 + 6)',
   speed: '20 ft., swim 40 ft.',
   abilities: { str: 15, dex: 13, con: 13, int: 2, wis: 10, cha: 3 },
-  meta: ['darkvision 30 ft., passive Perception 10', 'CR 1'],
+  meta: ['darkvision 30 ft., passive Perception 10'],
   sections: [
     {
       entries: [
@@ -472,7 +472,7 @@ export const allosaurus: StatblockData = {
   hp: '51 (6d10 + 18)',
   speed: '60 ft.',
   abilities: { str: 19, dex: 13, con: 17, int: 2, wis: 12, cha: 5 },
-  meta: ['Perception +5', 'passive Perception 15', 'CR 2'],
+  meta: ['Perception +5', 'passive Perception 15'],
   sections: [
     {
       entries: [
@@ -509,7 +509,7 @@ export const polarBear: StatblockData = {
   hp: '42 (5d10 + 15)',
   speed: '40 ft., swim 30 ft.',
   abilities: { str: 20, dex: 10, con: 16, int: 2, wis: 13, cha: 7 },
-  meta: ['Perception +3', 'passive Perception 13', 'CR 2'],
+  meta: ['Perception +3', 'passive Perception 13'],
   sections: [
     {
       entries: [
@@ -550,7 +550,7 @@ export const giantConstrictorSnake: StatblockData = {
   hp: '60 (8d12 + 8)',
   speed: '30 ft., swim 30 ft.',
   abilities: { str: 19, dex: 14, con: 12, int: 1, wis: 10, cha: 3 },
-  meta: ['Perception +2', 'blindsight 10 ft., passive Perception 12', 'CR 2'],
+  meta: ['Perception +2', 'blindsight 10 ft., passive Perception 12'],
   sections: [
     {
       heading: 'Actions',

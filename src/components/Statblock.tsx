@@ -41,8 +41,9 @@ export interface StatblockData {
   speed?: string;
   abilities?: AbilityScores;
   /**
-   * Short facts on one inline line under the ability table — skills, senses,
-   * challenge rating. Labels are omitted; the values speak for themselves.
+   * Unlabelled facts on one inline line directly under the AC/HP/Speed line —
+   * skills and senses, whose values speak for themselves. The challenge rating is
+   * appended automatically from `cr`, so don't repeat it here.
    */
   meta?: string[];
   /** Longer label/value lines below the ability table (immunities, proficiency bonus). */
@@ -55,7 +56,7 @@ export interface StatblockData {
   note?: string;
   /** Source book abbreviation (MM, TCE, ...) and a reference link. */
   source?: { abbr: string; name: string; url: string };
-  /** Challenge rating as printed, e.g. "1/4". Drives ordering. */
+  /** Challenge rating as printed, e.g. "1/4". Drives ordering and the "CR" fact. */
   cr?: string;
   /** Wild Shape, Conjure Animals, or both. */
   availability?: Availability[];
@@ -125,25 +126,44 @@ function Entry({ entry }: { entry: StatEntry }) {
   );
 }
 
-/** AC · HP · Speed on a single line, to keep cards short. */
-function StatLine({ data }: { data: StatblockData }) {
-  const parts: [string, string][] = [];
-  if (data.ac) parts.push(['AC', data.ac]);
-  if (data.hp) parts.push(['HP', data.hp]);
-  if (data.speed) parts.push(['Speed', data.speed]);
+/**
+ * Several facts on one line, dot-separated, each with an optional bold label —
+ * "AC 13 (natural armor) · HP 19 (3d8 + 6) · Speed 30 ft.". Facts with no label
+ * (senses, skills) render as plain values in the same line.
+ */
+function InlineProps({ className, parts }: { className: string; parts: StatProperty[] }) {
   if (parts.length === 0) return null;
-
   return (
-    <p className="statblock__statline">
-      {parts.map(([label, value], i) => (
-        <span key={label}>
+    <p className={className}>
+      {parts.map((p, i) => (
+        <span key={p.label + p.value}>
           {i > 0 && <span className="statblock__dot"> · </span>}
-          <span className="statblock__prop-label">{label}</span>{' '}
-          <span className="statblock__prop-value">{value}</span>
+          {p.label && (
+            <>
+              <span className="statblock__prop-label">{p.label}</span>{' '}
+            </>
+          )}
+          <span className="statblock__prop-value">{p.value}</span>
         </span>
       ))}
     </p>
   );
+}
+
+/** AC · HP · Speed. */
+function statLineParts(data: StatblockData): StatProperty[] {
+  const parts: StatProperty[] = [];
+  if (data.ac) parts.push({ label: 'AC', value: data.ac });
+  if (data.hp) parts.push({ label: 'HP', value: data.hp });
+  if (data.speed) parts.push({ label: 'Speed', value: data.speed });
+  return parts;
+}
+
+/** Skills and senses (unlabelled), then the challenge rating. */
+function metaParts(data: StatblockData): StatProperty[] {
+  const parts: StatProperty[] = (data.meta ?? []).map((value) => ({ label: '', value }));
+  if (data.cr) parts.push({ label: 'CR', value: data.cr });
+  return parts;
 }
 
 export function Statblock({ data }: { data: StatblockData }) {
@@ -179,10 +199,11 @@ export function Statblock({ data }: { data: StatblockData }) {
       {data.subtitle && <p className="statblock__subtitle">{data.subtitle}</p>}
       {data.description && <p className="statblock__description">{data.description}</p>}
 
-      {(data.ac || data.hp || data.speed) && (
+      {(statLineParts(data).length > 0 || metaParts(data).length > 0) && (
         <>
           <TaperedRule />
-          <StatLine data={data} />
+          <InlineProps className="statblock__statline" parts={statLineParts(data)} />
+          <InlineProps className="statblock__meta" parts={metaParts(data)} />
         </>
       )}
 
@@ -206,10 +227,6 @@ export function Statblock({ data }: { data: StatblockData }) {
           </div>
           <TaperedRule />
         </>
-      )}
-
-      {data.meta && data.meta.length > 0 && (
-        <p className="statblock__meta">{data.meta.join(' · ')}</p>
       )}
 
       {data.bottomProps && data.bottomProps.length > 0 && (

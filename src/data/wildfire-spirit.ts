@@ -15,8 +15,9 @@ export const wildfireSpirit: StatblockData = {
   hp: '40 (5 + 5 × your druid level)',
   speed: '30 ft., fly 30 ft. (hover)',
   abilities: { str: 10, dex: 14, con: 14, int: 13, wis: 15, cha: 11 },
-  meta: ['darkvision 60 ft., passive Perception 12', 'Proficiency Bonus +3 (yours)'],
+  meta: ['darkvision 60 ft., passive Perception 12'],
   bottomProps: [
+    { label: 'Proficiency Bonus', value: '+3 (yours)' },
     { label: 'Damage Immunities', value: 'fire' },
     { label: 'Condition Immunities', value: 'charmed, frightened, grappled, prone, restrained' },
   ],

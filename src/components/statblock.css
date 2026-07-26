@@ -128,11 +128,14 @@
   color: rgba(122, 32, 13, 0.45);
 }
 
-/* Skills · senses · CR, one line, labels omitted — so these are all values. */
+/*
+ * Skills · senses · CR, one line, labels omitted — so these are all values.
+ * Sits directly under the stat line, tucked close to it as part of the same block.
+ */
 .statblock__meta {
   color: var(--sb-text);
   line-height: 1.4;
-  margin: 0.35rem 0;
+  margin: 0.15rem 0 0.35rem;
 }
 
 /* Property lines: "Armor Class 13 (natural armor)" */
