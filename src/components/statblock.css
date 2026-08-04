@@ -99,18 +99,12 @@
   white-space: nowrap;
 }
 .statblock__tag--ws {
-  background: #2f6690;
+  background: #245a80;
   color: var(--sb-parchment);
 }
 .statblock__tag--ca {
-  border: 1px solid #2f6690;
-  color: #2f6690;
-}
-
-.statblock__subtitle {
-  font-style: italic;
-  font-size: 0.85rem;
-  margin: 0.1rem 0 0.4rem;
+  border: 1px solid #245a80;
+  color: #245a80;
 }
 
 .statblock__description {
@@ -194,29 +188,12 @@
   color: var(--sb-text);
 }
 
-.statblock__source {
-  margin: 0.6rem 0 0;
-  padding-top: 0.4rem;
-  border-top: 1px dotted rgba(122, 32, 13, 0.4);
-  font-size: 0.72rem;
-  text-align: right;
-  column-span: all;
-}
-.statblock__source a {
-  color: var(--sb-red);
-  font-weight: 700;
-  text-decoration: none;
-}
-.statblock__source a:hover {
-  text-decoration: underline;
-}
-
 /* Highlighted personal note — matches the spell-card note. */
 .statblock__note {
   margin-top: 0.6rem;
   padding: 0.35rem 0.5rem;
-  background: rgba(47, 102, 144, 0.16);
-  border-left: 3px solid #2f6690;
+  background: rgba(36, 90, 128, 0.14);
+  border-left: 3px solid #245a80;
   border-radius: 2px;
   font-size: 0.8rem;
   column-span: all;

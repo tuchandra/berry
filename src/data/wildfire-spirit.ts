@@ -8,14 +8,13 @@ import { BOOKS, WILDFIRE_SUBCLASS_URL } from '@/data/sources';
 export const wildfireSpirit: StatblockData = {
   name: 'Wildfire Spirit',
   source: { abbr: BOOKS.TCE.abbr, name: BOOKS.TCE.name, url: WILDFIRE_SUBCLASS_URL },
-  subtitle: 'Small elemental',
   description:
     'You can summon the primal spirit bound to your soul. As an action, you can expend one use of your Wild Shape feature to summon your wildfire spirit, rather than assuming a beast form.',
   ac: '13 (natural armor)',
   hp: '40 (5 + 5 × your druid level)',
   speed: '30 ft., fly 30 ft. (hover)',
   abilities: { str: 10, dex: 14, con: 14, int: 13, wis: 15, cha: 11 },
-  meta: ['darkvision 60 ft., passive Perception 12'],
+  meta: ['darkvision 60 ft., PP 12'],
   bottomProps: [
     { label: 'Proficiency Bonus', value: '+3 (yours)' },
     { label: 'Damage Immunities', value: 'fire' },

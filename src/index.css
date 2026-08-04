@@ -3,17 +3,28 @@
 
 /*
  * Page theme — a cool dark-navy frame so the parchment statblocks and spell
- * cards pop. Accents are blue (colorblind-safe: strong luminance contrast, no
- * red/green pairing). Var names --accent / --accent-2 kept generic on purpose.
+ * cards pop.
+ *
+ * Two accent families, never red against green:
+ *  - blue  (--accent / --accent-2) for headings, values, and links
+ *  - green (--prof)                for ability tags and proficiency
+ * Blue vs green survives red/green colour blindness — that condition confuses
+ * green with *red*, not with blue — and every use of green is additionally marked
+ * by a ● / • glyph or bold weight, so meaning never rests on hue alone.
+ *
+ * Contrast against the page background (WCAG AA large text needs 3:1, AAA body
+ * text 7:1): accent 10.4, accent-2 13.0, prof 8.5, ink 16.3, ink-dim 9.9.
+ * On parchment, the card blue is 6.6 and the card red 9.2.
  */
 
 :root {
   --page-bg: #0e1522;
   --page-bg-2: #172136;
-  --accent: #6fb3ef; /* azure — primary accent (headings, values, links) */
-  --accent-2: #a9c8ec; /* periwinkle — secondary accent (section titles) */
-  --ink: #e7ecf5;
-  --ink-dim: #a9b2c6;
+  --accent: #8fc9ff; /* azure — primary accent (headings, values, links) */
+  --accent-2: #c2dcfa; /* pale periwinkle — secondary accent (section titles) */
+  --prof: #25c98c; /* green — ability tags and proficiency */
+  --ink: #eef2f9;
+  --ink-dim: #b6bfd2;
 }
 
 html {
@@ -53,7 +64,7 @@ a:hover {
   font-weight: 700;
   font-size: 0.78em;
   letter-spacing: 0.08em;
-  color: var(--accent-2);
+  color: var(--prof);
 }
 
 /*

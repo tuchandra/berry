@@ -59,7 +59,7 @@
   margin-top: 0.15rem;
 }
 .spellcard__badge.is-cantrip {
-  background: #2f6690;
+  background: #245a80;
 }
 .spellcard__headtext {
   flex: 1 1 auto;
@@ -97,8 +97,8 @@
   color: #6b4a34;
 }
 .spellcard__status.is-prepared {
-  background: #2f6690;
-  border-color: #2f6690;
+  background: #245a80;
+  border-color: #245a80;
   color: var(--sc-parchment);
   font-size: 0.9rem;
 }
@@ -233,15 +233,15 @@
   padding: 0.05rem 0.4rem;
 }
 .spellcard__tag--badge {
-  background: #2f6690;
+  background: #245a80;
 }
 
 /* Highlighted personal note */
 .spellcard__note {
   margin-top: 0.5rem;
   padding: 0.35rem 0.5rem;
-  background: rgba(47, 102, 144, 0.18);
-  border-left: 3px solid #2f6690;
+  background: rgba(36, 90, 128, 0.16);
+  border-left: 3px solid #245a80;
   border-radius: 2px;
   font-size: 0.78rem;
 }

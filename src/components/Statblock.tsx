@@ -31,8 +31,6 @@ export type Availability = 'Wild Shape' | 'Conjure Animals';
 
 export interface StatblockData {
   name: string;
-  /** Italic type line, e.g. "Medium beast". Alignment is omitted — it never matters here. */
-  subtitle?: string;
   /** Optional italic intro paragraph (used for summon features). */
   description?: string;
   /** Defence and movement, rendered as one inline line: AC · HP · Speed. */
@@ -196,7 +194,6 @@ export function Statblock({ data }: { data: StatblockData }) {
           </a>
         )}
       </div>
-      {data.subtitle && <p className="statblock__subtitle">{data.subtitle}</p>}
       {data.description && <p className="statblock__description">{data.description}</p>}
 
       {(statLineParts(data).length > 0 || metaParts(data).length > 0) && (

@@ -34,15 +34,12 @@ function Abbr({ children }: { children: React.ReactNode }) {
 }
 
 const NAV = [
-  { id: 'mechanics', label: 'Mechanics' },
   { id: 'proficiencies', label: 'Proficiencies' },
   { id: 'spells', label: 'Spells' },
   { id: 'wild-shape', label: 'Wild Shape' },
-  { id: 'summons', label: 'Summons' },
   { id: 'beasts', label: 'Beasts' },
   { id: 'flowchart', label: 'Flowchart' },
   { id: 'inventory', label: 'Inventory' },
-  { id: 'sources', label: 'Sources' },
 ];
 
 const BACKGROUNDS_URL = 'https://5thsrd.org/character/backgrounds/';
@@ -241,7 +238,7 @@ function Mechanics() {
               {abilities.map((a) => (
                 <td
                   key={a.name}
-                  className={`px-2 py-1 ${a.saveProficient ? 'font-bold text-[var(--accent)]' : 'text-[var(--ink-dim)]'}`}
+                  className={`px-2 py-1 ${a.saveProficient ? 'font-bold text-[var(--prof)]' : 'text-[var(--ink-dim)]'}`}
                 >
                   {a.save}
                   {a.saveProficient && <span aria-hidden="true"> •</span>}
@@ -251,7 +248,7 @@ function Mechanics() {
           </tbody>
         </table>
         <p className="mt-3 text-xs text-[var(--ink-dim)]">
-          <b className="text-[var(--accent)]">•</b> proficient save (<Abbr>CON</Abbr>,{' '}
+          <b className="text-[var(--prof)]">•</b> proficient save (<Abbr>CON</Abbr>,{' '}
           <Abbr>INT</Abbr>, <Abbr>WIS</Abbr>). <Abbr>CON</Abbr> is proficient thanks to the
           Resilient feat — handy for keeping concentration.
         </p>
@@ -265,16 +262,12 @@ function Mechanics() {
               key={s.name}
               className="flex items-baseline justify-between gap-2 border-b border-white/5 py-0.5 text-sm"
             >
-              <span
-                className={s.proficient ? 'font-bold text-[var(--accent)]' : 'text-[var(--ink)]'}
-              >
+              <span className={s.proficient ? 'font-bold text-[var(--prof)]' : 'text-[var(--ink)]'}>
                 {s.proficient && <span aria-hidden="true">● </span>}
                 {s.name} <Abbr>{s.ability.toUpperCase()}</Abbr>
               </span>
               <span
-                className={
-                  s.proficient ? 'font-bold text-[var(--accent)]' : 'text-[var(--ink-dim)]'
-                }
+                className={s.proficient ? 'font-bold text-[var(--prof)]' : 'text-[var(--ink-dim)]'}
               >
                 {s.bonus}
               </span>
@@ -282,7 +275,7 @@ function Mechanics() {
           ))}
         </div>
         <p className="mt-3 text-xs text-[var(--ink-dim)]">
-          <b className="text-[var(--accent)]">●</b> <a href="#proficiencies">proficient</a> (bonus
+          <b className="text-[var(--prof)]">●</b> <a href="#proficiencies">proficient</a> (bonus
           includes my +3). Everything else is just the ability modifier.
         </p>
       </Card>
@@ -732,68 +725,17 @@ function WildShape() {
           someone a free reposition every round.
         </p>
       </Note>
-    </Section>
-  );
-}
 
-function Summons() {
-  return (
-    <Section id="summons" title="Summons">
       <SubHeading>
         Wildfire Spirit
         <Ref book="TCE" url={WILDFIRE_SUBCLASS_URL} />
       </SubHeading>
       <p className="mb-3 max-w-2xl text-[var(--ink-dim)]">
-        My main summon — costs a Wild Shape use. It shares my initiative and I command it with a
-        bonus action.
+        Instead of taking a form I can spend a Wild Shape use on my spirit. It shares my initiative
+        and I command it with a bonus action.
       </p>
       <div className="max-w-3xl">
         <Statblock data={wildfireSpirit} />
-      </div>
-
-      <SubHeading>
-        Conjure Animals
-        <Ref book="PHB" url={spellRefUrl('Conjure Animals')} />
-      </SubHeading>
-      <p className="mb-4 max-w-2xl text-[var(--ink-dim)]">
-        A 3rd-level slot summons fey spirits in beast form. I pick <b>one</b> option: eight CR 1/4,
-        four CR 1/2, two CR 1, or one CR 2. The DM controls them, but they obey me and act on my
-        initiative. Statblocks are in <a href="#beasts">Beasts</a>, each tagged with how many I get.
-      </p>
-
-      <Note className="mt-5 max-w-2xl" label="Rule of thumb">
-        <p>
-          More bodies usually wins — eight raptors put out far more attacks (and Pack Tactics
-          advantage) than one big creature. Go fewer/bigger only for durability or to control a
-          single tough enemy.
-        </p>
-      </Note>
-
-      <SubHeading>Getting advantage with summons</SubHeading>
-      <div className="grid gap-3 md:grid-cols-2">
-        <Card>
-          <div className="font-bold text-[var(--accent-2)]">Pack Tactics (always on)</div>
-          <p className="mt-1 text-sm text-[var(--ink)]">
-            Wolf, Velociraptor, and Dire Wolf have advantage on an attack whenever another ally is
-            within 5 ft of the target. This is core rules — stack them on one enemy and they all
-            swing with advantage. It's why the raptor/wolf packs hit so hard.
-          </p>
-        </Card>
-        <Card>
-          <div className="font-bold text-[var(--accent-2)]">Flanking (ask the DM)</div>
-          <p className="mt-1 text-sm text-[var(--ink)]">
-            Flanking is an <b>optional</b> rule (DMG p. 251), not default 5e. If it's on, two
-            creatures on opposite sides of an enemy get advantage on <b>melee</b> attacks — eight
-            bodies can flank almost anything and set up advantage for the party too.
-          </p>
-          <Note className="mt-3">
-            <p>
-              Advantage doesn't stack, so flanking adds nothing for Pack Tactics creatures — it only
-              helps the non-pack summons (apes, bears, the dinos). Many tables leave flanking off
-              because summons abuse it, so check first.
-            </p>
-          </Note>
-        </Card>
       </div>
     </Section>
   );
@@ -807,12 +749,35 @@ function Summons() {
 function Beasts() {
   return (
     <Section id="beasts" title="Beasts">
-      <p className="mb-3 max-w-3xl text-[var(--ink-dim)]">
-        One roster for both <a href="#wild-shape">Wild Shape</a> and{' '}
-        <a href="#summons">Conjure Animals</a>, ordered by challenge rating. The tag on each card
-        says how I get it.
+      <SubHeading>
+        Conjure Animals
+        <Ref book="PHB" url={spellRefUrl('Conjure Animals')} />
+      </SubHeading>
+      <p className="mb-4 max-w-2xl text-[var(--ink-dim)]">
+        A 3rd-level slot summons fey spirits in beast form. I pick <b>one</b> option: eight CR 1/4,
+        four CR 1/2, two CR 1, or one CR 2. The DM controls them, but they obey me and act on my
+        initiative.
       </p>
-      <Card className="mb-5 max-w-3xl">
+
+      <div className="grid gap-3 md:grid-cols-2">
+        <Note label="Rule of thumb">
+          <p>
+            More bodies usually wins — eight raptors put out far more attacks (and Pack Tactics
+            advantage) than one big creature. Go fewer/bigger only for durability or to control a
+            single tough enemy.
+          </p>
+        </Note>
+        <Card>
+          <div className="font-bold text-[var(--accent-2)]">Pack Tactics (always on)</div>
+          <p className="mt-1 text-sm text-[var(--ink)]">
+            Wolf, Velociraptor, and Dire Wolf have advantage on an attack whenever another ally is
+            within 5 ft of the target. This is core rules — stack them on one enemy and they all
+            swing with advantage. It's why the raptor/wolf packs hit so hard.
+          </p>
+        </Card>
+      </div>
+
+      <Card className="mb-5 mt-5 max-w-3xl">
         <ul className="space-y-1.5 text-sm">
           <li>
             <span className="statblock__tag statblock__tag--ws">Wild Shape</span>{' '}
@@ -886,7 +851,6 @@ export default function App() {
         <Proficiencies />
         <Spells />
         <WildShape />
-        <Summons />
         <Beasts />
         <Section id="flowchart" title="Combat Flowchart">
           <FlowChart />
