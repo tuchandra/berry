@@ -93,6 +93,27 @@ a:hover {
 }
 
 /*
+ * Quoted rulebook text. Deliberately NOT styled like `.note`: a note is Berry's
+ * own voice and this is the book's, so they must never be mistaken for each
+ * other. Grey rule and italic prose instead of the blue-tinted callout.
+ */
+.quote {
+  border-left: 2px solid rgba(182, 191, 210, 0.35);
+  padding-left: 0.9rem;
+  margin: 0;
+  font-style: italic;
+  color: var(--ink-dim);
+  line-height: 1.6;
+}
+.quote__cite {
+  display: block;
+  margin-top: 0.3rem;
+  font-style: normal;
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+}
+
+/*
  * Berry's notes — one shared callout for my own notes about spells, techniques,
  * and table rulings. The dark-page twin of `.spellcard__note` / `.statblock__note`
  * on the parchment cards: same blue tint, same left rule, same small-caps label.

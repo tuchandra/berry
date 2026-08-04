@@ -4,6 +4,7 @@ import { Statblock } from '@/components/Statblock';
 import { beasts } from '@/data/beasts';
 import {
   abilities,
+  backgroundDescription,
   backgroundFeature,
   character,
   languages,
@@ -14,7 +15,13 @@ import {
   spellSlots,
 } from '@/data/character';
 import { inventory } from '@/data/inventory';
-import { BOOKS, DRUID_CLASS_URL, WILDFIRE_SUBCLASS_URL, spellRefUrl } from '@/data/sources';
+import {
+  BOOKS,
+  DRUID_CLASS_URL,
+  OUTLANDER_BACKGROUND_URL,
+  WILDFIRE_SUBCLASS_URL,
+  spellRefUrl,
+} from '@/data/sources';
 import { cantrips, level1, level2, level3, level4 } from '@/data/spells';
 import { wildfireSpirit } from '@/data/wildfire-spirit';
 import { useEffect, useState } from 'react';
@@ -33,6 +40,16 @@ function Abbr({ children }: { children: React.ReactNode }) {
   return <span className="abbr">{children}</span>;
 }
 
+/** Quoted rulebook text, with its citation. Distinct from a Note, which is Berry's. */
+function Quote({ children, cite }: { children: React.ReactNode; cite?: React.ReactNode }) {
+  return (
+    <blockquote className="quote">
+      {children}
+      {cite && <cite className="quote__cite">{cite}</cite>}
+    </blockquote>
+  );
+}
+
 const NAV = [
   { id: 'proficiencies', label: 'Proficiencies' },
   { id: 'spells', label: 'Spells' },
@@ -41,8 +58,6 @@ const NAV = [
   { id: 'flowchart', label: 'Flowchart' },
   { id: 'inventory', label: 'Inventory' },
 ];
-
-const BACKGROUNDS_URL = 'https://5thsrd.org/character/backgrounds/';
 
 function Header() {
   return (
@@ -413,7 +428,18 @@ function Mechanics() {
 function Proficiencies() {
   return (
     <Section id="proficiencies" title="Proficiencies &amp; Languages">
-      <Card className="overflow-x-auto">
+      <Quote
+        cite={
+          <>
+            {character.background}
+            <Ref book="PHB" url={OUTLANDER_BACKGROUND_URL} />
+          </>
+        }
+      >
+        {backgroundDescription}
+      </Quote>
+
+      <Card className="mt-5 overflow-x-auto">
         <table className="w-full min-w-[38rem] text-left text-sm">
           <thead>
             <tr className="text-xs uppercase tracking-wide text-[var(--ink-dim)]">
@@ -427,7 +453,7 @@ function Proficiencies() {
               <tr key={s.from} className="border-t border-white/10 align-top">
                 <td className="py-2 pr-4 font-bold text-[var(--accent-2)]">
                   {s.from}
-                  {s.added && <Ref book="PHB" url={BACKGROUNDS_URL} />}
+                  {s.added && <Ref book="PHB" url={OUTLANDER_BACKGROUND_URL} />}
                 </td>
                 <td className="py-2 pr-4 text-[var(--ink-dim)]">{s.grants}</td>
                 <td className="py-2 text-[var(--ink)]">{s.recorded}</td>

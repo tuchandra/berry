@@ -42,3 +42,5 @@ export const monsterRefUrl = (name: string): string => `https://open5e.com/monst
 export const WILDFIRE_SUBCLASS_URL = 'https://dnd5e.wikidot.com/druid:wildfire';
 /** Base Druid class: Wild Shape, spellcasting, spell slots. */
 export const DRUID_CLASS_URL = 'https://dnd5e.wikidot.com/druid';
+/** Outlander background: its two skills, tools, language, and the Wanderer feature. */
+export const OUTLANDER_BACKGROUND_URL = 'https://dnd5e.wikidot.com/background:outlander';

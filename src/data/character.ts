@@ -121,6 +121,10 @@ export const otherProficiencies: { label: string; value: string }[] = [
   { label: 'Saving throws', value: 'Intelligence, Wisdom (druid) · Constitution (Resilient feat)' },
 ];
 
+/** The Outlander background as the book describes it. Quoted, not paraphrased. */
+export const backgroundDescription =
+  'Often considered rude and uncouth among civilized folk, outlanders have little respect for the niceties of life in the cities. The ties of tribe, clan, family, and the natural world of which they are a part are the most important bonds to most outlanders.';
+
 /**
  * The Outlander background's feature. A background grants a roleplay ability
  * alongside its proficiencies — this is the half that isn't a number.
