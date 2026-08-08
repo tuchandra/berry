@@ -130,10 +130,8 @@ function SpellSlotTracker({ prepared }: { prepared: PreparedMap }) {
                 onClick={() => spend(picking, s.name)}
                 className="slot-picker__option"
               >
+                <span className="slot-picker__level">{s.level}</span>
                 {s.name}
-                {Number(s.level) < pickingLevel && (
-                  <span className="ml-1 text-[var(--ink-dim)]">(lvl {s.level} — upcast)</span>
-                )}
               </button>
             ))}
             <button

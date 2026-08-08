@@ -73,13 +73,41 @@
 }
 
 .slot-picker__option {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 9999px;
-  padding: 0.25rem 0.7rem;
+  padding: 0.25rem 0.7rem 0.25rem 0.3rem;
   font-size: 0.8rem;
   color: var(--ink);
 }
 .slot-picker__option:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/*
+ * The spell's own level, as a miniature of the slot circle. Set against the
+ * level of the slot being spent, it says whether this is an upcast without
+ * spelling it out on every row.
+ */
+.slot-picker__level {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 1.3rem;
+  height: 1.3rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(182, 191, 210, 0.45);
+  color: var(--ink-dim);
+  font-family: "Cinzel", "Libre Baskerville", serif;
+  font-weight: 700;
+  font-size: 0.7rem;
+  line-height: 1;
+}
+.slot-picker__option:hover .slot-picker__level {
   border-color: var(--accent);
   color: var(--accent);
 }
