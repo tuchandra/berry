@@ -151,13 +151,6 @@ function SpellSlotTracker({ prepared }: { prepared: PreparedMap }) {
           </button>
         </div>
       )}
-
-      {editing && (
-        <p className="mt-3 text-xs text-[var(--ink-dim)]">
-          Tap an open circle to spend it, a spent one to give it back. Lower-level spells are in the
-          list because a bigger slot upcasts them.
-        </p>
-      )}
     </Card>
   );
 }
