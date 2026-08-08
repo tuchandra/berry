@@ -32,6 +32,11 @@ export const weapons: Item[] = [
 ];
 
 export const inventory: Item[] = [
+  {
+    name: 'Bag of Holding',
+    detail: 'Beeb has one too.',
+    url: 'https://www.dndbeyond.com/magic-items/4581-bag-of-holding',
+  },
   { name: 'Lantern of Revealing', detail: 'Can reveal invisible enemies.' },
   { name: 'Helm of Languages' },
   { name: 'Swim Ring' },
