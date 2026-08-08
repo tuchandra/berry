@@ -71,6 +71,7 @@ export const cantrips: SpellData[] = [
 export const level1: SpellData[] = [
   {
     name: 'Burning Hands',
+    enhancedBond: true,
     source: 'PHB',
     level: 1,
     school: 'Evocation',
@@ -86,6 +87,7 @@ export const level1: SpellData[] = [
   },
   {
     name: 'Cure Wounds',
+    enhancedBond: true,
     source: 'PHB',
     level: 1,
     school: 'Evocation',
@@ -143,6 +145,7 @@ export const level1: SpellData[] = [
   },
   {
     name: 'Healing Word',
+    enhancedBond: true,
     source: 'PHB',
     level: 1,
     school: 'Evocation',
@@ -204,6 +207,7 @@ export const level1: SpellData[] = [
 export const level2: SpellData[] = [
   {
     name: 'Flaming Sphere',
+    enhancedBond: true,
     source: 'PHB',
     level: 2,
     school: 'Conjuration',
@@ -221,6 +225,7 @@ export const level2: SpellData[] = [
   },
   {
     name: 'Scorching Ray',
+    enhancedBond: true,
     source: 'PHB',
     level: 2,
     school: 'Evocation',
@@ -236,6 +241,7 @@ export const level2: SpellData[] = [
   },
   {
     name: 'Healing Spirit',
+    enhancedBond: true,
     source: 'XGE',
     level: 2,
     school: 'Conjuration',
@@ -252,6 +258,7 @@ export const level2: SpellData[] = [
   },
   {
     name: 'Heat Metal',
+    enhancedBond: true,
     source: 'PHB',
     level: 2,
     school: 'Transmutation',
@@ -438,6 +445,7 @@ export const level4: SpellData[] = [
   },
   {
     name: 'Fire Shield',
+    enhancedBond: true,
     source: 'PHB',
     level: 4,
     school: 'Evocation',

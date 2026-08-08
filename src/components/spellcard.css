@@ -251,6 +251,25 @@
   color: var(--sc-red);
 }
 
+/*
+ * Enhanced Bond — the subclass rider on fire and healing spells. Warm-toned and
+ * rule-coloured rather than blue, so it reads as part of the spell's own rules,
+ * not as one of Berry's notes.
+ */
+.spellcard__bond {
+  margin-top: 0.5rem;
+  padding: 0.35rem 0.5rem;
+  background: rgba(146, 38, 16, 0.1);
+  border-left: 3px solid var(--sc-rule);
+  border-radius: 2px;
+  font-size: 0.78rem;
+}
+.spellcard__bond-label {
+  font-weight: 700;
+  font-variant: small-caps;
+  color: var(--sc-red);
+}
+
 /* Prep-mode toggle footer (also the accessible control for the whole card) */
 .spellcard__toggle {
   margin-top: 0.55rem;

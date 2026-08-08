@@ -19,6 +19,11 @@ export interface SpellData {
   ritual?: boolean;
   /** Highlighted table-note callout (e.g. Berry's own reminders). */
   note?: string;
+  /**
+   * Deals fire damage or restores hit points, so Enhanced Bond adds a d8 to one
+   * of its rolls while the wildfire spirit is out.
+   */
+  enhancedBond?: boolean;
   /** Small pills near the header, e.g. "Wildfire". */
   badges?: string[];
   /** Circle of Wildfire spell — always prepared, doesn't count toward the 9. */
@@ -213,6 +218,13 @@ export function SpellCard({
           </p>
         )}
       </div>
+
+      {spell.enhancedBond && (
+        <div className="spellcard__bond">
+          <span className="spellcard__bond-label">Enhanced Bond:</span> while my wildfire spirit is
+          summoned, add <b>1d8</b> to one damage or healing roll of this spell.
+        </div>
+      )}
 
       {spell.note && (
         <div className="spellcard__note">
