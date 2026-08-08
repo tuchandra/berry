@@ -14,7 +14,7 @@ import {
   skills,
   spellSlots,
 } from '@/data/character';
-import { inventory } from '@/data/inventory';
+import { type Item, inventory, partyItems, seeds, weapons, worn } from '@/data/inventory';
 import {
   BOOKS,
   DRUID_CLASS_URL,
@@ -180,7 +180,15 @@ function Mechanics() {
           note="enemies roll vs this"
         />
         <StatTile label="Spell Attack" value={character.spellAttack} note="d20 + this to hit" />
-        <StatTile label="Armor Class" value={String(character.ac)} />
+        <StatTile
+          label="Armor Class"
+          value={String(character.ac)}
+          note={
+            <>
+              studded leather 12 + <Abbr>DEX</Abbr>
+            </>
+          }
+        />
         <StatTile
           label="Hit Points"
           value={String(character.hp)}
@@ -280,6 +288,7 @@ function Mechanics() {
               <span className={s.proficient ? 'font-bold text-[var(--prof)]' : 'text-[var(--ink)]'}>
                 {s.proficient && <span aria-hidden="true">● </span>}
                 {s.name} <Abbr>{s.ability.toUpperCase()}</Abbr>
+                {s.note && <span className="ml-1 text-xs text-[var(--ink-dim)]">({s.note})</span>}
               </span>
               <span
                 className={s.proficient ? 'font-bold text-[var(--prof)]' : 'text-[var(--ink-dim)]'}
@@ -505,22 +514,63 @@ function Proficiencies() {
   );
 }
 
+/** One line of gear — name (linked, if it has a reference page) then what it does. */
+function ItemLine({ item, lead }: { item: Item; lead?: string }) {
+  const name = (
+    <>
+      {item.count ? `${item.count} × ` : ''}
+      {item.name}
+    </>
+  );
+  return (
+    <li className="flex flex-wrap items-baseline gap-x-2 border-b border-white/5 pb-1.5 last:border-0">
+      <span className="font-bold text-[var(--accent)]">
+        {lead && <span className="text-[var(--ink-dim)]">{lead} </span>}
+        {item.url ? (
+          <a href={item.url} target="_blank" rel="noreferrer">
+            {name}
+          </a>
+        ) : (
+          name
+        )}
+      </span>
+      {item.detail && <span className="text-[var(--ink-dim)]">{item.detail}</span>}
+    </li>
+  );
+}
+
+function ItemList({ items }: { items: Item[] }) {
+  return (
+    <Card className="max-w-3xl">
+      <ul className="space-y-1.5 text-sm">
+        {items.map((item) => (
+          <ItemLine key={item.name} item={item} />
+        ))}
+      </ul>
+    </Card>
+  );
+}
+
 function Inventory() {
   return (
     <Section id="inventory" title="Inventory">
+      <SubHeading>Worn</SubHeading>
+      <ItemList items={worn} />
+
+      <SubHeading>Weapons</SubHeading>
+      <ItemList items={weapons} />
+
+      <SubHeading>Carried</SubHeading>
+      <ItemList items={inventory} />
+
+      <SubHeading>Seeds</SubHeading>
+      <ItemList items={seeds} />
+
+      <SubHeading>What the rest of the party is carrying</SubHeading>
       <Card className="max-w-3xl">
         <ul className="space-y-1.5 text-sm">
-          {inventory.map((item) => (
-            <li
-              key={item.name}
-              className="flex flex-wrap items-baseline gap-x-2 border-b border-white/5 pb-1.5 last:border-0"
-            >
-              <span className="font-bold text-[var(--accent)]">
-                {item.count ? `${item.count} × ` : ''}
-                {item.name}
-              </span>
-              {item.detail && <span className="text-[var(--ink-dim)]">{item.detail}</span>}
-            </li>
+          {partyItems.map((item) => (
+            <ItemLine key={`${item.owner}-${item.name}`} item={item} lead={`${item.owner} —`} />
           ))}
         </ul>
       </Card>

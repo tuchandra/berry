@@ -17,7 +17,8 @@ export const character = {
   level: 7,
   alignment: 'Chaotic Good',
   proficiencyBonus: '+3',
-  ac: 13,
+  /** Studded leather (12) + DEX (+2). See Inventory. */
+  ac: 14,
   hp: 59,
   hitDice: '7d8',
   initiative: '+2',
@@ -42,6 +43,8 @@ export interface Skill {
   ability: string;
   bonus: string;
   proficient: boolean;
+  /** Where a bonus beyond the ability modifier comes from, e.g. an item. */
+  note?: string;
 }
 
 /**
@@ -56,7 +59,13 @@ export const skills: Skill[] = [
   { name: 'Deception', ability: 'Cha', bonus: '+0', proficient: false },
   { name: 'History', ability: 'Int', bonus: '−1', proficient: false },
   { name: 'Insight', ability: 'Wis', bonus: '+3', proficient: false },
-  { name: 'Intimidation', ability: 'Cha', bonus: '+0', proficient: false },
+  {
+    name: 'Intimidation',
+    ability: 'Cha',
+    bonus: '+1',
+    proficient: false,
+    note: 'basilisk fangs',
+  },
   { name: 'Investigation', ability: 'Int', bonus: '−1', proficient: false },
   { name: 'Medicine', ability: 'Wis', bonus: '+6', proficient: true },
   { name: 'Nature', ability: 'Int', bonus: '+2', proficient: true },
