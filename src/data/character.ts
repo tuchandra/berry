@@ -147,27 +147,19 @@ export const backgroundFeature = {
 export interface Language {
   name: string;
   detail: string;
-  /** Not from a standard source — flagged on the page. */
-  flagged?: boolean;
 }
 
 export const languages: Language[] = [
-  { name: 'Common', detail: 'From Wood Elf.' },
+  { name: 'Common and Elvish', detail: 'From being a Wood Elf.' },
   {
     name: 'Druidic',
     detail:
-      "The secret language of druids, from the class's Druidic feature. Only druids understand it; others know a message exists but not what it says.",
+      'From being a Druid. Only druids understand it; others know a message exists but not what it says.',
   },
   {
     name: 'Grippli',
     detail:
-      'Speak and understand — this is the language slot from my Outlander background. The whole party has it except Dectart, so it doubles as a way to talk past him, deliberately or not.',
-  },
-  {
-    name: 'Elvish',
-    detail:
-      "Not currently on my sheet, but a Wood Elf's starting languages are Common and Elvish. Worth checking with the DM whether I should have it.",
-    flagged: true,
+      'Learned in our Grippli adventure. The whole party has it except Dectart, so it doubles as a way to talk past him, deliberately or not.',
   },
 ];
 

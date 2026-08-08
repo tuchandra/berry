@@ -31,6 +31,7 @@ import { LEVELED_SPELLS, type PreparedMap, isPrepared, usePrepared } from '@/dat
 import {
   BOOKS,
   DRUID_CLASS_URL,
+  NATURAL_RECOVERY_URL,
   OUTLANDER_BACKGROUND_URL,
   WILDFIRE_SUBCLASS_URL,
   spellRefUrl,
@@ -193,18 +194,19 @@ function Mechanics() {
         </table>
         <p className="mt-3 text-xs text-[var(--ink-dim)]">
           <b className="text-[var(--prof)]">•</b> proficient save (<Abbr>CON</Abbr>,{' '}
-          <Abbr>INT</Abbr>, <Abbr>WIS</Abbr>). <Abbr>CON</Abbr> is proficient thanks to the
-          Resilient feat — handy for keeping concentration.
+          <Abbr>INT</Abbr>, <Abbr>WIS</Abbr>). <Abbr>CON</Abbr> proficiency from the Resilient feat.
         </p>
       </Card>
 
       <SubHeading>Skills</SubHeading>
       <Card>
-        <div className="grid grid-cols-2 gap-x-6 gap-y-0.5 sm:grid-cols-3">
+        {/* Columns, not rows: multi-column flows top-to-bottom, so the alphabetical
+            order reads down each column instead of across. */}
+        <div className="columns-2 gap-x-6 sm:columns-3">
           {skills.map((s) => (
             <div
               key={s.name}
-              className="flex items-baseline justify-between gap-2 border-b border-white/5 py-0.5 text-sm"
+              className="flex break-inside-avoid items-baseline justify-between gap-2 border-b border-white/5 py-0.5 text-sm"
             >
               <span className={s.proficient ? 'font-bold text-[var(--prof)]' : 'text-[var(--ink)]'}>
                 {s.proficient && <span aria-hidden="true">● </span>}
@@ -417,18 +419,13 @@ function Proficiencies() {
         <dl className="space-y-2 text-sm">
           {languages.map((l) => (
             <div key={l.name}>
-              <dt
-                className={`font-bold ${l.flagged ? 'text-[var(--ink-dim)]' : 'text-[var(--accent)]'}`}
-              >
-                {l.name}
-              </dt>
+              <dt className="font-bold text-[var(--accent)]">{l.name}</dt>
               <dd className="text-[var(--ink-dim)]">{l.detail}</dd>
             </div>
           ))}
         </dl>
         <p className="mt-3 text-xs text-[var(--ink-dim)]">
-          The <b>Helm of Languages</b> in <a href="#inventory">Inventory</a> is the thing to reach
-          for when none of these work.
+          Anything else: the <b>Helm of Languages</b> in <a href="#inventory">Inventory</a>.
         </p>
       </Card>
     </Section>
@@ -572,10 +569,24 @@ function Spells({ prepared, toggle }: { prepared: PreparedMap; toggle: (name: st
   return (
     <Section id="spells" title="Spells">
       <p className="mb-4 max-w-2xl text-[var(--ink-dim)]">
-        Save DC is <b>14</b>, spell attack is <b>+6</b>. This list is broader than I can prepare —
-        use <b>Edit prepared</b> to pick my {preparedLimit}; the rest tuck away at the end of each
-        level.
+        Save DC is <b>14</b>, spell attack is <b>+6</b>.
       </p>
+
+      <Note
+        className="mb-5 max-w-2xl"
+        label={
+          <>
+            Natural Recovery — slots back on a short rest
+            <Ref book="PHB" url={NATURAL_RECOVERY_URL} />
+          </>
+        }
+      >
+        <p>
+          Once per day, on a short rest, I recover expended spell slots with a combined level up to
+          half my druid level rounded up — <b>4 levels</b> at level 7. No slot can be level 6 or
+          higher.
+        </p>
+      </Note>
 
       <div className="mb-5 flex flex-wrap items-center gap-3">
         <ToggleButton on={prepMode} onClick={() => setPrepMode((m) => !m)}>
@@ -658,21 +669,20 @@ function WildShape() {
       >
         <p>
           When I Wild Shape I take the beast's{' '}
-          <b>Strength, Dexterity, Constitution, AC, HP, and speed</b>, but I keep my own{' '}
-          <b>Intelligence 9 (−1), Wisdom 16 (+3), Charisma 10 (+0)</b> and all my saving-throw and
-          skill proficiencies. So the mental scores printed in the blocks below are <b>not</b> what
-          I use — ignore the beast's Int/Wis/Cha and use mine.
+          <b>
+            <Abbr>STR</Abbr>, <Abbr>DEX</Abbr>, <Abbr>CON</Abbr>, AC, HP, and speed
+          </b>
+          , but I keep my own{' '}
+          <b>
+            <Abbr>INT</Abbr> 9 (−1), <Abbr>WIS</Abbr> 16 (+3), <Abbr>CHA</Abbr> 10 (+0)
+          </b>{' '}
+          and all my saving-throw and skill proficiencies. So the mental scores printed in the
+          blocks below are <b>not</b> what I use — ignore the beast's <Abbr>INT</Abbr>/
+          <Abbr>WIS</Abbr>/<Abbr>CHA</Abbr> and use mine.
         </p>
         <p>
-          I can't cast spells while transformed, but my Wisdom still drives things like Wisdom saves
-          and Perception. I can drop out of a form as a bonus action.
-        </p>
-      </Note>
-
-      <Note className="mt-5 max-w-2xl" label="Other forms to consider">
-        <p>
-          Other solid CR 1/2 picks I could learn: Giant Goat (charge + knock prone) and Warhorse
-          (trampling charge).
+          I can't cast spells while transformed, but my <Abbr>WIS</Abbr> still drives things like{' '}
+          <Abbr>WIS</Abbr> saves and Perception. I can drop out of a form as a bonus action.
         </p>
       </Note>
 
@@ -681,9 +691,8 @@ function WildShape() {
           We haven't tried this yet, but a Wild Shape form could work as a <b>mount</b> for a
           smaller party member. A creature can ride a willing mount that is at least one size larger
           than it and has an appropriate anatomy — so a Medium form (ape, black bear) could carry a
-          Small ally, and the crocodile, my only <b>Large</b> form, could carry a Medium one. Worth
-          asking the DM about: a controlled mount moves and acts on my initiative, which could hand
-          someone a free reposition every round.
+          Small ally, and the crocodile, my only <b>Large</b> form, could carry a Medium one. A
+          controlled mount moves and acts on my initiative.
         </p>
       </Note>
 
@@ -716,29 +725,10 @@ function Beasts() {
       </SubHeading>
       <p className="mb-4 max-w-2xl text-[var(--ink-dim)]">
         A 3rd-level slot summons fey spirits in beast form. I pick <b>one</b> option: eight CR 1/4,
-        four CR 1/2, two CR 1, or one CR 2. The DM controls them, but they obey me and act on my
-        initiative.
+        four CR 1/2, two CR 1, or one CR 2.
       </p>
 
-      <div className="grid gap-3 md:grid-cols-2">
-        <Note label="Rule of thumb">
-          <p>
-            More bodies usually wins — eight raptors put out far more attacks (and Pack Tactics
-            advantage) than one big creature. Go fewer/bigger only for durability or to control a
-            single tough enemy.
-          </p>
-        </Note>
-        <Card>
-          <div className="font-bold text-[var(--accent-2)]">Pack Tactics (always on)</div>
-          <p className="mt-1 text-sm text-[var(--ink)]">
-            Wolf, Velociraptor, and Dire Wolf have advantage on an attack whenever another ally is
-            within 5 ft of the target. This is core rules — stack them on one enemy and they all
-            swing with advantage. It's why the raptor/wolf packs hit so hard.
-          </p>
-        </Card>
-      </div>
-
-      <Card className="mb-5 mt-5 max-w-3xl">
+      <Card className="mb-5 max-w-3xl">
         <ul className="space-y-1.5 text-sm">
           <li>
             <span className="statblock__tag statblock__tag--ws">Wild Shape</span>{' '}

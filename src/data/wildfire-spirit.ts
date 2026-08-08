@@ -10,7 +10,7 @@ export const wildfireSpirit: StatblockData = {
   source: { abbr: BOOKS.TCE.abbr, name: BOOKS.TCE.name, url: WILDFIRE_SUBCLASS_URL },
   description:
     'You can summon the primal spirit bound to your soul. As an action, you can expend one use of your Wild Shape feature to summon your wildfire spirit, rather than assuming a beast form.',
-  ac: '13 (natural armor)',
+  ac: '13 (natural)',
   hp: '40 (5 + 5 × your druid level)',
   speed: '30 ft., fly 30 ft. (hover)',
   abilities: { str: 10, dex: 14, con: 14, int: 13, wis: 15, cha: 11 },
