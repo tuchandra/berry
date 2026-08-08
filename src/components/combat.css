@@ -1,0 +1,116 @@
+/*
+ * In-session trackers: spell slots, hit points, concentration.
+ *
+ * These are the one place on the page where red sits opposite green. The rest of
+ * the site avoids that pairing, but damage-red and healing-green is the table's
+ * own language and reads instantly. Hue never carries the meaning alone: every
+ * amount is written with a leading − or +, and the log labels each entry, so the
+ * two are told apart by sign and text even if the colours aren't.
+ *
+ * Contrast on the page background: hp-down 8.6, hp-up (--prof) 8.5.
+ */
+
+:root {
+  --hp-down: #ff9c9c; /* damage — always paired with a leading − */
+  --hp-up: var(--prof); /* healing — always paired with a leading + */
+}
+
+/*
+ * A spell slot. One circle per slot with its level inside, so a row of four
+ * circles marked "1" reads as "four first-level slots". Spent slots hollow out:
+ * dashed border, dimmed ink, and a line through the number, so spent vs. open is
+ * legible without colour.
+ */
+.slot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  border: 2px solid var(--accent);
+  background: rgba(126, 196, 255, 0.18);
+  color: var(--accent);
+  font-family: "Cinzel", "Libre Baskerville", serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1;
+  padding: 0;
+}
+
+.slot--spent {
+  border-style: dashed;
+  border-color: rgba(182, 191, 210, 0.4);
+  background: transparent;
+  color: var(--ink-dim);
+  text-decoration: line-through;
+}
+
+/* Only interactive in edit mode — otherwise the circles are a read-only display. */
+.slot--editable {
+  cursor: pointer;
+}
+.slot--editable:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.slot--picking {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.slot:disabled {
+  cursor: default;
+}
+
+/* The spell picker that opens when a slot is tapped in edit mode. */
+.slot-picker {
+  border: 1px solid rgba(126, 196, 255, 0.4);
+  border-radius: 8px;
+  background: rgba(126, 196, 255, 0.08);
+  padding: 0.75rem;
+}
+
+.slot-picker__option {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+  padding: 0.25rem 0.7rem;
+  font-size: 0.8rem;
+  color: var(--ink);
+}
+.slot-picker__option:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Hit point bar. Width tracks current/max; the fill colour never encodes state. */
+.hp-bar {
+  height: 0.6rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+.hp-bar__fill {
+  height: 100%;
+  border-radius: 9999px;
+  background: var(--accent);
+  transition: width 200ms ease;
+}
+.hp-bar__fill--bloodied {
+  background: var(--hp-down);
+}
+
+.hp-input {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.35rem 0.6rem;
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 0.875rem;
+}
+.hp-input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}

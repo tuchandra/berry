@@ -1,6 +1,18 @@
+import { Combat } from '@/components/Combat';
 import { FlowChart } from '@/components/FlowChart';
 import { SpellCard, type SpellData } from '@/components/SpellCard';
 import { Statblock } from '@/components/Statblock';
+import {
+  Abbr,
+  Card,
+  Note,
+  Quote,
+  Ref,
+  Section,
+  StatTile,
+  SubHeading,
+  ToggleButton,
+} from '@/components/ui';
 import { beasts } from '@/data/beasts';
 import {
   abilities,
@@ -15,6 +27,7 @@ import {
   spellSlots,
 } from '@/data/character';
 import { type Item, inventory, partyItems, seeds, weapons, worn } from '@/data/inventory';
+import { LEVELED_SPELLS, type PreparedMap, isPrepared, usePrepared } from '@/data/prepared';
 import {
   BOOKS,
   DRUID_CLASS_URL,
@@ -24,34 +37,11 @@ import {
 } from '@/data/sources';
 import { cantrips, level1, level2, level3, level4 } from '@/data/spells';
 import { wildfireSpirit } from '@/data/wildfire-spirit';
-import { useEffect, useState } from 'react';
-
-/** Bracketed source citation — [PHB], [TCE]. Reads as a footnote, not a heading. */
-function Ref({ book, url }: { book: keyof typeof BOOKS; url: string }) {
-  return (
-    <a href={url} target="_blank" rel="noreferrer" title={BOOKS[book].name} className="src-ref">
-      [{BOOKS[book].abbr}]
-    </a>
-  );
-}
-
-/** An ability abbreviation — WIS, CON, the tag beside a skill name. */
-function Abbr({ children }: { children: React.ReactNode }) {
-  return <span className="abbr">{children}</span>;
-}
-
-/** Quoted rulebook text, with its citation. Distinct from a Note, which is Berry's. */
-function Quote({ children, cite }: { children: React.ReactNode; cite?: React.ReactNode }) {
-  return (
-    <blockquote className="quote">
-      {children}
-      {cite && <cite className="quote__cite">{cite}</cite>}
-    </blockquote>
-  );
-}
+import { useState } from 'react';
 
 const NAV = [
   { id: 'proficiencies', label: 'Proficiencies' },
+  { id: 'combat', label: 'Combat' },
   { id: 'spells', label: 'Spells' },
   { id: 'wild-shape', label: 'Wild Shape' },
   { id: 'beasts', label: 'Beasts' },
@@ -79,75 +69,6 @@ function Header() {
         </nav>
       </div>
     </header>
-  );
-}
-
-function Section({
-  id,
-  title,
-  children,
-}: {
-  id: string;
-  title: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <section id={id} className="scroll-mt-16 py-8">
-      <h2 className="display-font mb-4 text-2xl font-bold text-[var(--accent-2)]">{title}</h2>
-      {children}
-    </section>
-  );
-}
-
-function Card({ children, className = '' }: { children: React.ReactNode; className?: string }) {
-  return (
-    <div className={`rounded-lg border border-white/10 bg-black/25 p-4 ${className}`}>
-      {children}
-    </div>
-  );
-}
-
-function StatTile({
-  label,
-  value,
-  note,
-}: {
-  label: string;
-  value: string;
-  note?: React.ReactNode;
-}) {
-  return (
-    <div className="rounded-md border border-white/10 bg-black/25 px-4 py-3">
-      <div className="text-xs uppercase tracking-wide text-[var(--ink-dim)]">{label}</div>
-      <div className="display-font text-2xl text-[var(--accent)]">{value}</div>
-      {note && <div className="mt-0.5 text-xs text-[var(--ink-dim)]">{note}</div>}
-    </div>
-  );
-}
-
-function SubHeading({ children }: { children: React.ReactNode }) {
-  return <h3 className="mb-2 mt-6 text-lg text-[var(--ink)]">{children}</h3>;
-}
-
-/**
- * One of Berry's own notes — reminders, table rulings, and things to try. Styled
- * to match the notes on the parchment spell cards and statblocks, so a note reads
- * the same wherever it appears.
- */
-function Note({
-  label = "Berry's note",
-  className = '',
-  children,
-}: {
-  label?: React.ReactNode;
-  className?: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className={`note ${className}`}>
-      <span className="note__label">{label}</span>
-      <div className="note__body">{children}</div>
-    </div>
   );
 }
 
@@ -578,33 +499,6 @@ function Inventory() {
   );
 }
 
-const PREP_STORAGE_KEY = 'berry-prepared-v1';
-const LEVELED_SPELLS: SpellData[] = [...level1, ...level2, ...level3, ...level4];
-
-/** Prepared-spell selection, persisted to localStorage. Defaults to all prepared. */
-function usePrepared() {
-  const [prepared, setPrepared] = useState<Record<string, boolean>>(() => {
-    const defaults: Record<string, boolean> = {};
-    for (const s of LEVELED_SPELLS) defaults[s.name] = true;
-    const raw = typeof localStorage !== 'undefined' && localStorage.getItem(PREP_STORAGE_KEY);
-    if (raw) {
-      try {
-        Object.assign(defaults, JSON.parse(raw));
-      } catch {
-        // corrupt value — fall back to defaults
-      }
-    }
-    return defaults;
-  });
-
-  useEffect(() => {
-    localStorage.setItem(PREP_STORAGE_KEY, JSON.stringify(prepared));
-  }, [prepared]);
-
-  const toggle = (name: string) => setPrepared((p) => ({ ...p, [name]: !p[name] }));
-  return { prepared, toggle };
-}
-
 function SpellGrid({ children }: { children: React.ReactNode }) {
   return <div className="mt-2 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{children}</div>;
 }
@@ -620,14 +514,14 @@ function LevelGroup({
   title: string;
   spells: SpellData[];
   prepMode: boolean;
-  prepared: Record<string, boolean>;
+  prepared: PreparedMap;
   toggle: (name: string) => void;
 }) {
   const [showUnprepared, setShowUnprepared] = useState(false);
-  const isPrepared = (s: SpellData) => s.alwaysPrepared || prepared[s.name];
-  const unprepared = spells.filter((s) => !isPrepared(s));
+  const ready = (s: SpellData) => isPrepared(s, prepared);
+  const unprepared = spells.filter((s) => !ready(s));
   // In prep mode show everything; otherwise only prepared spells.
-  const visible = prepMode ? spells : spells.filter(isPrepared);
+  const visible = prepMode ? spells : spells.filter(ready);
 
   return (
     <div className="mb-6">
@@ -638,7 +532,7 @@ function LevelGroup({
             key={spell.name}
             spell={spell}
             selectable={prepMode}
-            prepared={isPrepared(spell)}
+            prepared={ready(spell)}
             locked={spell.alwaysPrepared}
             onToggle={() => toggle(spell.name)}
           />
@@ -669,8 +563,7 @@ function LevelGroup({
   );
 }
 
-function Spells() {
-  const { prepared, toggle } = usePrepared();
+function Spells({ prepared, toggle }: { prepared: PreparedMap; toggle: (name: string) => void }) {
   const [prepMode, setPrepMode] = useState(false);
 
   const preparedCount = LEVELED_SPELLS.filter((s) => !s.alwaysPrepared && prepared[s.name]).length;
@@ -685,17 +578,9 @@ function Spells() {
       </p>
 
       <div className="mb-5 flex flex-wrap items-center gap-3">
-        <button
-          type="button"
-          onClick={() => setPrepMode((m) => !m)}
-          className={`rounded-full border px-4 py-1.5 text-sm ${
-            prepMode
-              ? 'border-[var(--accent)] bg-[var(--accent)] font-bold text-[#0e1522]'
-              : 'border-white/20 text-[var(--ink)] hover:border-[var(--accent)] hover:text-[var(--accent)]'
-          }`}
-        >
+        <ToggleButton on={prepMode} onClick={() => setPrepMode((m) => !m)}>
           {prepMode ? 'Done' : 'Edit prepared spells'}
-        </button>
+        </ToggleButton>
         <span className="text-sm text-[var(--ink-dim)]">
           <b className="text-[var(--accent)]">{preparedCount}</b> / {preparedLimit} prepared
           {overLimit && <b className="text-[var(--accent-2)]"> — over your limit</b>}
@@ -918,6 +803,10 @@ function SourcesLegend() {
 }
 
 export default function App() {
+  // Prepared spells live here so both the Spells section and the combat spell-slot
+  // picker read the same list.
+  const { prepared, toggle } = usePrepared();
+
   return (
     <>
       <Header />
@@ -925,7 +814,8 @@ export default function App() {
         <Overview />
         <Mechanics />
         <Proficiencies />
-        <Spells />
+        <Combat prepared={prepared} />
+        <Spells prepared={prepared} toggle={toggle} />
         <WildShape />
         <Beasts />
         <Section id="flowchart" title="Combat Flowchart">
